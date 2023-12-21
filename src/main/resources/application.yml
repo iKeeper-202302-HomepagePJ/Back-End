@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/iKeeper_Homepage?serverTimezone=UTC&characterEncoding=UTF-8
+    username: seonbin
+    password: Bin07251107@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    spring.jpa.defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+      properties:
+        hibernate:
+          format_sql: true
+          show_sql: true
+
+  sql:
+    init:
+      mode: always

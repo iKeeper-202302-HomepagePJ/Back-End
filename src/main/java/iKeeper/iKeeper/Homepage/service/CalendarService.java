@@ -20,17 +20,6 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
     private final FieldRepository fieldRepository;
 
-    public Calendar readCalendar(LocalDate day) {
-        Optional<Calendar> calendar = calendarRepository.findByDay(day);
-        if (calendar.isPresent()) {
-            return calendar.get();
-        }
-
-        throw new EntityNotFoundException(
-                "해당 날짜의 일정이 존재하지 않습니다."
-        );
-    }
-
     public Calendar readCalendar(Long id) {
         Optional<Calendar> calendar = calendarRepository.findById(id);
         if (calendar.isPresent()) {

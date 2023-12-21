@@ -29,21 +29,21 @@ public class CalendarService {
         throw new EntityNotFoundException(
                 "해당 번호의 일정이 존재하지 않습니다."
         );
-    }
+    } // id 번호를 통해 일정 리스트 검색
 
     public List<Calendar> readCalendars() {
         return calendarRepository.findAll();
-    }
+    } // 모든 일정 리스트 목록 확인 함수
 
     public Calendar createCalendar(CalendarCreationRequest calendar) {
         Calendar calendarToCreate = new Calendar();
         BeanUtils.copyProperties(calendar, calendarToCreate);
         return calendarRepository.save(calendarToCreate);
-    }
+    } // 일정 생성 함수
 
     public void deleteCalendar(Long id) {
         calendarRepository.deleteById(id);
-    }
+    } // id 정보를 통해 해당 id의 일정 삭제
 
     public Calendar updateCalendar(Long id, CalendarCreationRequest request) {
         Optional<Calendar> optionalCalendar = calendarRepository.findById(id);
@@ -55,5 +55,5 @@ public class CalendarService {
         calendar.setPlace(request.getPlace());
         calendar.setCheck(request.getCheck());
         return calendarRepository.save(calendar);
-    }
+    } // id 정보를 통해 해당 id의 일정 정보 수정
 }

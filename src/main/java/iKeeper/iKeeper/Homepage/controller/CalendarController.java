@@ -17,14 +17,6 @@ public class CalendarController {
 
     private final CalendarService calendarService;
 
-    @PostMapping("/read/{day}")
-    public ResponseEntity readCalendars(@RequestParam(required = false) LocalDate day) {
-        if (day == null) {
-            return ResponseEntity.ok(calendarService.readCalendars());
-        }
-        return ResponseEntity.ok(calendarService.readCalendar(day));
-    }
-
     @GetMapping("/read")
     public ResponseEntity readCalendars(@RequestParam(required = false) Long id) {
         if (id == null) {
@@ -33,13 +25,28 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.readCalendar(id));
     }
 
-    /*@GetMapping("/schedule/{id}")
-    public RequestEntity<Calendar> readCalendar (@PathVariable Long id) {
-        return ResponseEntity.ok(calendarService.readCalendar(id));
-    }*/
+    @PostMapping("/read/{day}")
+    public ResponseEntity readCalendars(@RequestParam(required = false) LocalDate day) {
+        if (day == null) {
+            return ResponseEntity.ok(calendarService.readCalendars());
+        }
+        return ResponseEntity.ok(calendarService.readCalendar(day));
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Calendar> createCalendar (@RequestBody CalendarCreationRequest request) {
         return ResponseEntity.ok(calendarService.createCalendar(request));
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Calendar> updateCalendar (@RequestBody CalendarCreationRequest request, @PathVariable Long id) {
+        return ResponseEntity.ok(calendarService.updateCalendar(id, request));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteCalendar (@PathVariable Long id) {
+        //CalendarService.deleteCalendar(id);
+        return ResponseEntity.ok().build();
+
     }
 }

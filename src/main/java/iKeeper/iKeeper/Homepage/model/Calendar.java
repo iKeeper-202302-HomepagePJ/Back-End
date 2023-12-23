@@ -1,30 +1,33 @@
 package iKeeper.iKeeper.Homepage.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.*;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @Entity
 @DynamicInsert
+@DynamicUpdate
 @Table(name = "calendar_table")
 public class Calendar {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "calendar_id", nullable = false)
-    private Long id;
+    private Short id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "field_id", nullable = false)
-    //private Field field;
+    @ManyToOne
+    @JoinColumn(name = "calendar_field", referencedColumnName = "field_id", nullable = false)
+    Field field;
 
-    @Column(name = "calendar_title", nullable = false, length = 30)
+    @Column(name = "calendar_title", length = 30)
     @ColumnDefault("'일정명이 존재하지 않습니다.'")
     private String title;
 
@@ -33,13 +36,13 @@ public class Calendar {
     private LocalDate day;
 
     @Column(name = "calendar_time", nullable = false)
-    @DateTimeFormat(pattern = "HH:MM:SS")
-    private LocalTime time;
+    private Time time;
 
-    @Column(name = "calendar_place", columnDefinition = "varchar(10) default '미정'")
+    @Column(name = "calendar_place")
+    @ColumnDefault("'미정'")
     private String place;
 
-    @Column(name = "calendar_check", nullable = false)
-    @ColumnDefault("0")
+    @Column(name = "calendar_check")
+    @ColumnDefault("'0'")
     private Boolean check;
 }

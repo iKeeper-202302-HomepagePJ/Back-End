@@ -1,11 +1,9 @@
 package iKeeper.iKeeper.Homepage.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -14,11 +12,11 @@ import java.util.Set;
 public class Field {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "field_id", nullable = false)
-    private Short id;
+    private Byte id;
 
-    @Column(name = "field_name", nullable = false, length = 10)
+    @Column(name = "field_name", length = 10)
     @ColumnDefault("'i-Keeper'")
     private String name;
 }

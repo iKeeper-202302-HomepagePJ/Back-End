@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping(value = "/api/calendar")
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class CalendarController {
     private final CalendarService calendarService;
 
     @GetMapping("/read")
-    public ResponseEntity readCalendars(@RequestParam(required = false) Long id) {
+    public ResponseEntity readCalendars(@RequestParam(required = false)Long id) {
         if (id == null) {
             return ResponseEntity.ok(calendarService.readCalendars());
         }

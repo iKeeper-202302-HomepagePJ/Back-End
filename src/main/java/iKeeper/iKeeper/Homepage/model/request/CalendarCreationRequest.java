@@ -1,5 +1,6 @@
 package iKeeper.iKeeper.Homepage.model.request;
 
+import iKeeper.iKeeper.Homepage.model.Field;
 import lombok.Data;
 
 import java.sql.Time;
@@ -7,6 +8,8 @@ import java.time.*;
 
 @Data
 public class CalendarCreationRequest {
+
+    Field field;
 
     private String title;
 

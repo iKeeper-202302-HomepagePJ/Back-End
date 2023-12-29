@@ -3,12 +3,12 @@ package iKeeper.iKeeper.Homepage.service;
 import iKeeper.iKeeper.Homepage.model.Calendar;
 import iKeeper.iKeeper.Homepage.model.request.CalendarCreationRequest;
 import iKeeper.iKeeper.Homepage.repository.CalendarRepository;
+import iKeeper.iKeeper.Homepage.repository.FieldRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +17,7 @@ import java.util.Optional;
 public class CalendarService {
 
     private final CalendarRepository calendarRepository;
+    private FieldRepository fieldRepository;
 
     public Calendar readCalendar(Long id) {
         Optional<Calendar> calendar = calendarRepository.findById(id);

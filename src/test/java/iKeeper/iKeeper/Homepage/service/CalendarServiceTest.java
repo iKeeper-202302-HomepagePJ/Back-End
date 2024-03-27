@@ -13,18 +13,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public class CalendarServiceTest {
 
-    CalendarService calendarService = new CalendarService();
-
     @Test
     @DisplayName("일정 생성 확인 테스트")
     void createSchedule() {
-        //given
-        Calendar calendar = new Calendar();
-        calendar.setTitle("시작 세미나");
-        calendar.setField(3);
-
-        //when
-
 
     }
 

@@ -21,7 +21,7 @@ public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "calendar_id", nullable = false)
-    private Short id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "calendar_field", referencedColumnName = "field_id", nullable = false)

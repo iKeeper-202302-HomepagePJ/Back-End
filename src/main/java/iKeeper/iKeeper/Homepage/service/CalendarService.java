@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,14 +21,8 @@ public class CalendarService {
     private FieldRepository fieldRepository;
 
     public Calendar readCalendar(Long id) {
-        Optional<Calendar> calendar = calendarRepository.findById(id);
-        if (calendar.isPresent()) {
-            return calendar.get();
-        }
-
-        throw new EntityNotFoundException(
-                "해당 번호의 일정이 존재하지 않습니다."
-        );
+        return calendarRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("해당 번호의 일정이 존재하지 않습니다."));
     } // id 번호를 통해 일정 리스트 검색
 
     public List<Calendar> readCalendars() {

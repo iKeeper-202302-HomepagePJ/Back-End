@@ -17,8 +17,8 @@ drop table if exists keeper_information_table;
 drop table if exists keeper_history_table;
 drop table if exists keeper_award_table;
 drop table if exists hyperlink_table;
-drop table if exists ledger_category_table;
 drop table if exists ledger_table;
+drop table if exists ledger_category_table;
 drop table if exists authority_table;
 
 CREATE TABLE field_table

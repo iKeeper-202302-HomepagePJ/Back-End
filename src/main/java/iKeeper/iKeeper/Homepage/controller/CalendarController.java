@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping(value = "/api/calendar")
+@RequestMapping(value = "/api/calendars")
 @RequiredArgsConstructor
 public class CalendarController {
 
     private final CalendarService calendarService;
 
-    @GetMapping("/read")
+    @GetMapping("")
     public ResponseEntity readCalendars(@RequestParam(required = false)Long id) {
         if (id == null) {
             return ResponseEntity.ok(calendarService.readCalendars());
@@ -25,17 +25,17 @@ public class CalendarController {
     } // 현재 DB에 저장된 모든 일정 리스트 출력
 
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Calendar> createCalendar (@RequestBody CalendarCreationRequest request) {
         return ResponseEntity.ok(calendarService.createCalendar(request));
     } // DB에 일정 정보 저장
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Calendar> updateCalendar (@RequestBody CalendarCreationRequest request, @PathVariable Long id) {
         return ResponseEntity.ok(calendarService.updateCalendar(id, request));
     } // DB에 저장된 일정의 정보 수정
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCalendar (@PathVariable Long id) {
         calendarService.deleteCalendar(id);
         return ResponseEntity.ok().build();

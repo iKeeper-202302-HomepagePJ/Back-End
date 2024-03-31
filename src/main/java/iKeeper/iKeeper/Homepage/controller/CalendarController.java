@@ -3,14 +3,19 @@ package iKeeper.iKeeper.Homepage.controller;
 import iKeeper.iKeeper.Homepage.model.Calendar;
 import iKeeper.iKeeper.Homepage.model.request.CalendarCreationRequest;
 import iKeeper.iKeeper.Homepage.service.CalendarService;
+import jdk.jfr.Event;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.Id;
 import java.net.URI;
 import java.time.LocalDate;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping(value = "/api/calendars")
@@ -31,7 +36,8 @@ public class CalendarController {
 
     @PostMapping("")
     public ResponseEntity<Calendar> createCalendar (@RequestBody CalendarCreationRequest request) {
-        return ResponseEntity.ok(calendarService.createCalendar(request));
+        //return ResponseEntity.ok(calendarService.createCalendar(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(calendarService.createCalendar(request));
     } // DB에 일정 정보 저장
 
     @PatchMapping("/{id}")

@@ -5,8 +5,11 @@ import iKeeper.iKeeper.Homepage.model.request.CalendarCreationRequest;
 import iKeeper.iKeeper.Homepage.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDate;
 
 @RestController
@@ -17,13 +20,14 @@ public class CalendarController {
     private final CalendarService calendarService;
 
     @GetMapping("")
-    public ResponseEntity readCalendars(@RequestParam(required = false)Long id) {
-        if (id == null) {
-            return ResponseEntity.ok(calendarService.readCalendars());
-        }
-        return ResponseEntity.ok(calendarService.readCalendar(id));
+    public ResponseEntity readCalendars() {
+        return ResponseEntity.ok(calendarService.readCalendars());
     } // 현재 DB에 저장된 모든 일정 리스트 출력
 
+    @GetMapping("/{id}")
+    public ResponseEntity readCalendar(@PathVariable Long id) {
+        return ResponseEntity.ok(calendarService.readCalendar(id));
+    } // 현재 DB에 저장된 모든 일정 리스트 출력
 
     @PostMapping("")
     public ResponseEntity<Calendar> createCalendar (@RequestBody CalendarCreationRequest request) {

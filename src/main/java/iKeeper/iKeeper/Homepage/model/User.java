@@ -62,7 +62,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_grade", referencedColumnName = "grade_id", nullable = false)
-    Status grade;
+    Grade grade;
 
     @Column(name = "user_password", length = 20, nullable = false)
     @ColumnDefault("'i-KeeperD2509'")

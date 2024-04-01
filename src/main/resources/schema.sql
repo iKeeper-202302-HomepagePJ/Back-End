@@ -92,7 +92,7 @@ CREATE TABLE user_table
     user_score_field     TINYINT UNSIGNED,
     user_score_activity  TINYINT UNSIGNED,
     user_score_etc       TINYINT UNSIGNED,
-    user_score_sum       TINYINT UNSIGNED,
+    user_score_sum       TINYINT UNSIGNED
 );
 
 CREATE TABLE category_table

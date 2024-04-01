@@ -17,7 +17,7 @@ public class Status {
     @Column(name = "status_id", nullable = false)
     private Long id;
 
-    @Column(name = "grade_name", nullable = false)
+    @Column(name = "status_name", nullable = false)
     @ColumnDefault("'신입'")
     private String name;
 }

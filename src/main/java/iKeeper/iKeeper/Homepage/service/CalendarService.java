@@ -44,6 +44,7 @@ public class CalendarService {
 
         Calendar calendar = optionalCalendar.get();
         calendar.setTitle(request.getTitle());
+        calendar.setField(request.getField());
         calendar.setDay(request.getDay());
         calendar.setTime(request.getTime());
         calendar.setPlace(request.getPlace());

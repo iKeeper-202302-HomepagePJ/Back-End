@@ -1,4 +1,4 @@
-package iKeeper.iKeeper.Homepage.model;
+package iKeeper.iKeeper.Homepage.model.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,15 +9,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "major_table")
-public class Major {
+@Table(name = "grade_table")
+public class Grade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "major_id", nullable = false)
+    @Column(name = "grade_id", nullable = false)
     private Long id;
 
-    @Column(name = "major_name", length = 20, nullable = false)
-    @ColumnDefault("'없음'")
+    @Column(name = "grade_name", length = 10, nullable = false)
+    @ColumnDefault("'1학년 1학차'")
     private String name;
 }

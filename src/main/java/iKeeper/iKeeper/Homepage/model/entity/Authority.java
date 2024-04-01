@@ -1,4 +1,4 @@
-package iKeeper.iKeeper.Homepage.model;
+package iKeeper.iKeeper.Homepage.model.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

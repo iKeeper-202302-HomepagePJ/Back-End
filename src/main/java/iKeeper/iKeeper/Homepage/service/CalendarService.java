@@ -1,6 +1,6 @@
 package iKeeper.iKeeper.Homepage.service;
 
-import iKeeper.iKeeper.Homepage.model.Calendar;
+import iKeeper.iKeeper.Homepage.model.entity.Calendar;
 import iKeeper.iKeeper.Homepage.model.request.CalendarCreationRequest;
 import iKeeper.iKeeper.Homepage.repository.CalendarRepository;
 import iKeeper.iKeeper.Homepage.repository.FieldRepository;
@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

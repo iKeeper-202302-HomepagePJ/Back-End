@@ -1,22 +1,13 @@
 package iKeeper.iKeeper.Homepage.controller;
 
-import iKeeper.iKeeper.Homepage.model.Calendar;
+import iKeeper.iKeeper.Homepage.model.entity.Calendar;
 import iKeeper.iKeeper.Homepage.model.request.CalendarCreationRequest;
 import iKeeper.iKeeper.Homepage.service.CalendarService;
-import jdk.jfr.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.persistence.Id;
-import java.net.URI;
-import java.time.LocalDate;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping(value = "/api/calendars")

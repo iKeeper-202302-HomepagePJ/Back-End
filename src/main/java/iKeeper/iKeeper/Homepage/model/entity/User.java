@@ -1,5 +1,10 @@
-package iKeeper.iKeeper.Homepage.model;
+package iKeeper.iKeeper.Homepage.model.entity;
 
+import iKeeper.iKeeper.Homepage.model.entity.Authority;
+import iKeeper.iKeeper.Homepage.model.entity.Grade;
+import iKeeper.iKeeper.Homepage.model.entity.Major;
+import iKeeper.iKeeper.Homepage.model.entity.Status;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -54,7 +59,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_field", referencedColumnName = "field_id", nullable = false)
-    Field Field;
+    iKeeper.iKeeper.Homepage.model.entity.Field Field;
 
     @ManyToOne
     @JoinColumn(name = "user_status", referencedColumnName = "status_id", nullable = false)
@@ -87,4 +92,8 @@ public class User {
     @Column(name = "user_score_sum")
     private Long sscore;
 
+    @Builder
+    public UserFormDto(String name) {
+
+    }
 }

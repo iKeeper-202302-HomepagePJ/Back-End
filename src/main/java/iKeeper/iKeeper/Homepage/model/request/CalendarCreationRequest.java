@@ -1,6 +1,6 @@
 package iKeeper.iKeeper.Homepage.model.request;
 
-import iKeeper.iKeeper.Homepage.model.Field;
+import iKeeper.iKeeper.Homepage.model.entity.Field;
 import lombok.Data;
 
 import java.sql.Time;

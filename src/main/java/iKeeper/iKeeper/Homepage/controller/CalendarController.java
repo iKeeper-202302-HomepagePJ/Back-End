@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api/calendars")
-@Validated
 @RequiredArgsConstructor
 public class CalendarController {
 
@@ -28,7 +29,7 @@ public class CalendarController {
     } // 현재 DB에 저장된 모든 일정 리스트 출력
 
     @PostMapping("")
-    public ResponseEntity<Calendar> createCalendar (@RequestBody CalendarCreationRequest request) {
+    public ResponseEntity<Calendar> createCalendar (@Valid @RequestBody CalendarCreationRequest request) {
         //return ResponseEntity.ok(calendarService.createCalendar(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(calendarService.createCalendar(request));
     } // DB에 일정 정보 저장

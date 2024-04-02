@@ -7,19 +7,16 @@ import iKeeper.iKeeper.Homepage.model.entity.Status;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @NoArgsConstructor
 @Getter
 public class UserFormDto {
 
-    @NotBlank(message = "학번을 입력해주세요.")
-    private String id;
+    @NotNull(message = "학번을 입력해주세요.")
+    private Long student;
 
     @NotBlank(message = "이름을 입력해주세요.")
     private String name;
@@ -56,9 +53,8 @@ public class UserFormDto {
     @NotNull(message = "학년과 학차를 선택해주세요.")
     private Grade grade;
 
-    @Builder
-    public UserFormDto(String id, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
-        this.id = id;
+    public UserFormDto(Long student, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+        this.student = student;
         this.name = name;
         this.pnumber = pnumber;
         this.birth = birth;

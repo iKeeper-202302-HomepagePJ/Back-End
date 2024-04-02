@@ -3,7 +3,10 @@ package iKeeper.iKeeper.Homepage.repository;
 import iKeeper.iKeeper.Homepage.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.LongSummaryStatistics;
+import java.util.Optional;
 
-    User findById(String id);
+public interface UserRepository extends JpaRepository<User, LongSummaryStatistics> {
+
+    User findByStudent(Long student);
 }

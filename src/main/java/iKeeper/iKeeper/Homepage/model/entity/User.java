@@ -1,5 +1,6 @@
 package iKeeper.iKeeper.Homepage.model.entity;
 
+import iKeeper.iKeeper.Homepage.model.dto.UserFormDto;
 import iKeeper.iKeeper.Homepage.model.entity.Authority;
 import iKeeper.iKeeper.Homepage.model.entity.Grade;
 import iKeeper.iKeeper.Homepage.model.entity.Major;
@@ -8,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -45,6 +47,10 @@ public class User {
     @ColumnDefault("'iKeeper@cu.ac.kr'")
     private String email;
 
+    @Column(name = "user_password", length = 20, nullable = false)
+    @ColumnDefault("'i-KeeperD2509'")
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "user_major", referencedColumnName = "major_id", nullable = false)
     Major major;
@@ -59,7 +65,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_field", referencedColumnName = "field_id", nullable = false)
-    iKeeper.iKeeper.Homepage.model.entity.Field Field;
+    Field field;
 
     @ManyToOne
     @JoinColumn(name = "user_status", referencedColumnName = "status_id", nullable = false)
@@ -68,10 +74,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_grade", referencedColumnName = "grade_id", nullable = false)
     Grade grade;
-
-    @Column(name = "user_password", length = 20, nullable = false)
-    @ColumnDefault("'i-KeeperD2509'")
-    private String password;
 
     @Column(name = "user_warning")
     @ColumnDefault("'0'")
@@ -93,7 +95,34 @@ public class User {
     private Long sscore;
 
     @Builder
-    public UserFormDto(String name) {
+    public User(String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+        this.name = name;
+        this.pnumber = pnumber;
+        this.birth = birth;
+        this.email = email;
+        this.password = password;
+        this.major = major;
+        this.minor1 = minor1;
+        this.minor2 = minor2;
+        this.field = field;
+        this.status = status;
+        this.grade = grade;
+    }
 
+    public static User CreateUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder) {
+        User user = User.builder()
+                .name(userFormDto.getName())
+                .pnumber(userFormDto.getPnumber())
+                .birth(userFormDto.getBirth())
+                .email(userFormDto.getEmail())
+                .password(passwordEncoder.encode(userFormDto.getPassword()))
+                .major(userFormDto.getMajor())
+                .minor1(userFormDto.getMinor1())
+                .minor2(userFormDto.getMinor2())
+                .field(userFormDto.getField())
+                .status(userFormDto.getStatus())
+                .grade(userFormDto.getGrade())
+                .build();
+        return user;
     }
 }

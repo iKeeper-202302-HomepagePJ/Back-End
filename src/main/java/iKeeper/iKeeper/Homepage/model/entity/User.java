@@ -1,10 +1,6 @@
 package iKeeper.iKeeper.Homepage.model.entity;
 
 import iKeeper.iKeeper.Homepage.model.dto.UserFormDto;
-import iKeeper.iKeeper.Homepage.model.entity.Authority;
-import iKeeper.iKeeper.Homepage.model.entity.Grade;
-import iKeeper.iKeeper.Homepage.model.entity.Major;
-import iKeeper.iKeeper.Homepage.model.entity.Status;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +16,8 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private Long id;
+    @Column(name = "user_id", length = 8, nullable = false)
+    private String id;
 
     @Column(name = "user_name", length = 10)
     @ColumnDefault("'이름없음'")
@@ -95,7 +90,8 @@ public class User {
     private Long sscore;
 
     @Builder
-    public User(String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+    public User(String id, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+        this.id = id;
         this.name = name;
         this.pnumber = pnumber;
         this.birth = birth;

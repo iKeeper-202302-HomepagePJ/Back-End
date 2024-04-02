@@ -18,6 +18,9 @@ import javax.validation.constraints.Pattern;
 @Getter
 public class UserFormDto {
 
+    @NotBlank(message = "학번을 입력해주세요.")
+    private String id;
+
     @NotBlank(message = "이름을 입력해주세요.")
     private String name;
 
@@ -54,7 +57,8 @@ public class UserFormDto {
     private Grade grade;
 
     @Builder
-    public UserFormDto(String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+    public UserFormDto(String id, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+        this.id = id;
         this.name = name;
         this.pnumber = pnumber;
         this.birth = birth;

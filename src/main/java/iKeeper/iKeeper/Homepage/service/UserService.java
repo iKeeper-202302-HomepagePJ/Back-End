@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Service
 public class UserService {
 
-    private  final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public User saveUser(User user) {
         validateDuplicateUser(user);

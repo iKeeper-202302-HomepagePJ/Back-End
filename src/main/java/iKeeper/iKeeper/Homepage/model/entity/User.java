@@ -2,9 +2,11 @@ package iKeeper.iKeeper.Homepage.model.entity;
 
 import iKeeper.iKeeper.Homepage.model.dto.UserFormDto;
 import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -12,19 +14,26 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@DynamicInsert
 @Table(name = "user_table")
 public class User {
 
     @Id
-    @Column(name = "user_id", length = 8, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
+    private Long id;
+
+    @Column(name = "student_id", length = 10)
+    @ColumnDefault("'00000000'")
+    private Long student;
 
     @Column(name = "user_name", length = 10)
     @ColumnDefault("'이름없음'")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_authority", referencedColumnName = "authority_id", nullable = false)
+    @JoinColumn(name = "user_authority", referencedColumnName = "authority_id")
+    @ColumnDefault("'0'")
     Authority authority;
 
     @Column(name = "user_profile_picture", length = 100)
@@ -74,7 +83,7 @@ public class User {
     @ColumnDefault("'0'")
     private Boolean warning;
 
-    @Column(name = "user_score_iKeeper")
+    @Column(name = "user_score_ikeeper")
     private Long iscore;
 
     @Column(name = "user_score_field")
@@ -90,8 +99,8 @@ public class User {
     private Long sscore;
 
     @Builder
-    public User(String id, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
-        this.id = id;
+    public User(Long student, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+        this.student = student;
         this.name = name;
         this.pnumber = pnumber;
         this.birth = birth;
@@ -105,8 +114,10 @@ public class User {
         this.grade = grade;
     }
 
-    public static User CreateUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder) {
+    @Builder
+    public static User createUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder) {
         User user = User.builder()
+                .student(userFormDto.getStudent())
                 .name(userFormDto.getName())
                 .pnumber(userFormDto.getPnumber())
                 .birth(userFormDto.getBirth())

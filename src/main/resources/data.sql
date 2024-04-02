@@ -47,7 +47,7 @@ VALUES ('1학년 1학차'),
        ('4학년 7학차'),
        ('4학년 8학차'),
        ('그 이상');
-
+/*
 SELECT * FROM headline_table;
 INSERT INTO headline_table (headline_name)
-VALUES ('머릿말 없음');
+VALUES ('머릿말 없음');*/

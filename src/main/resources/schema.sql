@@ -66,9 +66,10 @@ CREATE TABLE grade_table
 
 CREATE TABLE user_table
 (
-    user_id              CHAR(8)     DEFAULT '00000000'         NOT NULL PRIMARY KEY,
+    user_id              TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    student_id           VARCHAR(8) DEFAULT '00000000'            NOT NULL,
     user_name            VARCHAR(10) DEFAULT '이름없음'             NOT NULL,
-    user_authority       TINYINT UNSIGNED NOT NULL,
+    user_authority       TINYINT UNSIGNED DEFAULT '1'             NOT NULL,
     FOREIGN KEY (user_authority) REFERENCES authority_table (authority_id),
     user_profile_picture VARCHAR(100),
     user_phone_number    VARCHAR(15) DEFAULT '010-0000-0000'    NOT NULL,
@@ -86,15 +87,16 @@ CREATE TABLE user_table
     FOREIGN KEY (user_status) REFERENCES status_table (status_id),
     user_grade           TINYINT UNSIGNED NOT NULL,
     FOREIGN KEY (user_grade) REFERENCES grade_table (grade_id),
-    user_password        VARCHAR(20) DEFAULT 'i-KeeperD2509'    NOT NULL,
-    user_warning         BOOLEAN     DEFAULT '0'                NOT NULL,
-    user_score_iKeeper   TINYINT UNSIGNED,
+    user_password        VARCHAR(255) DEFAULT 'i-KeeperD2509'    NOT NULL,
+    user_warning         BOOLEAN     DEFAULT '0',
+    user_score_ikeeper   TINYINT UNSIGNED,
     user_score_field     TINYINT UNSIGNED,
     user_score_activity  TINYINT UNSIGNED,
     user_score_etc       TINYINT UNSIGNED,
     user_score_sum       TINYINT UNSIGNED
 );
 
+/*
 CREATE TABLE category_table
 (
     category_id   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -103,9 +105,10 @@ CREATE TABLE category_table
 
 CREATE TABLE category_list_table
 (
-    user_id     CHAR(8) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_table (user_id),
-    category_id TINYINT UNSIGNED NOT NULL,
+    category_list_table_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    user_id                CHAR(8) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user_table (student_id),
+    category_id            TINYINT UNSIGNED NOT NULL,
     FOREIGN KEY (category_id) REFERENCES category_table (category_id)
 );
 
@@ -121,7 +124,7 @@ CREATE TABLE post_table
     category_id            TINYINT UNSIGNED NOT NULL,
     FOREIGN KEY (category_id) REFERENCES category_table (category_id),
     writer                 CHAR(8)                                    NOT NULL,
-    FOREIGN KEY (writer) REFERENCES user_table (user_id),
+    FOREIGN KEY (writer) REFERENCES user_table (student_id_id),
     post_title             VARCHAR(50)   DEFAULT '게시물 제목이 존재하지 않습니다.' NOT NULL,
     post_headline          TINYINT UNSIGNED NOT NULL,
     FOREIGN KEY (post_headline) REFERENCES headline_table (headline_id),
@@ -233,4 +236,4 @@ CREATE TABLE ledger_table
     ledger_plus        MEDIUMINT UNSIGNED NULL,
     ledger_sum         MEDIUMINT UNSIGNED NULL,
     ledger_evidence    VARCHAR(100) NULL
-);
+); */

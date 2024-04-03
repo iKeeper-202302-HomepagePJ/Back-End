@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.LongSummaryStatistics;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, LongSummaryStatistics> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByStudent(Long student);
+    User findByStudent(String student);
 }

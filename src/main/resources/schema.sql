@@ -39,13 +39,6 @@ CREATE TABLE calendar_table
     calendar_check BOOLEAN     DEFAULT '0'               NOT NULL
 );
 
-CREATE TABLE authority_table
-(
-    authority_id    TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    authority_name  VARCHAR(10) DEFAULT '일반회원' NOT NULL,
-    authority_staff BOOLEAN     DEFAULT '0'    NOT NULL
-);
-
 CREATE TABLE major_table
 (
     major_id   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -67,10 +60,9 @@ CREATE TABLE grade_table
 CREATE TABLE user_table
 (
     user_id              TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    student_id           VARCHAR(8) DEFAULT '00000000'            NOT NULL,
+    student_id           VARCHAR(9)  DEFAULT '00000000'         NOT NULL,
     user_name            VARCHAR(10) DEFAULT '이름없음'             NOT NULL,
-    user_authority       TINYINT UNSIGNED DEFAULT '1'             NOT NULL,
-    FOREIGN KEY (user_authority) REFERENCES authority_table (authority_id),
+    user_role            VARCHAR(5)                             NOT NULL,
     user_profile_picture VARCHAR(100),
     user_phone_number    VARCHAR(15) DEFAULT '010-0000-0000'    NOT NULL,
     user_birth           VARCHAR(10) DEFAULT 'YYYYMMDD'         NOT NULL,

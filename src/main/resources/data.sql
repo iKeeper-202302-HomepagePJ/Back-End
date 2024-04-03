@@ -4,19 +4,6 @@ VALUES ('i-Keeper'),
        ('개발'),
        ('CERT');
 
-SELECT * FROM ikeeper_homepage.authority_table;
-INSERT INTO authority_table (authority_name, authority_staff)
-VALUES ('일반회원', 0),
-       ('회장', 1),
-       ('부회장', 1),
-       ('CERT장', 1),
-       ('CERT부장', 1),
-       ('교육부장', 1),
-       ('장비부장', 1),
-       ('총무', 1),
-       ('OB', 0),
-       ('탈퇴회원', 0);
-
 SELECT * FROM ikeeper_homepage.major_table;
 INSERT INTO major_table (major_name)
 VALUES ('없음'),

@@ -15,8 +15,8 @@ import javax.validation.constraints.*;
 @Getter
 public class UserFormDto {
 
-    @NotNull(message = "학번을 입력해주세요.")
-    private Long student;
+    @NotBlank(message = "학번을 입력해주세요.")
+    private String student;
 
     @NotBlank(message = "이름을 입력해주세요.")
     private String name;
@@ -53,7 +53,7 @@ public class UserFormDto {
     @NotNull(message = "학년과 학차를 선택해주세요.")
     private Grade grade;
 
-    public UserFormDto(Long student, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+    public UserFormDto(String student, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
         this.student = student;
         this.name = name;
         this.pnumber = pnumber;

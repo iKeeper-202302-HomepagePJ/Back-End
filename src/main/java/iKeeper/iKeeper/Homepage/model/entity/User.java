@@ -2,7 +2,6 @@ package iKeeper.iKeeper.Homepage.model.entity;
 
 import iKeeper.iKeeper.Homepage.model.dto.UserFormDto;
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -25,16 +24,15 @@ public class User {
 
     @Column(name = "student_id", length = 10)
     @ColumnDefault("'00000000'")
-    private Long student;
+    private String student;
 
     @Column(name = "user_name", length = 10)
     @ColumnDefault("'이름없음'")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_authority", referencedColumnName = "authority_id")
-    @ColumnDefault("'0'")
-    Authority authority;
+    @Column(name = "user_role", length = 5)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @Column(name = "user_profile_picture", length = 100)
     private String profile;
@@ -99,9 +97,10 @@ public class User {
     private Long sscore;
 
     @Builder
-    public User(Long student, String name, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
+    public User(String student, String name, UserRole role, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {
         this.student = student;
         this.name = name;
+        this.role = role;
         this.pnumber = pnumber;
         this.birth = birth;
         this.email = email;
@@ -114,11 +113,11 @@ public class User {
         this.grade = grade;
     }
 
-    @Builder
     public static User createUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder) {
         User user = User.builder()
                 .student(userFormDto.getStudent())
                 .name(userFormDto.getName())
+                .role(UserRole.USER)
                 .pnumber(userFormDto.getPnumber())
                 .birth(userFormDto.getBirth())
                 .email(userFormDto.getEmail())

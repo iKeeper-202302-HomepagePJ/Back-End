@@ -4,12 +4,16 @@ import iKeeper.iKeeper.Homepage.model.dto.UserFormDto;
 import iKeeper.iKeeper.Homepage.model.entity.User;
 import iKeeper.iKeeper.Homepage.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
@@ -22,16 +26,27 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/join")
     public String userForm(Model model) {
-        model.addAttribute("userFormDto", new UserFormDto());
-        return "/asdf"; //추후 프론트 경로 따라서 수정 필요
+        model.addAttribute("userFormDto", new UserFormDto()); // 회원가입
+        return "/asdf"; // 회원가입 페이지로 이동
+    }
+
+    @GetMapping(value = "/login")
+    public String loginUser() {
+        return "/asdf"; // 로그인 페이지로 이동
+    }
+
+    @GetMapping(value = "/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+        return "/asdf"; // 로그인 페이지로 이동
     }
 
     @PostMapping(value = "/join")
-    public String userForm(@Valid UserFormDto userFormDto, BindingResult bindingResult, Model model) {
+    public String userForm(@RequestBody @Valid UserFormDto userFormDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/asdf";
+            return "/asdf"; // 회원가입 페이지로 리다이렉션
         }
 
         try {
@@ -39,9 +54,9 @@ public class UserController {
             userService.saveUser(user);
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "/asdf";
+            return "/asdf"; // 회원가입 페이지로 리다이렉션
         }
 
-        return "redirect:/";
+        return "redirect:/"; // 회원가입 페이지로 리다이렉션
     }
 }

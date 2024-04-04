@@ -26,6 +26,12 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
+    @GetMapping(value = "/join")
+    public String userForm(Model model) {
+        model.addAttribute("userFormDto", new UserFormDto()); // 회원가입
+        return "/asdf"; // 회원가입 페이지로 이동
+    }
+
     @PostMapping(value = "/join")
     public String userForm(@RequestBody @Valid UserFormDto userFormDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {

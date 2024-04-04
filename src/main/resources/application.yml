@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/iKeeper_Homepage?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: Bin07251107@
+    username: seonbin
+    password: bin07251107@
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

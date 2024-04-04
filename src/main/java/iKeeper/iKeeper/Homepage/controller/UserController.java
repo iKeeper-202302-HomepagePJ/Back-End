@@ -26,23 +26,6 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping(value = "/join")
-    public String userForm(Model model) {
-        model.addAttribute("userFormDto", new UserFormDto()); // 회원가입
-        return "/asdf"; // 회원가입 페이지로 이동
-    }
-
-    @GetMapping(value = "/login")
-    public String loginUser() {
-        return "/asdf"; // 로그인 페이지로 이동
-    }
-
-    @GetMapping(value = "/login/error")
-    public String loginError(Model model) {
-        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-        return "/asdf"; // 로그인 페이지로 이동
-    }
-
     @PostMapping(value = "/join")
     public String userForm(@RequestBody @Valid UserFormDto userFormDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {

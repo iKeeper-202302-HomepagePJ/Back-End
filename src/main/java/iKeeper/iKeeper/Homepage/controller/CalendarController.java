@@ -6,6 +6,7 @@ import iKeeper.iKeeper.Homepage.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,13 +30,20 @@ public class CalendarController {
     } // 현재 DB에 저장된 모든 일정 리스트 출력
 
     @PostMapping("")
-    public ResponseEntity<Calendar> createCalendar (@Valid @RequestBody CalendarCreationRequest request) {
-        //return ResponseEntity.ok(calendarService.createCalendar(request));
+    public ResponseEntity<Calendar> createCalendar (@Valid @RequestBody BindingResult bindingResult, CalendarCreationRequest request) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(calendarService.createCalendar(request));
     } // DB에 일정 정보 저장
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Calendar> updateCalendar (@RequestBody CalendarCreationRequest request, @PathVariable Long id) {
+    public ResponseEntity<Calendar> updateCalendar (@Valid @RequestBody BindingResult bindingResult, CalendarCreationRequest request, @PathVariable Long id) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         return ResponseEntity.ok(calendarService.updateCalendar(id, request));
     } // DB에 저장된 일정의 정보 수정
 

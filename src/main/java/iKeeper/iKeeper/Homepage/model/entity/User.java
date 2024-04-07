@@ -23,7 +23,6 @@ public class User {
     private Long id;
 
     @Column(name = "student_id", length = 10)
-    @ColumnDefault("'00000000'")
     private String student;
 
     @Column(name = "user_name", length = 10)
@@ -80,21 +79,6 @@ public class User {
     @Column(name = "user_warning")
     @ColumnDefault("'0'")
     private Boolean warning;
-
-    @Column(name = "user_score_ikeeper")
-    private Long iscore;
-
-    @Column(name = "user_score_field")
-    private Long fscore;
-
-    @Column(name = "user_score_activity")
-    private Long ascore;
-
-    @Column(name = "user_score_etc")
-    private Long escore;
-
-    @Column(name = "user_score_sum")
-    private Long sscore;
 
     @Builder
     public User(String student, String name, UserRole role, String pnumber, String birth, String email, String password, Major major, Major minor1, Major minor2, Field field, Status status, Grade grade) {

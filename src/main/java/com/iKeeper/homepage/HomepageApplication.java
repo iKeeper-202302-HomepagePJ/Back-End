@@ -1,13 +1,12 @@
-package iKeeper.iKeeper.Homepage;
+package com.iKeeper.homepage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IKeeperHomepageApplication {
+public class HomepageApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IKeeperHomepageApplication.class, args);
+		SpringApplication.run(HomepageApplication.class, args);
 	}
-
 }

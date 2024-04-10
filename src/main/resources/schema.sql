@@ -1,16 +1,16 @@
-drop table if exists calendar_table;
+drop table if exists calendar;
 drop table if exists category_list_table;
 drop table if exists bookmark_table;
 drop table if exists comment_table;
 drop table if exists post_table;
 drop table if exists attendance_list_table;
 drop table if exists library_table;
-drop table if exists user_table;
-drop table if exists field_table;
-drop table if exists major_table;
-drop table if exists status_table;
-drop table if exists grade_table;
-drop table if exists score_table;
+drop table if exists user;
+drop table if exists field;
+drop table if exists major;
+drop table if exists score;
+drop table if exists status;
+drop table if exists grade;
 drop table if exists category_table;
 drop table if exists headline_table;
 drop table if exists attendance_table;
@@ -22,43 +22,42 @@ drop table if exists ledger_table;
 drop table if exists ledger_category_table;
 drop table if exists authority_table;
 
-CREATE TABLE field_table
+CREATE TABLE field
 (
     field_id   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     field_name VARCHAR(10) DEFAULT 'i-Keeper' NOT NULL
 );
 
-CREATE TABLE calendar_table
+CREATE TABLE calendar
 (
     calendar_id    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    calendar_field TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (calendar_field) REFERENCES field_table (field_id),
     calendar_title VARCHAR(30) DEFAULT '일정명이 존재하지 않습니다.' NOT NULL,
+    calendar_field TINYINT UNSIGNED NOT NULL,
     calendar_day   DATE                                  NOT NULL,
     calendar_time  TIME                                  NOT NULL,
     calendar_place VARCHAR(10) DEFAULT '미정'              NOT NULL,
     calendar_check BOOLEAN     DEFAULT '0'               NOT NULL
 );
 
-CREATE TABLE major_table
+CREATE TABLE major
 (
     major_id   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    major_name VARCHAR(20) DEFAULT '없음' NOT NULL
+    major_name VARCHAR(20)
 );
 
-CREATE TABLE status_table
+CREATE TABLE status
 (
     status_id   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     status_name VARCHAR(20) DEFAULT '신입' NOT NULL
 );
 
-CREATE TABLE grade_table
+CREATE TABLE grade
 (
     grade_id   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     grade_name VARCHAR(10) DEFAULT '1학년 1학차' NOT NULL
 );
 
-CREATE TABLE score_table
+CREATE TABLE score
 (
     score_id            TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     user_score_ikeeper  TINYINT UNSIGNED,
@@ -68,31 +67,25 @@ CREATE TABLE score_table
     user_score_sum      TINYINT UNSIGNED
 );
 
-CREATE TABLE user_table
+CREATE TABLE user
 (
-    user_id              TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    student_id           VARCHAR(9)                             NOT NULL,
-    user_name            VARCHAR(10) DEFAULT '이름없음'             NOT NULL,
-    user_role            VARCHAR(5)                             NOT NULL,
-    user_profile_picture VARCHAR(100),
-    user_phone_number    VARCHAR(15) DEFAULT '010-0000-0000'    NOT NULL,
-    user_birth           VARCHAR(10) DEFAULT 'YYYYMMDD'         NOT NULL,
-    user_email           VARCHAR(30) DEFAULT 'iKeeper@cu.ac.kr' NOT NULL,
-    user_major           TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (user_major) REFERENCES major_table (major_id),
-    user_minor1          TINYINT UNSIGNED,
-    FOREIGN KEY (user_minor1) REFERENCES major_table (major_id),
-    user_minor2          TINYINT UNSIGNED,
-    FOREIGN KEY (user_minor2) REFERENCES major_table (major_id),
-    user_field           TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (user_field) REFERENCES field_table (field_id),
-    user_status          TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (user_status) REFERENCES status_table (status_id),
-    user_grade           TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (user_grade) REFERENCES grade_table (grade_id),
-    user_score           TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (user_score) REFERENCES score_table (score_id),
-    user_warning         BOOLEAN     DEFAULT '0'
+    user_id           TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    student_id        VARCHAR(9)                              NOT NULL,
+    user_name         VARCHAR(10)  DEFAULT '이름없음'             NOT NULL,
+    user_role         VARCHAR(5)                              NOT NULL,
+    user_phone_number VARCHAR(15)  DEFAULT '010-0000-0000'    NOT NULL,
+    user_birth        VARCHAR(10)  DEFAULT 'YYYYMMDD'         NOT NULL,
+    user_email        VARCHAR(30)  DEFAULT 'iKeeper@cu.ac.kr' NOT NULL,
+    user_password     VARCHAR(255) DEFAULT 'i-KeeperD2509'    NOT NULL,
+    user_field        TINYINT UNSIGNED NOT NULL,
+    user_status       TINYINT UNSIGNED NOT NULL,
+    user_grade        TINYINT UNSIGNED NOT NULL,
+    major_main        VARCHAR(20)                             NOT NULL,
+    major_double      VARCHAR(20),
+    minor_first       VARCHAR(20),
+    minor_second      VARCHAR(20),
+    user_score        TINYINT UNSIGNED,
+    user_warning      BOOLEAN      DEFAULT '0'
 );
 
 /*

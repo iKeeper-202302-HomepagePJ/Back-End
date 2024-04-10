@@ -1,4 +1,4 @@
-package iKeeper.iKeeper.Homepage.model.entity;
+package com.iKeeper.homepage.domain.auth.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "status_table")
+@Table(name = "status")
 public class Status {
 
     @Id

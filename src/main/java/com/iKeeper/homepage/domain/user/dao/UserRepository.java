@@ -1,6 +1,6 @@
-package com.iKeeper.homepage.domain.auth.dao;
+package com.iKeeper.homepage.domain.user.dao;
 
-import com.iKeeper.homepage.domain.auth.entity.User;
+import com.iKeeper.homepage.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

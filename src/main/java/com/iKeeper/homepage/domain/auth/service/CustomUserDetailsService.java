@@ -1,13 +1,11 @@
 package com.iKeeper.homepage.domain.auth.service;
 
-import com.iKeeper.homepage.domain.auth.dao.UserRepository;
+import com.iKeeper.homepage.domain.user.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
-import com.iKeeper.homepage.domain.auth.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.iKeeper.homepage.domain.user.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,6 @@ import javax.transaction.Transactional;
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Override
@@ -31,9 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private UserDetails createUserDetails(User user) {
         return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(passwordEncoder.encode(user.getPassword()))
-                .roles(user.getRoles().toArray(new String[0]))
+                .username(user.getStudent())
+                .password(user.getPassword())
+                .roles(String.valueOf(user.getRole()))
                 .build();
     }
 }

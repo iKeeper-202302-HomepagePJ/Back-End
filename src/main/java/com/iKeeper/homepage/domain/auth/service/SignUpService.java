@@ -1,7 +1,7 @@
 package com.iKeeper.homepage.domain.auth.service;
 
-import com.iKeeper.homepage.domain.auth.dao.UserRepository;
-import com.iKeeper.homepage.domain.auth.entity.User;
+import com.iKeeper.homepage.domain.user.dao.UserRepository;
+import com.iKeeper.homepage.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserSignUpService {
+public class SignUpService {
 
     private final UserRepository userRepository;
 

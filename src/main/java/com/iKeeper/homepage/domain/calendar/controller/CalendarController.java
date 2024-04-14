@@ -2,10 +2,7 @@ package com.iKeeper.homepage.domain.calendar.controller;
 
 import com.iKeeper.homepage.domain.calendar.dto.request.CalendarRequest;
 import com.iKeeper.homepage.domain.calendar.entity.Calendar;
-import com.iKeeper.homepage.domain.calendar.service.CreateCalendarService;
-import com.iKeeper.homepage.domain.calendar.service.DeleteCalendarService;
-import com.iKeeper.homepage.domain.calendar.service.SearchCalendarService;
-import com.iKeeper.homepage.domain.calendar.service.UpdateCalendarService;
+import com.iKeeper.homepage.domain.calendar.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +18,11 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class CalendarController {
 
-    private final CreateCalendarService createCalendarService;
-    private final SearchCalendarService searchCalendarService;
-    private final UpdateCalendarService updateCalendarService;
-    private final DeleteCalendarService deleteCalendarService;
+    private final CalendarService calendarService;
 
     @GetMapping(value = "")
     public ResponseEntity calendarList() {
-        return ResponseEntity.ok(searchCalendarService.searchAllCalendar());
+        return ResponseEntity.ok(calendarService.searchAllCalendar());
     }
 
 
@@ -36,8 +30,8 @@ public class CalendarController {
     public ResponseEntity searchCalendar(@RequestParam(value = "date", required = false)
                                              @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate day) {
 
-        searchCalendarService.searchCalendar(day);
-        return ResponseEntity.ok(searchCalendarService.searchCalendar(day));
+        calendarService.searchCalendar(day);
+        return ResponseEntity.ok(calendarService.searchCalendar(day));
     }
 
     @PostMapping(value = "")
@@ -50,7 +44,7 @@ public class CalendarController {
 
         try {
             Calendar calendar = Calendar.createCalendar(calendarRequest);
-            createCalendarService.createCalendar(calendar);
+            calendarService.createCalendar(calendar);
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
@@ -63,14 +57,14 @@ public class CalendarController {
                                @RequestBody @Valid CalendarRequest calendarRequest,
                                BindingResult bindingResult, Model model) {
 
-        updateCalendarService.updateCalendar(id, calendarRequest);
+        calendarService.updateCalendar(id, calendarRequest);
         return "redirect:/";
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteCalendar(@PathVariable Long id) {
 
-        deleteCalendarService.deleteCalendar(id);
+        calendarService.deleteCalendar(id);
         return ResponseEntity.ok().build();
     }
 }

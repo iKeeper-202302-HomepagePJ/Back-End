@@ -2,7 +2,7 @@ package com.iKeeper.homepage.domain.auth.controller;
 
 import com.iKeeper.homepage.domain.auth.dto.request.SignInRequest;
 import com.iKeeper.homepage.domain.auth.dto.request.SignUpRequest;
-import com.iKeeper.homepage.domain.user.entity.User;
+import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.auth.service.SignInService;
 import com.iKeeper.homepage.domain.auth.service.SignUpService;
 import com.iKeeper.homepage.global.jwt.dto.TokenInfo;
@@ -28,27 +28,24 @@ public class AuthController {
     @PostMapping(value = "/login")
     public TokenInfo signIn(@RequestBody SignInRequest signInRequest) {
 
-        String student = signInRequest.getStudent();
+        Long studentId = signInRequest.getStudentId();
         String password = signInRequest.getPassword();
-        TokenInfo tokenInfo = signInService.login(student, password);
+        TokenInfo tokenInfo = signInService.login(studentId, password);
         return tokenInfo;
     }
 
     @PostMapping(value = "/join")
     public String signUp(@RequestBody @Valid SignUpRequest signUpRequest,
                          BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "/asdf"; // 회원가입 페이지로 리다이렉션
-        }
 
         try {
-            User user = User.createUser(signUpRequest, passwordEncoder);
+            Member user = Member.createUser(signUpRequest, passwordEncoder);
             signUpService.saveUser(user);
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "/asdf"; // 회원가입 페이지로 리다이렉션
+            return "/error"; // 회원가입 페이지로 리다이렉션
         }
 
-        return "redirect:/"; // 회원가입 페이지로 리다이렉션
+        return "/success"; // 회원가입 페이지로 리다이렉션
     }
 }

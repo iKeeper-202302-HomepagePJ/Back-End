@@ -1,12 +1,10 @@
 package com.iKeeper.homepage.domain.user.controller;
 
 import com.iKeeper.homepage.domain.user.dto.request.UserRequest;
-import com.iKeeper.homepage.domain.user.entity.User;
+import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.user.service.MajorService;
 import com.iKeeper.homepage.domain.user.service.UserService;
-import com.iKeeper.homepage.global.entity.UserRole;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
@@ -30,25 +28,25 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/search")
-    public ResponseEntity searchUser(@RequestParam(value = "student") String student) {
+    public ResponseEntity searchUser(@RequestParam(value = "studentId") String studentId) {
 
-        userService.searchUser(student);
-        return ResponseEntity.ok(userService.searchUser(student));
+        userService.searchUser(studentId);
+        return ResponseEntity.ok(userService.searchUser(studentId));
     }
 
-    @PatchMapping(value = "/users/{student}")
-    public String updateUser(@PathVariable String student,
+    @PatchMapping(value = "/users/{studentId}")
+    public String updateUser(@PathVariable String studentId,
                              @RequestBody @Valid UserRequest userRequest,
                              BindingResult bindingResult, Model model) {
 
-        userService.updateUser(student, userRequest, passwordEncoder);
+        userService.updateUser(studentId, userRequest, passwordEncoder);
         return "redirect:/";
     }
 
-    @DeleteMapping(value = "/users/{student}")
-    public ResponseEntity deleteUser(@PathVariable User student) {
+    @DeleteMapping(value = "/users/{studentId}")
+    public ResponseEntity deleteUser(@PathVariable Member studentId) {
 
-        userService.deleteUser(student);
+        userService.deleteUser(studentId);
         return ResponseEntity.ok().build();
     }
 }

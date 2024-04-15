@@ -18,10 +18,10 @@ public class SignInService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public TokenInfo login(String student, String password) {
+    public TokenInfo login(Long studentId, String password) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(student, password);
+                new UsernamePasswordAuthenticationToken(studentId, password);
 
         Authentication authentication =
                 authenticationManagerBuilder.getObject().authenticate(authenticationToken);

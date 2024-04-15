@@ -2,6 +2,7 @@ package com.iKeeper.homepage.domain.auth.dto.request;
 
 import com.iKeeper.homepage.domain.user.entity.Grade;
 import com.iKeeper.homepage.domain.user.entity.Major;
+import com.iKeeper.homepage.domain.user.entity.Status;
 import com.iKeeper.homepage.global.entity.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import javax.validation.constraints.*;
 @Getter
 public class SignUpRequest {
 
-    @NotBlank(message = "학번을 입력해주세요.")
-    private String student;
+    @NotNull(message = "학번을 입력해주세요.")
+    private String studentId;
 
     @NotBlank(message = "이름을 입력해주세요.")
     private String name;
@@ -37,17 +38,25 @@ public class SignUpRequest {
     private Field field;
 
     @NotNull(message = "재학 상태를 선택해주세요.")
-    private String status;
+    private Status status;
 
     @NotNull(message = "학년, 학차를 선택해주세요.")
     private Grade grade;
 
-    private Major major;
+    @NotNull(message = "전공을 선택해주세요.")
+    private Major major1;
 
-    public SignUpRequest(String student, String name, String pnumber, String birth, String email,
-                         String password, Field field, String status, Grade grade, Major major) {
+    private Major major2;
 
-        this.student = student;
+    private Major major3;
+
+    private Major minor;
+
+    public SignUpRequest(String studentId, String name, String pnumber, String birth, String email,
+                         String password, Field field, Status status, Grade grade, Major major,
+                         Major major1, Major major2, Major major3, Major minor) {
+
+        this.studentId = studentId;
         this.name = name;
         this.pnumber = pnumber;
         this.birth = birth;
@@ -56,6 +65,9 @@ public class SignUpRequest {
         this.field = field;
         this.status = status;
         this.grade = grade;
-        this.major = major;
+        this.major1 = major1;
+        this.major2 = major2;
+        this.major3 = major3;
+        this.minor = minor;
     }
 }

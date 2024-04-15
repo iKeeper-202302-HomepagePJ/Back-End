@@ -6,13 +6,13 @@ import lombok.Data;
 @Data
 public class SignInRequest {
 
-    private String student;
+    private Long studentId;
     private String password;
     private UserRole userRole;
 
-    public SignInRequest(String student, String password, UserRole userRole) {
+    public SignInRequest(Long studentId, String password, UserRole userRole) {
 
-        this.student = student;
+        this.studentId = studentId;
         this.password = password;
         this.userRole = userRole;
     }

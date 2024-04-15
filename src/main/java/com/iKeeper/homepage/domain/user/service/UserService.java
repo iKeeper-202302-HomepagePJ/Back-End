@@ -2,7 +2,7 @@ package com.iKeeper.homepage.domain.user.service;
 
 import com.iKeeper.homepage.domain.user.dao.UserRepository;
 import com.iKeeper.homepage.domain.user.dto.request.UserRequest;
-import com.iKeeper.homepage.domain.user.entity.User;
+import com.iKeeper.homepage.domain.user.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,29 +16,28 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Optional<User> searchUser(String student) {
+    public Optional<Member> searchUser(String studentId) {
 
-        Optional<User> searchUser = userRepository.findByStudent(student);
+        Optional<Member> searchUser = userRepository.findByStudentId(studentId);
         return searchUser;
     }
 
     @Transactional
-    public String updateUser(String student, UserRequest userRequest, PasswordEncoder passwordEncoder) {
-        User user = userRepository.findByStudent(student)
+    public String updateUser(String studentId, UserRequest userRequest, PasswordEncoder passwordEncoder) {
+        Member member = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new RuntimeException("해당 학번의 유저가 존재하지 않습니다."));
 
-        user.updateName(userRequest.getName());
-        user.updatePnumber(userRequest.getPnumber());
-        user.updateBirth(userRequest.getBirth());
-        user.updateEmail(userRequest.getEmail());
-        user.updatePassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.updateField(userRequest.getField());
-        user.updateStatus(userRequest.getStatus());
-        user.updateGrade(userRequest.getGrade());
-        return student;
+        member.updateName(userRequest.getName());
+        member.updatePnumber(userRequest.getPnumber());
+        member.updateBirth(userRequest.getBirth());
+        member.updateEmail(userRequest.getEmail());
+        member.updateField(userRequest.getField());
+        member.updateStatus(userRequest.getStatus());
+        member.updateGrade(userRequest.getGrade());
+        return studentId;
     }
 
-    public void deleteUser(User student) {
-        userRepository.delete(student);
+    public void deleteUser(Member studentId) {
+        userRepository.delete(studentId);
     }
 }

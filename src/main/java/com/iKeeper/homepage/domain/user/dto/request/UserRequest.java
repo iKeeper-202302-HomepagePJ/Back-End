@@ -23,16 +23,22 @@ public class UserRequest {
 
     private String email;
 
-    private Major major;
-
     private Field field;
 
     private Status status;
 
     private Grade grade;
 
-    public UserRequest(String student, String name, String pnumber, String birth, String email,
-                         Field field, Status status, Grade grade, Major major) {
+    private Major major1;
+
+    private Major major2;
+
+    private Major major3;
+
+    private Major minor;
+
+    public UserRequest(String student, String name, String pnumber, String birth, String email, Field field,
+                       Status status, Grade grade, Major major1, Major major2, Major major3, Major minor) {
 
         this.student = student;
         this.name = name;
@@ -42,7 +48,9 @@ public class UserRequest {
         this.field = field;
         this.status = status;
         this.grade = grade;
-        this.major = major;
+        this.major1 = major1;
+        this.major2 = major2;
+        this.major3 = major3;
+        this.minor = minor;
     }
-
 }

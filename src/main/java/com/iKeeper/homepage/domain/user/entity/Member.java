@@ -82,11 +82,16 @@ public class Member {
     public void updateField(Field field) { this.field = field; }
     public void updateStatus(Status status) { this.status = status; }
     public void updateGrade(Grade grade) { this.grade = grade; }
+    public void updateMajor1(Major major1) { this.major1 = major1; }
+    public void updateMajor2(Major major2) { this.major2 = major2; }
+    public void updateMajor3(Major major3) { this.major3 = major3; }
+    public void updateMinor(Major minor) { this.minor = minor; }
+    public void updateWarning(Boolean warning) { this.warning = warning; }
 
     @Builder
     public Member(String studentId, String name, UserRole role, String pnumber, String birth,
                   String email, Major major1, Major major2, Major major3, Major minor,
-                  String password, Field field, Status status, Grade grade, Boolean warning) {
+                  Field field, Status status, Grade grade, Boolean warning) {
 
         this.studentId = studentId;
         this.name = name;
@@ -94,7 +99,6 @@ public class Member {
         this.pnumber = pnumber;
         this.birth = birth;
         this.email = email;
-        this.password = password;
         this.field = field;
         this.status = status;
         this.grade = grade;

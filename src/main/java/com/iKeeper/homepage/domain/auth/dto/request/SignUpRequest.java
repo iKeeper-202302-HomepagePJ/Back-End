@@ -53,8 +53,8 @@ public class SignUpRequest {
     private Major minor;
 
     public SignUpRequest(String studentId, String name, String pnumber, String birth, String email,
-                         String password, Field field, Status status, Grade grade, Major major,
-                         Major major1, Major major2, Major major3, Major minor) {
+                         String password, Field field, Status status, Grade grade, Major major1,
+                         Major major2, Major major3, Major minor) {
 
         this.studentId = studentId;
         this.name = name;

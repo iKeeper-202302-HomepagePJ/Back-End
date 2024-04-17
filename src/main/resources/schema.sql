@@ -31,15 +31,15 @@ CREATE TABLE status
     status_name VARCHAR(20) DEFAULT '신입' NOT NULL
 );
 
-CREATE TABLE `calendar`
+CREATE TABLE calendar
 (
-    `calendar_id`    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `field_id`       TINYINT     NOT NULL,
-    `calendar_title` VARCHAR(30) NOT NULL,
-    `calendar_day`   DATE        NOT NULL,
-    `calendar_time`  TIME        NOT NULL,
-    `calendar_place` VARCHAR(10) NOT NULL DEFAULT '미정',
-    `calendar_check` BOOLEAN     NOT NULL
+    calendar_id    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    calendar_field       TINYINT     NOT NULL,
+    calendar_title VARCHAR(30) NOT NULL,
+    calendar_day   DATE        NOT NULL,
+    calendar_time  TIME        NOT NULL,
+    calendar_place VARCHAR(10) NOT NULL DEFAULT '미정',
+    calendar_check BOOLEAN     NOT NULL
 );
 
 CREATE TABLE `score`

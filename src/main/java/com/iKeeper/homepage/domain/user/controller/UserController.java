@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -27,14 +27,14 @@ public class UserController {
         return ResponseEntity.ok(majorService.searchAllMajor());
     }
 
-    @GetMapping(value = "/users/search")
+    @GetMapping(value = "/search")
     public ResponseEntity searchUser(@RequestParam(value = "studentId") String studentId) {
 
         userService.searchUser(studentId);
         return ResponseEntity.ok(userService.searchUser(studentId));
     }
 
-    @PatchMapping(value = "/users/{studentId}")
+    @PatchMapping(value = "/{studentId}")
     public String updateUser(@PathVariable String studentId,
                              @RequestBody @Valid UserRequest userRequest,
                              BindingResult bindingResult, Model model) {
@@ -43,7 +43,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @DeleteMapping(value = "/users/{studentId}")
+    @DeleteMapping(value = "/{studentId}")
     public ResponseEntity deleteUser(@PathVariable Member studentId) {
 
         userService.deleteUser(studentId);

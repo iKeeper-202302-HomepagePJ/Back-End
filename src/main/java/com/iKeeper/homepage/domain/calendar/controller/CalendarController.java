@@ -3,8 +3,12 @@ package com.iKeeper.homepage.domain.calendar.controller;
 import com.iKeeper.homepage.domain.calendar.dto.request.CalendarRequest;
 import com.iKeeper.homepage.domain.calendar.entity.Calendar;
 import com.iKeeper.homepage.domain.calendar.service.CalendarService;
+import com.iKeeper.homepage.global.httpStatus.DefaultRes;
+import com.iKeeper.homepage.global.httpStatus.ResponseMessage;
+import com.iKeeper.homepage.global.httpStatus.StatusCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +26,9 @@ public class CalendarController {
 
     @GetMapping(value = "")
     public ResponseEntity calendarList() {
-        return ResponseEntity.ok(calendarService.searchAllCalendar());
+
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.CALENDAR_ALL_READ, calendarService.searchAllCalendar()), HttpStatus.OK);
     }
 
 
@@ -30,16 +36,16 @@ public class CalendarController {
     public ResponseEntity searchCalendar(@RequestParam(value = "date", required = false)
                                              @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate day) {
 
-        calendarService.searchCalendar(day);
-        return ResponseEntity.ok(calendarService.searchCalendar(day));
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.CALENDAR_DATE_READ, calendarService.searchCalendar(day)), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
-    public String createCalendar(@RequestBody @Valid CalendarRequest calendarRequest,
+    public ResponseEntity createCalendar(@RequestBody @Valid CalendarRequest calendarRequest,
                                BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return bindingResult.getFieldError().toString();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
         }
 
         try {
@@ -49,22 +55,29 @@ public class CalendarController {
             model.addAttribute("errorMessage", e.getMessage());
         }
 
-        return "redirect:/";
+        return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
+                ResponseMessage.CALENDAR_POST, calendarRequest), HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/{id}")
-    public String updateCalendar(@PathVariable Long id,
+    public ResponseEntity updateCalendar(@PathVariable Long id,
                                @RequestBody @Valid CalendarRequest calendarRequest,
-                               BindingResult bindingResult, Model model) {
+                               BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
+        }
 
         calendarService.updateCalendar(id, calendarRequest);
-        return "redirect:/";
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.CALENDAR_PATCH, calendarRequest), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteCalendar(@PathVariable Long id) {
 
         calendarService.deleteCalendar(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
     }
 }

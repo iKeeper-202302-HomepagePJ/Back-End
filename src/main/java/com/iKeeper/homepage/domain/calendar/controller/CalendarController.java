@@ -3,6 +3,8 @@ package com.iKeeper.homepage.domain.calendar.controller;
 import com.iKeeper.homepage.domain.calendar.dto.request.CalendarRequest;
 import com.iKeeper.homepage.domain.calendar.entity.Calendar;
 import com.iKeeper.homepage.domain.calendar.service.CalendarService;
+import com.iKeeper.homepage.global.error.CustomException;
+import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.httpStatus.DefaultRes;
 import com.iKeeper.homepage.global.httpStatus.ResponseMessage;
 import com.iKeeper.homepage.global.httpStatus.StatusCode;
@@ -45,7 +47,7 @@ public class CalendarController {
                                BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
+            throw new CustomException("해당 ID의 일정이 존재하지 않습니다.", ErrorCode.CALENDAR_NOT_FOUND);
         }
 
         try {

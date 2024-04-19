@@ -5,9 +5,16 @@ import com.iKeeper.homepage.domain.auth.dto.request.SignUpRequest;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.auth.service.SignInService;
 import com.iKeeper.homepage.domain.auth.service.SignUpService;
+import com.iKeeper.homepage.global.error.CustomException;
+import com.iKeeper.homepage.global.error.ErrorCode;
+import com.iKeeper.homepage.global.httpStatus.DefaultRes;
+import com.iKeeper.homepage.global.httpStatus.ResponseMessage;
+import com.iKeeper.homepage.global.httpStatus.StatusCode;
 import com.iKeeper.homepage.global.jwt.dto.TokenInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,26 +33,30 @@ public class AuthController {
     private final SignInService signInService;
 
     @PostMapping(value = "/login")
-    public TokenInfo signIn(@RequestBody SignInRequest signInRequest) {
+    public ResponseEntity signIn(@RequestBody SignInRequest signInRequest) {
 
         Long studentId = signInRequest.getStudentId();
         String password = signInRequest.getPassword();
         TokenInfo tokenInfo = signInService.login(studentId, password);
-        return tokenInfo;
+
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.AUTH_POST_LOGIN, tokenInfo), HttpStatus.OK);
     }
 
     @PostMapping(value = "/join")
-    public String signUp(@RequestBody @Valid SignUpRequest signUpRequest,
-                         BindingResult bindingResult, Model model) {
+    public ResponseEntity signUp(@RequestBody @Valid SignUpRequest signUpRequest,
+                                 BindingResult bindingResult, Model model) {
 
-        try {
-            Member user = Member.createUser(signUpRequest, passwordEncoder);
-            signUpService.saveUser(user);
-        } catch (IllegalStateException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "/error"; // 회원가입 페이지로 리다이렉션
+        if(bindingResult.hasErrors()) {
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.AUTH_INVALID_VALUE);
         }
 
-        return "/success"; // 회원가입 페이지로 리다이렉션
+        else {
+            Member user = Member.createUser(signUpRequest, passwordEncoder);
+            signUpService.saveUser(user);
+        }
+
+        return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
+                ResponseMessage.AUTH_POST_JOIN), HttpStatus.CREATED);
     }
 }

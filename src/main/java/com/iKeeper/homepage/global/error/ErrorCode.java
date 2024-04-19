@@ -12,7 +12,12 @@ import java.time.LocalDate;
 public enum ErrorCode implements ErrorModel {
 
     //CALENDAR
-    CALENDAR_NOT_FOUND(400, "BAD_REQUEST");
+    CALENDAR_INVALID_VALUE(400, "BAD_REQUEST"),
+    CALENDAR_NOT_FOUND(400, "NOT_FOUND"),
+    //AUTH
+    AUTH_INVALID_VALUE(400, "BAD_REQUEST"),
+    AUTH_MEMBER_DUPLICATE(400, "CONFLICT"),
+    AUTH_MEMBER_NOT_FOUND(400, "NOT_FOUND");
 
     private int resultCode;
     private String code;

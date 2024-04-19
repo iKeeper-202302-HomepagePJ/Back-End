@@ -1,7 +1,7 @@
 SELECT * FROM ikeeper_homepage.field;
 INSERT INTO field (field_name)
 VALUES ('i-Keeper'),
-       ('개발'),
+       ('DEV'),
        ('CERT');
 
 SELECT * FROM ikeeper_homepage.grade;

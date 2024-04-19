@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ public class CalendarController {
     public ResponseEntity calendarList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_ALL_READ, calendarService.searchAllCalendar()), HttpStatus.OK);
+                ResponseMessage.CALENDAR_READ_ALL, calendarService.searchAllCalendar()), HttpStatus.OK);
     }
 
 
@@ -39,22 +38,20 @@ public class CalendarController {
                                              @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate day) {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_DATE_READ, calendarService.searchCalendar(day)), HttpStatus.OK);
+                ResponseMessage.CALENDAR_READ_DATE, calendarService.searchCalendar(day)), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
     public ResponseEntity createCalendar(@RequestBody @Valid CalendarRequest calendarRequest,
-                               BindingResult bindingResult, Model model) {
+                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            throw new CustomException("해당 ID의 일정이 존재하지 않습니다.", ErrorCode.CALENDAR_NOT_FOUND);
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.CALENDAR_INVALID_VALUE);
         }
 
-        try {
+        else {
             Calendar calendar = Calendar.createCalendar(calendarRequest);
             calendarService.createCalendar(calendar);
-        } catch (IllegalStateException e) {
-            model.addAttribute("errorMessage", e.getMessage());
         }
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
@@ -67,12 +64,14 @@ public class CalendarController {
                                BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.CALENDAR_INVALID_VALUE);
         }
 
-        calendarService.updateCalendar(id, calendarRequest);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_PATCH, calendarRequest), HttpStatus.OK);
+        else {
+            calendarService.updateCalendar(id, calendarRequest);
+            return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                    ResponseMessage.CALENDAR_PATCH, calendarRequest), HttpStatus.OK);
+        }
     }
 
     @DeleteMapping(value = "/{id}")

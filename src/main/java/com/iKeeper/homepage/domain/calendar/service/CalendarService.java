@@ -3,6 +3,8 @@ package com.iKeeper.homepage.domain.calendar.service;
 import com.iKeeper.homepage.domain.calendar.dao.CalendarRepository;
 import com.iKeeper.homepage.domain.calendar.dto.request.CalendarRequest;
 import com.iKeeper.homepage.domain.calendar.entity.Calendar;
+import com.iKeeper.homepage.global.error.CustomException;
+import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class CalendarService {
     @Transactional
     public Long updateCalendar(Long id, CalendarRequest calendarRequest) {
         Calendar calendar = calendarRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 번호의 일정이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException("해당 ID의 일정이 존재하지 않습니다.", ErrorCode.CALENDAR_NOT_FOUND));
 
         calendar.updateTitle(calendarRequest.getTitle());
         calendar.updateField(calendarRequest.getField());

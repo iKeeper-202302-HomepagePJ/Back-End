@@ -45,7 +45,7 @@ public class AuthController {
 
     @PostMapping(value = "/join")
     public ResponseEntity signUp(@RequestBody @Valid SignUpRequest signUpRequest,
-                                 BindingResult bindingResult, Model model) {
+                                 BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.AUTH_INVALID_VALUE);

@@ -6,6 +6,7 @@ import com.iKeeper.homepage.domain.user.service.MajorService;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,19 +28,19 @@ public class UserController {
         return ResponseEntity.ok(majorService.searchAllMajor());
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity searchUser(@RequestParam(value = "studentId") String studentId) {
+    @GetMapping(value = "/mypage")
+    public ResponseEntity memberInfo(String user) {
 
-        userService.searchUser(studentId);
-        return ResponseEntity.ok(userService.searchUser(studentId));
+        userService.searchMemberInfo(user); // 고쳐야함!!!!!!!
+        return ResponseEntity.ok(userService.searchMemberInfo(user));
     }
 
     @PatchMapping(value = "/{studentId}")
     public String updateUser(@PathVariable String studentId,
                              @RequestBody @Valid UserRequest userRequest,
-                             BindingResult bindingResult, Model model) {
+                             BindingResult bindingResult) {
 
-        userService.updateUser(studentId, userRequest, passwordEncoder);
+        userService.updateUser(studentId, userRequest);
         return "redirect:/";
     }
 

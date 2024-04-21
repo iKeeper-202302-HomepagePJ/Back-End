@@ -3,7 +3,9 @@ package com.iKeeper.homepage.domain.user.service;
 import com.iKeeper.homepage.domain.user.dao.UserRepository;
 import com.iKeeper.homepage.domain.user.dto.request.UserRequest;
 import com.iKeeper.homepage.domain.user.entity.Member;
+import com.iKeeper.homepage.global.entity.UserRole;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Optional<Member> searchUser(String studentId) {
+    public Optional<Member> searchMemberInfo(String studentId) {
 
-        Optional<Member> searchUser = userRepository.findByStudentId(studentId);
-        return searchUser;
+        Optional<Member> searchMember = userRepository.findByStudentId(studentId);
+        return searchMember;
     }
 
     @Transactional
-    public String updateUser(String studentId, UserRequest userRequest, PasswordEncoder passwordEncoder) {
+    public String updateUser(String studentId, UserRequest userRequest) {
         Member member = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new RuntimeException("해당 학번의 유저가 존재하지 않습니다."));
 

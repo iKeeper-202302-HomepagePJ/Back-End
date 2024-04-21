@@ -1,5 +1,7 @@
 package com.iKeeper.homepage.global.jwt.handler;
 
+import com.iKeeper.homepage.global.error.CustomException;
+import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.jwt.dto.TokenInfo;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -68,7 +70,7 @@ public class JwtTokenProvider {
         Claims claims = parseClaims(accessToken);
 
         if (claims.get("auth") == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+            throw new CustomException("권한 정보가 없는 토큰입니다.", ErrorCode.JWT_AUTHORITY_NOT_FOUND);
         }
 
         // 클레임에서 권한 정보 가져오기
@@ -88,15 +90,14 @@ public class JwtTokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("Invalid JWT Token", e);
+            throw new CustomException("유효하지 않은 토큰입니다.", ErrorCode.JWT_INVALID_TOKEN);
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT Token", e);
+            throw new CustomException("이미 만료된 토큰입니다.", ErrorCode.JWT_EXPIRED_TOKEN);
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT Token", e);
+            throw new CustomException("토큰의 형식이 맞지 않습니다.", ErrorCode.JWT_UNSUPPORTED_TOKEN);
         } catch (IllegalArgumentException e) {
-            log.info("JWT claims string is empty.", e);
+            throw new CustomException("잘못된 토큰입니다.", ErrorCode.JWT_CLAIMS_STRING_EMPTY);
         }
-        return false;
     }
 
     private Claims parseClaims(String accessToken) {

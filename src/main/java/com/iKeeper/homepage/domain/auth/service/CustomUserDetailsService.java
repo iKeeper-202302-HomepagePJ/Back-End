@@ -4,6 +4,7 @@ import com.iKeeper.homepage.domain.user.dao.UserRepository;
 import com.iKeeper.homepage.global.error.CustomException;
 import lombok.RequiredArgsConstructor;
 import com.iKeeper.homepage.domain.user.entity.Member;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,8 +31,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails createUserDetails(Member member) {
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(String.valueOf(member.getStudentId()))
+        return User.builder()
+                .username(member.getStudentId())
                 .password(member.getPassword())
                 .roles(String.valueOf(member.getRole()))
                 .build();

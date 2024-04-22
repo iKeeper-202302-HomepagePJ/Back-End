@@ -1,6 +1,6 @@
 package com.iKeeper.homepage.domain.auth.service;
 
-import com.iKeeper.homepage.domain.user.dao.UserRepository;
+import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.global.error.CustomException;
 import lombok.RequiredArgsConstructor;
 import com.iKeeper.homepage.domain.user.entity.Member;
@@ -20,7 +20,7 @@ import static com.iKeeper.homepage.global.error.ErrorCode.AUTH_MEMBER_NOT_FOUND;
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
 
     @Override
     @Transactional

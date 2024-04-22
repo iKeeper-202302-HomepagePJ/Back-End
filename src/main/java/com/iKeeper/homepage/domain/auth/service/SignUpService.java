@@ -1,6 +1,6 @@
 package com.iKeeper.homepage.domain.auth.service;
 
-import com.iKeeper.homepage.domain.user.dao.UserRepository;
+import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class SignUpService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
 
     public Member saveUser(Member member) {
 

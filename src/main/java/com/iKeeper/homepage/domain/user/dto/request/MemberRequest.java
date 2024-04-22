@@ -7,13 +7,11 @@ import com.iKeeper.homepage.global.entity.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
-
 @NoArgsConstructor
 @Getter
-public class UserRequest {
+public class MemberRequest {
 
-    private String student;
+    private String studentId;
 
     private String name;
 
@@ -37,10 +35,10 @@ public class UserRequest {
 
     private Major minor;
 
-    public UserRequest(String student, String name, String pnumber, String birth, String email, Field field,
-                       Status status, Grade grade, Major major1, Major major2, Major major3, Major minor) {
+    public MemberRequest(String studentId, String name, String pnumber, String birth, String email, Field field,
+                         Status status, Grade grade, Major major1, Major major2, Major major3, Major minor) {
 
-        this.student = student;
+        this.studentId = studentId;
         this.name = name;
         this.pnumber = pnumber;
         this.birth = birth;

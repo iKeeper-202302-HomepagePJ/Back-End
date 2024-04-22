@@ -77,8 +77,7 @@ public class CalendarController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteCalendar(@PathVariable Long id) {
 
-        calendarService.deleteCalendar(id);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+                ResponseMessage.CALENDAR_DELETE, calendarService.deleteCalendar(id)), HttpStatus.OK);
     }
 }

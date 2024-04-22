@@ -46,8 +46,9 @@ public class CalendarService {
         return id;
     }
 
-    public void deleteCalendar(Long id) {
+    public String deleteCalendar(Long id) {
         calendarRepository.deleteById(id);
+        return "success";
     }
 
 

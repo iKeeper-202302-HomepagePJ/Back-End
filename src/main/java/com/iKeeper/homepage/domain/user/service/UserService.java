@@ -1,12 +1,12 @@
 package com.iKeeper.homepage.domain.user.service;
 
-import com.iKeeper.homepage.domain.user.dao.UserRepository;
-import com.iKeeper.homepage.domain.user.dto.request.UserRequest;
+import com.iKeeper.homepage.domain.user.dao.MemberInfo;
+import com.iKeeper.homepage.domain.user.dao.MemberRepository;
+import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
 import com.iKeeper.homepage.domain.user.entity.Member;
-import com.iKeeper.homepage.global.entity.UserRole;
+import com.iKeeper.homepage.global.error.CustomException;
+import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,30 +16,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
-    public Optional<Member> searchMemberInfo(String studentId) {
+    public Optional<MemberInfo> searchMemberInfo(String studentId) {
 
-        Optional<Member> searchMember = userRepository.findByStudentId(studentId);
-        return searchMember;
+        Optional<MemberInfo> searchMemberInfo = memberRepository.findMemberInfoByStudentId(studentId);
+        return searchMemberInfo;
     }
 
     @Transactional
-    public String updateUser(String studentId, UserRequest userRequest) {
-        Member member = userRepository.findByStudentId(studentId)
-                .orElseThrow(() -> new RuntimeException("해당 학번의 유저가 존재하지 않습니다."));
+    public Optional<MemberInfo> updateMemberInfo(String studentId, MemberRequest memberRequest) {
+        Member member = memberRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new CustomException("해당 학번의 유저가 존재하지 않습니다.", ErrorCode.USER_MEMBER_NOT_FOUND));
 
-        member.updateName(userRequest.getName());
-        member.updatePnumber(userRequest.getPnumber());
-        member.updateBirth(userRequest.getBirth());
-        member.updateEmail(userRequest.getEmail());
-        member.updateField(userRequest.getField());
-        member.updateStatus(userRequest.getStatus());
-        member.updateGrade(userRequest.getGrade());
-        return studentId;
+        member.updateName(memberRequest.getName());
+        member.updatePnumber(memberRequest.getPnumber());
+        member.updateBirth(memberRequest.getBirth());
+        member.updateEmail(memberRequest.getEmail());
+        member.updateField(memberRequest.getField());
+        member.updateStatus(memberRequest.getStatus());
+        member.updateGrade(memberRequest.getGrade());
+        member.updateMajor1(memberRequest.getMajor1());
+        member.updateMajor2(memberRequest.getMajor2());
+        member.updateMajor3(memberRequest.getMajor3());
+        member.updateMinor(memberRequest.getMinor());
+
+        Optional<MemberInfo> searchMemberInfo = memberRepository.findMemberInfoByStudentId(studentId);
+        return searchMemberInfo;
     }
 
-    public void deleteUser(Member studentId) {
-        userRepository.delete(studentId);
+    public String deleteAccount(String studentId) {
+        memberRepository.deleteById(studentId);
+        return "success";
     }
 }

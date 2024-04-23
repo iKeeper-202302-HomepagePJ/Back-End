@@ -43,15 +43,33 @@ public class Calendar {
     @ColumnDefault("False")
     private Boolean check;
 
-    public void updateTitle(String title) { this.title = title; }
-    public void updateField(Field field) { this.field = field; }
-    public void updateDay(LocalDate day) { this.day = day; }
-    public void updateTime(Time time) { this.time = time; }
-    public void updatePlace(String place) { this.place = place; }
-    public void updateCheck(Boolean check) { this.check = check; }
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateField(Field field) {
+        this.field = field;
+    }
+
+    public void updateDay(LocalDate day) {
+        this.day = day;
+    }
+
+    public void updateTime(Time time) {
+        this.time = time;
+    }
+
+    public void updatePlace(String place) {
+        this.place = place;
+    }
+
+    public void updateCheck(Boolean check) {
+        this.check = check;
+    }
 
     @Builder
     public Calendar(String title, Field field, LocalDate day, Time time, String place, Boolean check) {
+
         this.title = title;
         this.field = field;
         this.day = day;

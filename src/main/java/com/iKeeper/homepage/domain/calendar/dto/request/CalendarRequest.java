@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 public class CalendarRequest {
+
     @NotBlank(message = "일정명을 입력해주세요.")
     private String title;
 

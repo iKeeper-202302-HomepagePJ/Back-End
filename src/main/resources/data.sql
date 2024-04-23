@@ -35,3 +35,17 @@ VALUES ('없음'),
        ('게임공학전공'),
        ('소프트웨어융합학과'),
        ('인공지능빅데이터공학과');
+
+/* 테스트용 (추후 삭제 예정) */
+
+SELECT * FROM ikeeper_homepage.categorylarge;
+INSERT INTO categorylarge (categorylarge_name)
+VALUES ('중간세미나'),
+       ('개발세미나'),
+       ('써트세미나');
+
+SELECT * FROM ikeeper_homepage.categorysmall;
+INSERT INTO categorysmall (categorysmall_name)
+VALUES ('2023_1'),
+       ('2023_2'),
+       ('2024_1');

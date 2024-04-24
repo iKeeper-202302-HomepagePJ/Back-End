@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping(value = "/mypage")
     public ResponseEntity memberInfo(@RequestHeader("Authorization") String accessToken) {
 
-        String studentId = jwtTokenProvider.getAuthentication(accessToken).getName();
+        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.USER_MYPAGE, userService.searchMemberInfo(studentId)), HttpStatus.OK);
@@ -52,7 +52,7 @@ public class UserController {
             throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.USER_INVALID_VALUE);
         }
 
-        String studentId = jwtTokenProvider.getAuthentication(accessToken).getName();
+        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
 
         userService.updateMemberInfo(studentId, memberRequest);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
@@ -62,7 +62,7 @@ public class UserController {
     @DeleteMapping(value = "/mypage")
     public ResponseEntity deleteAccount(@RequestHeader("Authorization") String accessToken) {
 
-        String studentId = jwtTokenProvider.getAuthentication(accessToken).getName();
+        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.USER_DELETE_ACCOUNT, userService.deleteAccount(studentId)), HttpStatus.OK);
     }

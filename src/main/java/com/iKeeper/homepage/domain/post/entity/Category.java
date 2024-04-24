@@ -1,6 +1,10 @@
 package com.iKeeper.homepage.domain.post.entity;
 
+import com.iKeeper.homepage.domain.post.dao.PostRepository;
+import com.iKeeper.homepage.domain.post.dto.PostRequest;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,13 +12,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "category")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
-    private Byte id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "category_large", referencedColumnName = "categorylarge_id")

@@ -1,22 +1,15 @@
 package com.iKeeper.homepage.domain.post.entity;
 
-import com.iKeeper.homepage.domain.post.dao.PostUserInfo;
 import com.iKeeper.homepage.domain.post.dto.PostRequest;
-import com.iKeeper.homepage.domain.user.entity.Member;
-import com.iKeeper.homepage.global.jwt.handler.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Entity
@@ -32,12 +25,14 @@ public class Post {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "post_category", referencedColumnName = "category_id")
+    @JoinColumn(name = "post_category")
     private Category category;
 
-    @OneToOne
-    @JoinColumn(name = "post_user")
-    private Optional<PostUserInfo> postUser;
+    @Column(name = "post_student_id")
+    private String postStudentId;
+
+    @Column(name = "post_user")
+    private String postUser;
 
     @OneToOne
     @JoinColumn(name = "post_headline", referencedColumnName = "headline_id")
@@ -63,10 +58,11 @@ public class Post {
     private Boolean commentWhether;
 
     @Builder
-    public Post(Category category, Member postUser, Headline headline, String title, LocalDateTime postTime,
-                String content, Boolean updateCheck, Boolean disclosure, Boolean commentWhether) {
+    public Post(Category category, String postStudentId, String postUser, Headline headline, String title,
+                LocalDateTime postTime, String content, Boolean updateCheck, Boolean disclosure, Boolean commentWhether) {
 
         this.category = category;
+        this.postStudentId = postStudentId;
         this.postUser = postUser;
         this.headline = headline;
         this.title = title;
@@ -77,11 +73,19 @@ public class Post {
         this.commentWhether = commentWhether;
     }
 
-    public static Post createPost(Member studentId, PostRequest postRequest) {
+    public static Post createPost(String studentId, String username, PostRequest postRequest) {
 
         Post post = Post.builder()
                 .category(postRequest.getCategory())
-                .postUser(studentId)
+                .postStudentId(studentId)
+                .postUser(username)
+                .headline(postRequest.getHeadline())
+                .title(postRequest.getTitle())
+                .postTime(LocalDateTime.now())
+                .content(postRequest.getContent())
+                .updateCheck(Boolean.FALSE)
+                .disclosure(postRequest.getDisclosure())
+                .commentWhether(postRequest.getCommentWhether())
                 .build();
         return post;
     }

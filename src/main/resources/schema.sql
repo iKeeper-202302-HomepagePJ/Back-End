@@ -77,7 +77,7 @@ CREATE TABLE `category`
 (
     `category_id`    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `category_large` SMALLINT NOT NULL,
-    `category_small` SMALLINT NULL
+    `category_small` SMALLINT NOT NULL
 );
 
 CREATE TABLE `categorylarge`
@@ -95,13 +95,14 @@ CREATE TABLE `categorysmall`
 CREATE TABLE `post`
 (
     `post_id`                SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `post_user`              VARCHAR(10)   NOT NULL,
-    `post_category`          SMALLINT      NOT NULL,
-    `post_headline`          TINYINT       NOT NULL,
-    `post_title`             VARCHAR(50)   NOT NULL,
-    `post_timestamp`         TIMESTAMP     NOT NULL,
-    `post_content`           VARCHAR(5000) NOT NULL,
-    `post_updateCheck`       TIMESTAMP     NOT NULL DEFAULT '0',
+    `post_student_id`        VARCHAR(10)   NULL,
+    `post_user`              VARCHAR(10)   NULL,
+    `post_category`          SMALLINT      NULL,
+    `post_headline`          TINYINT       NULL,
+    `post_title`             VARCHAR(50)   NULL,
+    `post_timestamp`         TIMESTAMP     NULL,
+    `post_content`           VARCHAR(5000) NULL,
+    `post_update_check`       BOOLEAN       NOT NULL DEFAULT '0',
     `post_disclosure`        BOOLEAN       NOT NULL DEFAULT '0',
     `post_comment_whether`   BOOLEAN       NOT NULL DEFAULT '1'
 );
@@ -195,7 +196,7 @@ CREATE TABLE `grade`
 CREATE TABLE `headline`
 (
     `headline_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `headline_name` TINYINT NOT NULL
+    `headline_name` VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE `major`

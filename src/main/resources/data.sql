@@ -49,3 +49,9 @@ INSERT INTO categorysmall (categorysmall_name)
 VALUES ('2023_1'),
        ('2023_2'),
        ('2024_1');
+
+SELECT * FROM ikeeper_homepage.headline;
+INSERT INTO headline (headline_name)
+VALUES ('AI'),
+       ('WEB'),
+       ('REPORT');

@@ -55,8 +55,10 @@ public class PostController {
             String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
             Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
             String username = member.get().getName();
+
             Post post = Post.createPost(studentId, username, postRequest);
-            postService.createPost(post);
+            Category category = Category.createCategory(postRequest);
+            postService.createPost(post, category);
         }
 
          return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,

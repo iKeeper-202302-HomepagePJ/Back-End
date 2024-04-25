@@ -25,6 +25,7 @@ public class Post {
     private Long id;
 
     @OneToOne
+    @MapsId
     @JoinColumn(name = "post_category")
     private Category category;
 

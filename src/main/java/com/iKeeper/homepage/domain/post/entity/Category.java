@@ -28,4 +28,20 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "category_small", referencedColumnName = "categorysmall_id")
     private CategorySmall categorySmall;
+
+    @Builder
+    public Category(CategoryLarge categoryLarge, CategorySmall categorySmall) {
+
+        this.categoryLarge = categoryLarge;
+        this.categorySmall = categorySmall;
+    }
+
+    public static Category createCategory(PostRequest postRequest) {
+
+        Category category = Category.builder()
+                .categoryLarge(postRequest.getCategory().getCategoryLarge())
+                .categorySmall(postRequest.getCategory().getCategorySmall())
+                .build();
+        return category;
+    }
 }

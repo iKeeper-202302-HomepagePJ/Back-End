@@ -1,5 +1,7 @@
 package com.iKeeper.homepage.domain.user.service;
 
+import com.iKeeper.homepage.domain.post.dao.PostRepository;
+import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.user.dao.MemberInfo;
 import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,11 +20,18 @@ import java.util.Optional;
 public class UserService {
 
     private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
 
     public Optional<MemberInfo> searchMemberInfo(String studentId) {
 
         Optional<MemberInfo> searchMemberInfo = memberRepository.findMemberInfoByStudentId(studentId);
         return searchMemberInfo;
+    }
+
+    public List<Post> searchMyPost(String studentId) {
+
+        List<Post> searchMyPost = postRepository.findByPostStudentId(studentId);
+        return searchMyPost;
     }
 
     @Transactional
@@ -36,10 +46,7 @@ public class UserService {
         member.updateField(memberRequest.getField());
         member.updateStatus(memberRequest.getStatus());
         member.updateGrade(memberRequest.getGrade());
-        member.updateMajor1(memberRequest.getMajor1());
-        member.updateMajor2(memberRequest.getMajor2());
-        member.updateMajor3(memberRequest.getMajor3());
-        member.updateMinor(memberRequest.getMinor());
+        member.updateMajor(memberRequest.getMajor());
 
         Optional<MemberInfo> searchMemberInfo = memberRepository.findMemberInfoByStudentId(studentId);
         return searchMemberInfo;

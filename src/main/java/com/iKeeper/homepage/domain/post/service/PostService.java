@@ -14,13 +14,15 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<Post> searchAllPost() {
         return postRepository.findAll();
     }
 
-    public Post createPost(Post post) {
+    public Post createPost(Post post, Category category) {
 
+        categoryRepository.save(category);
         return postRepository.save(post);
     }
 }

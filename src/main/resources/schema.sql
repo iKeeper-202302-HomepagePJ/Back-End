@@ -110,8 +110,9 @@ CREATE TABLE `post`
 CREATE TABLE `comment`
 (
     `comment_id`        SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `post_id`           SMALLINT     NOT NULL,
-    `user_student`      VARCHAR(10)  NOT NULL,
+    `comment_post_id`           SMALLINT     NOT NULL,
+    `comment_student_id`      VARCHAR(10)  NOT NULL,
+    `comment_username`      VARCHAR(10)  NOT NULL,
     `comment_timestamp` TIMESTAMP    NOT NULL,
     `comment_content`   VARCHAR(500) NOT NULL
 );

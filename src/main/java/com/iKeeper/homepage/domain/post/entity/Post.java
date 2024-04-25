@@ -9,7 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Entity
@@ -57,6 +59,10 @@ public class Post {
 
     @Column(name = "post_comment_whether", nullable = false)
     private Boolean commentWhether;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc")
+    private List<Comment> comments;
 
     @Builder
     public Post(Category category, String postStudentId, String postUser, Headline headline, String title,

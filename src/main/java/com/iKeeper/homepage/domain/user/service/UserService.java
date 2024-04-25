@@ -46,7 +46,10 @@ public class UserService {
         member.updateField(memberRequest.getField());
         member.updateStatus(memberRequest.getStatus());
         member.updateGrade(memberRequest.getGrade());
-        member.updateMajor(memberRequest.getMajor());
+        member.updateMajor1(memberRequest.getMajor1());
+        member.updateMajor2(memberRequest.getMajor2());
+        member.updateMajor3(memberRequest.getMajor3());
+        member.updateMinor(memberRequest.getMinor());
 
         Optional<MemberInfo> searchMemberInfo = memberRepository.findMemberInfoByStudentId(studentId);
         return searchMemberInfo;

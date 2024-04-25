@@ -1,9 +1,11 @@
 package com.iKeeper.homepage.domain.auth.dto.request;
 
 import com.iKeeper.homepage.global.entity.UserRole;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor
 public class SignInRequest {
 
     private Long studentId;

@@ -1,6 +1,8 @@
 package com.iKeeper.homepage.domain.post.entity;
 
+import com.iKeeper.homepage.domain.post.dto.CommentRequest;
 import com.iKeeper.homepage.domain.post.dto.PostRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +18,11 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id", nullable = false)
+    @Column(name = "comment_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "comment_post_id")
-    private Post post;
+    @Column(name = "comment_post_id")
+    private Long post;
 
     @Column(name = "comment_student_id")
     private String commentStudentId;
@@ -35,4 +36,27 @@ public class Comment {
     @UpdateTimestamp
     @Column(name = "comment_timestamp")
     private LocalDateTime commentTime;
+
+    @Builder
+    public Comment(Long post, String commentStudentId, String commentUser,
+                   String content, LocalDateTime commentTime) {
+
+        this.post = post;
+        this.commentStudentId = commentStudentId;
+        this.commentUser = commentUser;
+        this.content = content;
+        this.commentTime = commentTime;
+    }
+
+    public static Comment createComment(String studentId, String username, CommentRequest commentRequest) {
+
+        Comment comment = Comment.builder()
+                .post(commentRequest.getPost())
+                .commentStudentId(studentId)
+                .commentUser(username)
+                .content(commentRequest.getContent())
+                .commentTime(LocalDateTime.now())
+                .build();
+        return comment;
+    }
 }

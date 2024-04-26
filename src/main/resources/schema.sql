@@ -120,8 +120,8 @@ CREATE TABLE `comment`
 CREATE TABLE `attendance`
 (
     `attendance_id`    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `user_student`     VARCHAR(10) NOT NULL,
-    `lecture_id`       SMALLINT    NOT NULL,
+    `attendance_student_id`     VARCHAR(10) NOT NULL,
+    `attendance_lecture_id`       SMALLINT    NOT NULL,
     `attendance_check` BOOLEAN     NOT NULL DEFAULT '0'
 );
 
@@ -165,7 +165,7 @@ CREATE TABLE `library`
 CREATE TABLE `lecture`
 (
     `lecture_id`   SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `lecture_name` VARCHAR(30) NOT NULL DEFAULT '회비 카테고리명이 존재하지 않습니다.'
+    `lecture_name` VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE `ledger`

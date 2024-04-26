@@ -17,10 +17,6 @@ public class PostRequest {
     @NotNull(message = "카테고리를 지정해주세요.")
     private Category category;
 
-    private String postStudentId;
-
-    private String postUser;
-
     @NotNull(message = "머릿말을 선택해주세요.")
     private Headline headline;
 
@@ -36,12 +32,10 @@ public class PostRequest {
     @NotNull(message = "댓글의 허용 여부를 결정해주세요.")
     private Boolean commentWhether;
 
-    public PostRequest(Category category, String postStudentId, String postUser, Headline headline, String title,
+    public PostRequest(Category category, Headline headline, String title,
                        String content, Boolean disclosure, Boolean commentWhether) {
 
         this.category = category;
-        this.postStudentId = postStudentId;
-        this.postUser = postUser;
         this.headline = headline;
         this.title = title;
         this.content = content;

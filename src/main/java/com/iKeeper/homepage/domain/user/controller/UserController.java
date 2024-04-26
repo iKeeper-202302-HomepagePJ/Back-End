@@ -52,6 +52,15 @@ public class UserController {
                 ResponseMessage.USER_MYPAGE, userService.searchMyPost(studentId)), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/mypage/mycomment")
+    public ResponseEntity searchMyComment(@RequestHeader("Authorization") String accessToken) {
+
+        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
+
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MYPAGE, userService.searchMyComment(studentId)), HttpStatus.OK);
+    }
+
     @PatchMapping(value = "/mypage")
     public ResponseEntity updateMemberInfo(@RequestHeader("Authorization") String accessToken,
                                            @RequestBody @Valid MemberRequest memberRequest,

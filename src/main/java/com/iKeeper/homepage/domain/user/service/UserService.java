@@ -1,7 +1,10 @@
 package com.iKeeper.homepage.domain.user.service;
 
+import com.iKeeper.homepage.domain.post.dao.CommentRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
+import com.iKeeper.homepage.domain.post.entity.Comment;
 import com.iKeeper.homepage.domain.post.entity.Post;
+import com.iKeeper.homepage.domain.post.service.CommentService;
 import com.iKeeper.homepage.domain.user.dao.MemberInfo;
 import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
@@ -21,6 +24,7 @@ public class UserService {
 
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
     public Optional<MemberInfo> searchMemberInfo(String studentId) {
 
@@ -32,6 +36,12 @@ public class UserService {
 
         List<Post> searchMyPost = postRepository.findByPostStudentId(studentId);
         return searchMyPost;
+    }
+
+    public List<Comment> searchMyComment(String studentId) {
+
+        List<Comment> searchMyComment = commentRepository.findByCommentStudentId(studentId);
+        return searchMyComment;
     }
 
     @Transactional

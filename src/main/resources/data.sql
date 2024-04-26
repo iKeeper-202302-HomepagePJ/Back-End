@@ -55,3 +55,9 @@ INSERT INTO headline (headline_name)
 VALUES ('AI'),
        ('WEB'),
        ('REPORT');
+
+SELECT * FROM ikeeper_homepage.lecture;
+INSERT INTO lecture (lecture_name)
+VALUES ('C언어 멘토링'),
+       ('JS 불법 스터디'),
+       ('웹 멘토링');

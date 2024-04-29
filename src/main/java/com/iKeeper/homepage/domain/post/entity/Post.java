@@ -15,7 +15,6 @@ import java.util.List;
 
 @Getter
 @Entity
-@Builder
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
@@ -60,13 +59,17 @@ public class Post {
     @Column(name = "post_comment_whether", nullable = false)
     private Boolean commentWhether;
 
+    @Column(name = "post_fix", nullable = false)
+    private Boolean fix;
+
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc")
     private List<Comment> comments;
 
     @Builder
     public Post(Category category, String postStudentId, String postUser, Headline headline, String title,
-                LocalDateTime postTime, String content, Boolean updateCheck, Boolean disclosure, Boolean commentWhether) {
+                LocalDateTime postTime, String content, Boolean updateCheck, Boolean disclosure,
+                Boolean commentWhether, Boolean fix) {
 
         this.category = category;
         this.postStudentId = postStudentId;
@@ -93,6 +96,7 @@ public class Post {
                 .updateCheck(Boolean.FALSE)
                 .disclosure(postRequest.getDisclosure())
                 .commentWhether(postRequest.getCommentWhether())
+                .fix(Boolean.FALSE)
                 .build();
         return post;
     }

@@ -31,7 +31,8 @@ public class UserController {
 
     @GetMapping(value = "/major")
     public ResponseEntity majorList() {
-        return ResponseEntity.ok(majorService.searchAllMajor());
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, majorService.searchAllMajor()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mypage")
@@ -49,7 +50,7 @@ public class UserController {
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE, userService.searchMyPost(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE_POST, userService.searchMyPost(studentId)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mypage/mycomment")
@@ -58,7 +59,7 @@ public class UserController {
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE, userService.searchMyComment(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE_COMMENT, userService.searchMyComment(studentId)), HttpStatus.OK);
     }
 
     @PatchMapping(value = "/mypage")
@@ -74,7 +75,7 @@ public class UserController {
 
         userService.updateMemberInfo(studentId, memberRequest);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_UPDATE_MYPAGE, userService.updateMemberInfo(studentId, memberRequest)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE_PATCH, userService.updateMemberInfo(studentId, memberRequest)), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/mypage")
@@ -82,6 +83,6 @@ public class UserController {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_DELETE_ACCOUNT, userService.deleteAccount(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE_DELETE, userService.deleteAccount(studentId)), HttpStatus.OK);
     }
 }

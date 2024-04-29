@@ -51,11 +51,8 @@ public class AuthController {
             throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.AUTH_INVALID_VALUE);
         }
 
-        else {
-            Member user = Member.createUser(signUpRequest, passwordEncoder);
-            signUpService.saveUser(user);
-        }
-
+        Member user = Member.createUser(signUpRequest, passwordEncoder);
+        signUpService.saveUser(user);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
                 ResponseMessage.AUTH_POST_JOIN), HttpStatus.CREATED);
     }

@@ -35,7 +35,7 @@ public class CalendarController {
 
     @GetMapping(value = "/search")
     public ResponseEntity searchCalendar(@RequestParam(value = "date", required = false)
-                                             @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate day) {
+                                             @DateTimeFormat(pattern="yyyy.MM.dd") LocalDate day) {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.CALENDAR_READ_DATE, calendarService.searchCalendar(day)), HttpStatus.OK);
@@ -55,7 +55,7 @@ public class CalendarController {
         }
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_POST, calendarRequest), HttpStatus.CREATED);
+                ResponseMessage.CALENDAR_POST), HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/{id}")
@@ -70,14 +70,15 @@ public class CalendarController {
         else {
             calendarService.updateCalendar(id, calendarRequest);
             return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                    ResponseMessage.CALENDAR_PATCH, calendarRequest), HttpStatus.OK);
+                    ResponseMessage.CALENDAR_PATCH), HttpStatus.OK);
         }
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteCalendar(@PathVariable Long id) {
 
+        calendarService.deleteCalendar(id);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_DELETE, calendarService.deleteCalendar(id)), HttpStatus.OK);
+                ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
     }
 }

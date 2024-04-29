@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class SignUpRequest {
 
     @NotNull(message = "학번을 입력해주세요.")

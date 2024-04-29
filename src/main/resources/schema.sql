@@ -102,9 +102,10 @@ CREATE TABLE `post`
     `post_title`             VARCHAR(50)   NULL,
     `post_timestamp`         TIMESTAMP     NULL,
     `post_content`           VARCHAR(5000) NULL,
-    `post_update_check`       BOOLEAN       NOT NULL DEFAULT '0',
-    `post_disclosure`        BOOLEAN       NOT NULL DEFAULT '0',
-    `post_comment_whether`   BOOLEAN       NOT NULL DEFAULT '1'
+    `post_update_check`      BOOLEAN       NOT NULL,
+    `post_disclosure`        BOOLEAN       NOT NULL,
+    `post_comment_whether`   BOOLEAN       NOT NULL,
+    `post_fix`               BOOLEAN
 );
 
 CREATE TABLE `comment`

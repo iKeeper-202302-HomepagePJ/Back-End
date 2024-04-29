@@ -1,7 +1,9 @@
 package com.iKeeper.homepage.domain.post.controller;
 
+import com.iKeeper.homepage.domain.post.dto.CommentRequest;
 import com.iKeeper.homepage.domain.post.dto.PostRequest;
 import com.iKeeper.homepage.domain.post.entity.Category;
+import com.iKeeper.homepage.domain.post.entity.Comment;
 import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.post.service.PostService;
 import com.iKeeper.homepage.domain.user.dao.MemberInfo;
@@ -39,7 +41,7 @@ public class PostController {
     public ResponseEntity postList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_READ_ALL, postService.searchAllPost()), HttpStatus.OK);
+                ResponseMessage.POST_READ_ALL, postService.searchAllPost()), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
@@ -48,10 +50,11 @@ public class PostController {
                              BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
-            throw new CustomException("error", ErrorCode.AUTH_INVALID_VALUE);
+            throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
         }
 
         else {
+
             String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
             Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
             String username = member.get().getName();
@@ -62,6 +65,6 @@ public class PostController {
         }
 
          return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_POST, postRequest), HttpStatus.CREATED);
+                ResponseMessage.POST_POST, postRequest), HttpStatus.CREATED);
     }
 }

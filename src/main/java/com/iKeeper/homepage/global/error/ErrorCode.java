@@ -30,7 +30,10 @@ public enum ErrorCode implements ErrorModel {
 
     //USER
     USER_MEMBER_NOT_FOUND(404, "NOT_FOUND"),
-    USER_INVALID_VALUE(400, "BAD_REQUEST");
+    USER_INVALID_VALUE(400, "BAD_REQUEST"),
+
+    //POST
+    POST_INVALID_VALUE(400, "BAD_REQUEST");
 
     private int resultCode;
     private String code;

@@ -15,6 +15,13 @@ public class ResponseMessage {
 
     //USER
     public static final String USER_MYPAGE = "회원 정보 조회 성공";
-    public static final String USER_UPDATE_MYPAGE = "회원 정보 수정 성공";
-    public static final String USER_DELETE_ACCOUNT = "계정 탈퇴 성공";
+    public static final String USER_MAJOR_LIST = "전공 목록 조회 성공";
+    public static final String USER_MYPAGE_PATCH = "회원 정보 수정 성공";
+    public static final String USER_MYPAGE_DELETE = "계정 탈퇴 성공";
+    public static final String USER_MYPAGE_POST = "마이페이지 게시글 조회 성공";
+    public static final String USER_MYPAGE_COMMENT = "마이페이지 댓글 조회 성공";
+
+    //POST
+    public static final String POST_POST = "게시글 생성 성공";
+    public static final String POST_READ_ALL = "게시글 전체 조회 성공";
 }

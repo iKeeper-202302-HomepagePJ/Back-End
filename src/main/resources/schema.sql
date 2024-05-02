@@ -149,12 +149,12 @@ CREATE TABLE `award`
 
 CREATE TABLE `hyperlink`
 (
-    `hyper_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `hyper_img`  VARCHAR(100) NULL,
-    `hyper_link` VARCHAR(100) NULL
+    `hyperlink_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `hyperlink_img`  VARCHAR(100) NULL,
+    `hyperlink_url` VARCHAR(100) NULL
 );
 
-CREATE TABLE `library`
+CREATE TABLE `book`
 (
     `book_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `book_name`       VARCHAR(30) NOT NULL DEFAULT '책 제목이 존재하지 않습니다.',

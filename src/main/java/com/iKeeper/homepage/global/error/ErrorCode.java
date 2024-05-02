@@ -33,7 +33,10 @@ public enum ErrorCode implements ErrorModel {
     USER_INVALID_VALUE(400, "BAD_REQUEST"),
 
     //POST
-    POST_INVALID_VALUE(400, "BAD_REQUEST");
+    POST_INVALID_VALUE(400, "BAD_REQUEST"),
+
+    //BOOK
+    BOOK_INVALID_VALUE(400, "BAD_REQUEST");
 
     private int resultCode;
     private String code;

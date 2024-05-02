@@ -24,4 +24,8 @@ public class ResponseMessage {
     //POST
     public static final String POST_POST = "게시글 생성 성공";
     public static final String POST_READ_ALL = "게시글 전체 조회 성공";
+
+    //BOOK
+    public static final String BOOK_POST = "도서 등록 성공";
+    public static final String BOOK_READ_ALL = "도서 전체 조회 성공";
 }

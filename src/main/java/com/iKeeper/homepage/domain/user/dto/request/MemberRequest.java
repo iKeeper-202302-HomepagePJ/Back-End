@@ -6,6 +6,10 @@ import com.iKeeper.homepage.domain.user.entity.Status;
 import com.iKeeper.homepage.global.entity.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @Getter
@@ -15,10 +19,13 @@ public class MemberRequest {
 
     private String name;
 
+    @Pattern(regexp = "[0-9]{3}-[0-9]{3,4}-[0-9]{4}")
     private String pnumber;
 
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     private String birth;
 
+    @Email
     private String email;
 
     private Field field;

@@ -20,6 +20,11 @@ public class Introduce {
     @Column(name = "introduce_content")
     private String content;
 
+    public void updateContent(String content) {
+
+        this.content = content;
+    }
+
     @Builder
     public Introduce(String content) {
 

@@ -1,6 +1,6 @@
-package com.iKeeper.homepage.domain.post.dao;
+package com.iKeeper.homepage.domain.post.dao.category;
 
-import com.iKeeper.homepage.domain.post.entity.Category;
+import com.iKeeper.homepage.domain.post.entity.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {

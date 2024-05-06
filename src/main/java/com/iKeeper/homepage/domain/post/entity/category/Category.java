@@ -1,11 +1,9 @@
-package com.iKeeper.homepage.domain.post.entity;
+package com.iKeeper.homepage.domain.post.entity.category;
 
-import com.iKeeper.homepage.domain.post.dao.PostRepository;
-import com.iKeeper.homepage.domain.post.dto.PostRequest;
+import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 

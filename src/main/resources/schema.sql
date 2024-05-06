@@ -13,7 +13,7 @@ drop table if exists introduce;
 drop table if exists history;
 drop table if exists award;
 drop table if exists hyperlink;
-drop table if exists library;
+drop table if exists book;
 drop table if exists lecture;
 drop table if exists ledger;
 drop table if exists bookmark;
@@ -105,7 +105,7 @@ CREATE TABLE `post`
     `post_update_check`      BOOLEAN       NOT NULL,
     `post_disclosure`        BOOLEAN       NOT NULL,
     `post_comment_whether`   BOOLEAN       NOT NULL,
-    `post_fix`               BOOLEAN
+    `post_fix`               BOOLEAN       NOT NULL
 );
 
 CREATE TABLE `comment`
@@ -185,8 +185,8 @@ CREATE TABLE `ledger`
 CREATE TABLE `bookmark`
 (
     `bookmark_id`  SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `user_student` VARCHAR(10) NOT NULL,
-    `post_id`      SMALLINT    NOT NULL
+    `bookmark_student_id` VARCHAR(10) NOT NULL,
+    `bookmark_post_id`      SMALLINT    NOT NULL
 );
 
 CREATE TABLE `grade`

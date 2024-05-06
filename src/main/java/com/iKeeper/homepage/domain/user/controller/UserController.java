@@ -44,7 +44,7 @@ public class UserController {
                 ResponseMessage.USER_MYPAGE, userService.searchMemberInfo(studentId)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/mypage/mypost")
+    @GetMapping(value = "/mypage/post")
     public ResponseEntity searchMyPost(@RequestHeader("Authorization") String accessToken) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
@@ -53,7 +53,7 @@ public class UserController {
                 ResponseMessage.USER_MYPAGE_POST, userService.searchMyPost(studentId)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/mypage/mycomment")
+    @GetMapping(value = "/mypage/comment")
     public ResponseEntity searchMyComment(@RequestHeader("Authorization") String accessToken) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();

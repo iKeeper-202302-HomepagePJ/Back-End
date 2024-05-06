@@ -2,19 +2,21 @@ package com.iKeeper.homepage.domain.user.service;
 
 import com.iKeeper.homepage.domain.post.dao.CommentRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
+import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
+import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.post.entity.Comment;
-import com.iKeeper.homepage.domain.post.entity.Post;
-import com.iKeeper.homepage.domain.post.service.CommentService;
-import com.iKeeper.homepage.domain.user.dao.MemberInfo;
+import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
 import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
+import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +34,9 @@ public class UserService {
         return searchMemberInfo;
     }
 
-    public List<Post> searchMyPost(String studentId) {
+    public List<PostList> searchMyPost(String studentId) {
 
-        List<Post> searchMyPost = postRepository.findByPostStudentId(studentId);
+        List<PostList> searchMyPost = postRepository.findByPostStudentId(studentId);
         return searchMyPost;
     }
 

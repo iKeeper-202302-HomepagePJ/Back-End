@@ -1,8 +1,6 @@
 package com.iKeeper.homepage.domain.post.entity;
 
-import com.iKeeper.homepage.domain.post.dto.CommentRequest;
-import com.iKeeper.homepage.domain.post.dto.PostRequest;
-import lombok.AllArgsConstructor;
+import com.iKeeper.homepage.domain.post.dto.request.CommentRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

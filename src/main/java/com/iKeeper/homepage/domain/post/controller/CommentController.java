@@ -1,9 +1,9 @@
 package com.iKeeper.homepage.domain.post.controller;
 
-import com.iKeeper.homepage.domain.post.dto.CommentRequest;
+import com.iKeeper.homepage.domain.post.dto.request.CommentRequest;
 import com.iKeeper.homepage.domain.post.entity.Comment;
 import com.iKeeper.homepage.domain.post.service.CommentService;
-import com.iKeeper.homepage.domain.user.dao.MemberInfo;
+import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;

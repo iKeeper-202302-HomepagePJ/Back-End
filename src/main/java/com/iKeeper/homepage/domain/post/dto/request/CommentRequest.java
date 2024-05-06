@@ -1,4 +1,4 @@
-package com.iKeeper.homepage.domain.post.dto;
+package com.iKeeper.homepage.domain.post.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

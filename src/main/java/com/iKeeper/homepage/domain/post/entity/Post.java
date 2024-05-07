@@ -1,10 +1,11 @@
 package com.iKeeper.homepage.domain.post.entity;
 
-import com.iKeeper.homepage.domain.post.dto.PostRequest;
-import lombok.AllArgsConstructor;
+import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
+import com.iKeeper.homepage.domain.post.entity.category.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,9 +16,9 @@ import java.util.List;
 
 @Getter
 @Entity
+@DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "post")
 public class Post {
 
@@ -25,8 +26,8 @@ public class Post {
     @Column(name = "post_id", nullable = false)
     private Long id;
 
-    @OneToOne
     @MapsId
+    @OneToOne
     @JoinColumn(name = "post_category")
     private Category category;
 
@@ -36,7 +37,7 @@ public class Post {
     @Column(name = "post_user")
     private String postUser;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "post_headline", referencedColumnName = "headline_id")
     private Headline headline;
 
@@ -66,6 +67,10 @@ public class Post {
     @OrderBy("id asc")
     private List<Comment> comments;
 
+    public void updateFix(Boolean fix) {
+        this.fix = fix;
+    }
+
     @Builder
     public Post(Category category, String postStudentId, String postUser, Headline headline, String title,
                 LocalDateTime postTime, String content, Boolean updateCheck, Boolean disclosure,
@@ -81,6 +86,7 @@ public class Post {
         this.updateCheck = updateCheck;
         this.disclosure = disclosure;
         this.commentWhether = commentWhether;
+        this.fix = fix;
     }
 
     public static Post createPost(String studentId, String username, PostRequest postRequest) {

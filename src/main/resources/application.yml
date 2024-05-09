@@ -3,7 +3,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://3.36.239.36:3306/ikeeper_homepage?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://172.31.34.128:3306/ikeeper_homepage?serverTimezone=UTC&characterEncoding=UTF-8
     username: seonbin
     password: Bin07251107@
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,20 +1,25 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   datasource:
     url: jdbc:mysql://localhost:3306/iKeeper_Homepage?serverTimezone=UTC&characterEncoding=UTF-8
     username: seonbin
-    password: Bin07251107@
+    password: bin07251107@
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: none
-      properties:
-        hibernate:
-          format_sql: true
-          show_sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
     defer-datasource-initialization: true
-    spring.jpa.defer-datasource-initialization: true
 
   sql:
     init:
       mode: always
+
+jwt:
+  secret: Vm0xd1IxVXhVWGhTV0d4WFlrZG9WMWxVU205VU1WcHhWR3RPYVUxV1ZqTlpWVlpQWVRGd05rMUVhejA9

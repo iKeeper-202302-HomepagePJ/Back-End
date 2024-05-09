@@ -41,11 +41,11 @@ jobs:
   
   # 도커 이미지 빌드
       - name: Build the Docker image
-        run: docker build -t {이미지 경로} .
+        run: docker build -t bin54511563/homepage.
         
   # 이미지 띄우기
       - name: push Docker image
-        run: docker push {이미지 경로}
+        run: docker push bin54511563/homepage
         
   # 쉘 스크립트 실행
       - name: execute shell script
@@ -56,4 +56,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}         # user 개인키 <- begin부터 end까지 다
           port: ${{ secrets.SSH_PORT }}       # ssh 포트 = 22
           script_stop: true
-          script: "./{실행시킬 shell 파일명}"
+          script: "./startup.sh"

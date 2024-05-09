@@ -37,8 +37,8 @@ public class Post {
     @Column(name = "post_user")
     private String postUser;
 
-    @OneToMany
-    @JoinColumn(name = "post_headline", referencedColumnName = "headline_id")
+    @ManyToOne
+    @JoinColumn(name = "post_headline")
     private Headline headline;
 
     @Column(name = "post_title", length = 50, nullable = false)

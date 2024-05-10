@@ -3,9 +3,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://172.31.34.128:3306/ikeeper_homepage?serverTimezone=UTC&characterEncoding=UTF-8
-    username: seonbin
-    password: Bin07251107@
+    url: ENC(03ynTd7331gFogIApAgbIOZu1LDGsW33ZoHaMCAHKeA6S6oLKDlK3wnTlYsj45MRhKjRyCEaGhWCbbPyxsm4MX3HE7lwtEgrbKYUMgF1a7V+SV0+R/xs9+kuuBwhHcHuL2mzBi7gz1CnFUGoDWEpTEuMs7oeEsWcwsdbvW3i0jY=)
+    username: ENC(AvEVN8XT0BAuu4QEJiydOmc/yO9Zi2EHnJiM9VENWV7D3WqLcSYSmhGVwYTV3T52)
+    password: ENC(v7nSUThbfKrUq/lD12Bjr6og8VxhbvHKDBMWEFSIwkJseS3jAlJSjQBNAE9+Rzvw)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -22,4 +22,4 @@ spring:
       mode: always
 
 jwt:
-  secret: Vm0xd1IxVXhVWGhTV0d4WFlrZG9WMWxVU205VU1WcHhWR3RPYVUxV1ZqTlpWVlpQWVRGd05rMUVhejA9
+  secret: ENC(sQPY/c0Af3rTBhDxmbRC42xWcR/C89xqdqmKtW16AE0E68FviVmBjE8B3YfN9oezjaB9FM5IKzEvy2lJ9qq6WOrKHL+i/cQJadByEypJWbrg6+HN6I/Wdy9/DF1r5mOWIv/JxB8RS2kq44YISGbqVsHSosyjB8STQEh1Cqk+UYM=)

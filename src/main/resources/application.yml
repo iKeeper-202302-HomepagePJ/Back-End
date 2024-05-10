@@ -1,11 +1,16 @@
+jasypt:
+  encryptor:
+    password: my_jasypt_key
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+
 spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: ENC(03ynTd7331gFogIApAgbIOZu1LDGsW33ZoHaMCAHKeA6S6oLKDlK3wnTlYsj45MRhKjRyCEaGhWCbbPyxsm4MX3HE7lwtEgrbKYUMgF1a7V+SV0+R/xs9+kuuBwhHcHuL2mzBi7gz1CnFUGoDWEpTEuMs7oeEsWcwsdbvW3i0jY=)
-    username: ENC(AvEVN8XT0BAuu4QEJiydOmc/yO9Zi2EHnJiM9VENWV7D3WqLcSYSmhGVwYTV3T52)
-    password: ENC(v7nSUThbfKrUq/lD12Bjr6og8VxhbvHKDBMWEFSIwkJseS3jAlJSjQBNAE9+Rzvw)
+    url: ENC(QnHs6iT1y01LCvsiuRajq+TgpNo1nD3k84lp1RZgiv9O7XOSDFRiR2m7Y+gJDZIPtJIFHGpztqpNzdZSxCKf4Qjv0nDKI76Sv50JYYCsph2sTxpUC/K6BaGBrmmmaxcBrIQiwp8+MXgX/8iw6L/ACR7gkXxC9DAu5nm8PmhbAP0=)
+    username: ENC(0/PuokFYK5Jk5dr29pm7sGQ+h3E0NFhm5Rp3PwKaXWQkO1htwPGX23Rmt9WpUc0P)
+    password: ENC(NCEkP1HwK+zjM9aXU7YonkNIsmSCwtT/Mzjrozr9bpN5gbWReDZo3v/cJCh99Bts)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -22,4 +27,4 @@ spring:
       mode: always
 
 jwt:
-  secret: ENC(sQPY/c0Af3rTBhDxmbRC42xWcR/C89xqdqmKtW16AE0E68FviVmBjE8B3YfN9oezjaB9FM5IKzEvy2lJ9qq6WOrKHL+i/cQJadByEypJWbrg6+HN6I/Wdy9/DF1r5mOWIv/JxB8RS2kq44YISGbqVsHSosyjB8STQEh1Cqk+UYM=)
+  secret: Vm0xd1IxVXhVWGhTV0d4WFlrZG9WMWxVU205VU1WcHhWR3RPYVUxV1ZqTlpWVlpQWVRGd05rMUVhejA9

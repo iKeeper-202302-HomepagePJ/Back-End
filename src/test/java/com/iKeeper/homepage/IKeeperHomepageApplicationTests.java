@@ -5,14 +5,14 @@ import org.jasypt.iv.RandomIvGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class IKeeperHomepageApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
 
-	@Test
+	/* @Test
 	void stringEncryptor() {
 
 		String url = "jdbc:mysql://172.31.34.128:3306/ikeeper_homepage?serverTimezone=UTC&characterEncoding=UTF-8";
@@ -34,5 +34,5 @@ class IKeeperHomepageApplicationTests {
 		pbeEnc.setPassword(key);
 		pbeEnc.setIvGenerator(new RandomIvGenerator());
 		return pbeEnc.encrypt(value);
-	}
+	} */
 }

@@ -8,9 +8,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: ENC(QnHs6iT1y01LCvsiuRajq+TgpNo1nD3k84lp1RZgiv9O7XOSDFRiR2m7Y+gJDZIPtJIFHGpztqpNzdZSxCKf4Qjv0nDKI76Sv50JYYCsph2sTxpUC/K6BaGBrmmmaxcBrIQiwp8+MXgX/8iw6L/ACR7gkXxC9DAu5nm8PmhbAP0=)
-    username: ENC(0/PuokFYK5Jk5dr29pm7sGQ+h3E0NFhm5Rp3PwKaXWQkO1htwPGX23Rmt9WpUc0P)
-    password: ENC(NCEkP1HwK+zjM9aXU7YonkNIsmSCwtT/Mzjrozr9bpN5gbWReDZo3v/cJCh99Bts)
+    url: ENC(KfrXQu2cGRq7/dsEY8+Obs4ARcsJvputCUikzxDIvOrZ5qujsPXLD2mqnYpq4ZlAoNUyTIsN3JaRv0KJJ5ojKOXBqFvVlIsZ5onk//Vj5eMZKJXnolHND2VBdVunseGDnpcnqe9JHI9uwtXniN+wT/i7XCJxgBQVHkk0NOj3Ick=)
+    username: ENC(n/LtcgJoVceOvPFH/ssFcXMm8XNINVUE0HhfJfu4IGpHXpqJxc0I4uFxG5jLQmj6)
+    password: ENC(qUeokijYPVkyMIJ4+Ifx0VHsUgAc3IGRJdzcyQnKN4XpjATUY8t3C5pnm5rpDqZ1)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

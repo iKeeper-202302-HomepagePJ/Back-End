@@ -2,7 +2,9 @@ package com.iKeeper.homepage.domain.post.controller;
 
 import com.iKeeper.homepage.domain.post.dto.request.CommentRequest;
 import com.iKeeper.homepage.domain.post.entity.Comment;
+import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.post.service.CommentService;
+import com.iKeeper.homepage.domain.post.service.PostService;
 import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
@@ -37,7 +39,7 @@ public class CommentController {
                                         BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
-            throw new CustomException("error", ErrorCode.AUTH_INVALID_VALUE);
+            throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
         }
 
         else {
@@ -51,7 +53,26 @@ public class CommentController {
         }
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_POST, commentRequest), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_COMMENT, commentRequest), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/comment/{id}")
+    public ResponseEntity deleteComment(@RequestHeader("Authorization") String accessToken, @PathVariable Long id) {
+
+        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
+        Optional<Comment> comment = commentService.searchComment(id);
+        String commentStudentId = comment.get().getCommentStudentId();
+
+        Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+        String userRole = member.get().getRole();
+
+        if (studentId.equals(commentStudentId) || userRole.equals("ADMIN")) {
+
+            commentService.deleteComment(id);
+            return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_COMMENT), HttpStatus.OK);
+        }
+
+        throw new CustomException("error", ErrorCode.POST_DELETE_FAIL);
     }
 }
 

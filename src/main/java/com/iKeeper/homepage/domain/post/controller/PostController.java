@@ -7,7 +7,9 @@ import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.post.service.PostService;
 import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
+import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.user.service.UserService;
+import com.iKeeper.homepage.global.entity.UserRole;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.httpStatus.DefaultRes;
@@ -43,55 +45,59 @@ public class PostController {
                 ResponseMessage.POST_READ_ALL, postService.searchAllPost()), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/{id}")
     public ResponseEntity searchPost(@RequestHeader("Authorization") String accessToken,
-                                     @RequestParam(value = "id", required = false) Long id) {
+                                     @PathVariable Long id) {
 
         Optional<Post> post = postService.searchPost(id);
         Boolean disclosure = post.get().getDisclosure();
 
         if (disclosure == Boolean.FALSE) {
 
-            String userRole = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getAuthorities().toString();
+            String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
+            String postStudentId = post.get().getPostStudentId();
 
-            if(userRole.equals("USER_ADMIN")) {
+            Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+            String userRole = member.get().getRole();
+
+            if (studentId.equals(postStudentId) || userRole.equals("ROLE_ADMIN")) {
                 return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                        ResponseMessage.POST_READ_ALL, postService.searchPost(id)), HttpStatus.OK);
-            } // 해당 부분 수정 필요 (권한 가져오는 방식)
+                        ResponseMessage.POST_READ, postService.searchPost(id)), HttpStatus.OK);
+            }
 
-            throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
+            throw new CustomException("error", ErrorCode.POST_SEARCH_FAIL);
         }
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, postService.searchPost(id)), HttpStatus.OK);
+                ResponseMessage.POST_READ, postService.searchPost(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/categorylarge")
     public ResponseEntity categoryLargeList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, postService.categoryLargeList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_CATEGORYLARGE, postService.categoryLargeList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/categorysmall")
     public ResponseEntity categorySmallList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, postService.categorySmallList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_CATEGORYSMALL, postService.categorySmallList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/headline")
     public ResponseEntity headlineList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, postService.headlineList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_HEADLINE, postService.headlineList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/bookmark")
     public ResponseEntity bookmarkList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, postService.bookmarkList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_BOOKMARK, postService.bookmarkList()), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
@@ -115,7 +121,7 @@ public class PostController {
         }
 
          return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST, postRequest), HttpStatus.CREATED);
+                ResponseMessage.POST_POST), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/bookmark")
@@ -131,7 +137,7 @@ public class PostController {
         postService.createBookmark(bookmark);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST, bookmarkRequest), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_BOOKMARK, bookmarkRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -141,19 +147,22 @@ public class PostController {
         Optional<Post> post = postService.searchPost(id);
         String postStudentId = post.get().getPostStudentId();
 
-        if (studentId.equals(postStudentId)) {
+        Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+        String userRole = member.get().getRole();
+
+        if (studentId.equals(postStudentId) || userRole.equals("ADMIN")) {
 
             postService.deletePost(id);
-            return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+            return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE), HttpStatus.OK);
         }
 
-        throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
+        throw new CustomException("error", ErrorCode.POST_DELETE_FAIL);
     }
 
     @DeleteMapping(value = "/bookmark/{id}")
     public ResponseEntity deleteBookmark(@PathVariable Long id) {
 
         postService.deleteBookmark(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_BOOKMARK), HttpStatus.OK);
     }
 }

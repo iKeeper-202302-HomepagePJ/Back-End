@@ -137,7 +137,7 @@ public class PostController {
         postService.createBookmark(bookmark);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_BOOKMARK, bookmarkRequest), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_BOOKMARK), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")

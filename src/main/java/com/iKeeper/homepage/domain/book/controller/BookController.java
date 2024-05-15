@@ -1,5 +1,6 @@
 package com.iKeeper.homepage.domain.book.controller;
 
+import com.iKeeper.homepage.domain.book.BookRequest;
 import com.iKeeper.homepage.domain.book.dto.BookReqeust;
 import com.iKeeper.homepage.domain.book.entity.Book;
 import com.iKeeper.homepage.domain.book.service.BookService;
@@ -43,5 +44,31 @@ public class BookController {
         bookService.createBook(book);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
                 ResponseMessage.BOOK_POST), HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "/rental/{id}")
+    public ResponseEntity rentalBook(@PathVariable Long id, @RequestBody @Valid BookRequest bookRequest,
+                                     BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.BOOK_INVALID_VALUE);
+        }
+
+        bookService.rentalBook(id, bookRequest);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_PATCH), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/return/{id}")
+    public ResponseEntity returnBook(@PathVariable Long id) {
+
+        bookService.returnBook(id);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_PATCH), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteBook(@PathVariable Long id) {
+
+        bookService.deleteBook(id);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
     }
 }

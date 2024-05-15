@@ -3,13 +3,15 @@ package com.iKeeper.homepage.domain.book.entity;
 import com.iKeeper.homepage.domain.book.dto.BookReqeust;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
 @Entity
-@Table(name = "library")
+@NoArgsConstructor
+@Table(name = "book")
 public class Book {
 
     @Id
@@ -17,7 +19,7 @@ public class Book {
     @Column(name = "book_id")
     private Long id;
 
-    @Column(name = "biio_name")
+    @Column(name = "book_name")
     private String name;
 
     @Column(name = "book_rental")
@@ -28,6 +30,13 @@ public class Book {
 
     @Column(name = "book_rental_day")
     private LocalDate rentalDay;
+
+    public void updateRental(Boolean rental, String borrower, LocalDate rentalDay) {
+
+        this.rental = rental;
+        this.borrower = borrower;
+        this.rentalDay = rentalDay;
+    }
 
     @Builder
     public Book(String name, Boolean rental, String borrower, LocalDate rentalDay) {
@@ -43,6 +52,8 @@ public class Book {
         Book book = Book.builder()
                 .name(bookReqeust.getName())
                 .rental(Boolean.FALSE)
+                .borrower(null)
+                .rentalDay(null)
                 .build();
         return book;
     }

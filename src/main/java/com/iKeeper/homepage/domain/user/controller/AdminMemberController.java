@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/admin/members")
+@RequestMapping(value = "/api/members")
 @RequiredArgsConstructor
 public class AdminMemberController {
 

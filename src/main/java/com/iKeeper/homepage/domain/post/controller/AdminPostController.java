@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/admin/posts")
+@RequestMapping(value = "/api/posts")
 @RequiredArgsConstructor
 public class AdminPostController {
 

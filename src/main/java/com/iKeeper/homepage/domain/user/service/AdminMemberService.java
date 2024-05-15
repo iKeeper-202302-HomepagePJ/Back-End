@@ -3,7 +3,7 @@ package com.iKeeper.homepage.domain.user.service;
 import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
 import com.iKeeper.homepage.domain.user.entity.Member;
-import com.iKeeper.homepage.global.entity.UserRole;
+import com.iKeeper.homepage.domain.user.entity.UserRole;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;

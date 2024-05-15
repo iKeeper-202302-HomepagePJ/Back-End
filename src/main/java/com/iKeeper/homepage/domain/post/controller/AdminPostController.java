@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/admin/posts")
+@RequestMapping(value = "/api/posts")
 @RequiredArgsConstructor
 public class AdminPostController {
 
@@ -36,14 +36,14 @@ public class AdminPostController {
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.CALENDAR_INVALID_VALUE);
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.POST_INVALID_VALUE);
         }
 
         CategoryLarge categoryLarge = CategoryLarge.createCategoryLarge(categoryLargeRequest);
         adminPostService.createCategoryLarge(categoryLarge);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_READ_ALL), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_CATEGORYLARGE), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/categorysmall")
@@ -51,14 +51,14 @@ public class AdminPostController {
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.CALENDAR_INVALID_VALUE);
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.POST_INVALID_VALUE);
         }
 
         CategorySmall categorySmall = CategorySmall.createCategorySmall(categorySmallRequest);
         adminPostService.createCategorySmall(categorySmall);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_READ_ALL), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_CATEGORYSMALL), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/headline")
@@ -73,7 +73,7 @@ public class AdminPostController {
         adminPostService.createHeadline(headline);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_READ_ALL), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_HEADLINE), HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/fix/{id}")
@@ -86,27 +86,27 @@ public class AdminPostController {
 
         adminPostService.fixPost(id, fixPostRequest);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.CALENDAR_PATCH), HttpStatus.OK);
+                ResponseMessage.POST_PATCH), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/categorylarge/{id}")
     public ResponseEntity deleteCategoryLarge(@PathVariable Long id) {
 
         adminPostService.deleteCategoryLarge(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORYLARGE), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/categorysmall/{id}")
     public ResponseEntity deleteCategorySmall(@PathVariable Long id) {
 
         adminPostService.deleteCategorySmall(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORYSMALL), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/headline/{id}")
     public ResponseEntity deleteHeadline(@PathVariable Long id) {
 
         adminPostService.deleteHeadline(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_HEADLINE), HttpStatus.OK);
     }
 }

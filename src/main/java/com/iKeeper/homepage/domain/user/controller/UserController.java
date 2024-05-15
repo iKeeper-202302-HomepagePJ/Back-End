@@ -1,8 +1,6 @@
 package com.iKeeper.homepage.domain.user.controller;
 
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
-import com.iKeeper.homepage.domain.user.entity.Member;
-import com.iKeeper.homepage.domain.user.service.MajorService;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
@@ -20,28 +18,54 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "/api/members")
 @RequiredArgsConstructor
 public class UserController {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-    private final MajorService majorService;
     private final UserService userService;
+
+    @GetMapping(value = "/field")
+    public ResponseEntity fieldList() {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, userService.searchAllField()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/status")
+    public ResponseEntity statusList() {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, userService.searchAllStatus()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/grade")
+    public ResponseEntity gradeList() {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, userService.searchAllGrade()), HttpStatus.OK);
+    }
 
     @GetMapping(value = "/major")
     public ResponseEntity majorList() {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MAJOR_LIST, majorService.searchAllMajor()), HttpStatus.OK);
+                ResponseMessage.USER_MAJOR_LIST, userService.searchAllMajor()), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/mypage")
-    public ResponseEntity memberInfo(@RequestHeader("Authorization") String accessToken) {
+    @GetMapping(value = "/summary")
+    public ResponseEntity summaryMember(@RequestHeader("Authorization") String accessToken) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE, userService.searchMemberInfo(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE, userService.summaryMember(studentId)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/mypage")
+    public ResponseEntity searchMember(@RequestHeader("Authorization") String accessToken) {
+
+        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
+
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MYPAGE, userService.searchMember(studentId)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mypage/post")

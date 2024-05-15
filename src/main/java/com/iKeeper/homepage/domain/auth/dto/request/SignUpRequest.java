@@ -3,9 +3,10 @@ package com.iKeeper.homepage.domain.auth.dto.request;
 import com.iKeeper.homepage.domain.user.entity.Grade;
 import com.iKeeper.homepage.domain.user.entity.Major;
 import com.iKeeper.homepage.domain.user.entity.Status;
-import com.iKeeper.homepage.global.entity.Field;
+import com.iKeeper.homepage.domain.user.entity.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 
@@ -20,9 +21,11 @@ public class SignUpRequest {
     private String name;
 
     @NotBlank(message = "전화번호를 입력해주세요.")
+    @Pattern(regexp = "[0-9]{3}-[0-9]{3,4}-[0-9]{4}")
     private String pnumber;
 
     @NotBlank(message = "생년월일을 입력해주세요.")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     private String birth;
 
     @NotBlank(message = "이메일을 입력해주세요.")

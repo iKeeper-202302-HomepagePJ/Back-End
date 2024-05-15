@@ -1,6 +1,6 @@
 package com.iKeeper.homepage.domain.auth.dto.request;
 
-import com.iKeeper.homepage.global.entity.UserRole;
+import com.iKeeper.homepage.domain.user.entity.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

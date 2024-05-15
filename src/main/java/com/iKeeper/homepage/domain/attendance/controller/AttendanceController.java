@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "api/attendances")
+@RequestMapping(value = "/api/attendances")
 @RequiredArgsConstructor
 public class AttendanceController {
 

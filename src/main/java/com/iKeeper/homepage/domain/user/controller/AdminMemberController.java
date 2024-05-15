@@ -11,16 +11,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/admin/users")
+@RequestMapping(value = "/api/members")
 @RequiredArgsConstructor
 public class AdminMemberController {
 
     private final AdminMemberService adminMemberService;
 
-    @GetMapping(value = "/memberlist")
+    @GetMapping(value = "")
     public ResponseEntity memberList() {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.USER_MAJOR_LIST, adminMemberService.memberList()), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/role/user/{studentId}")
+    public ResponseEntity approvalJoin(@PathVariable String studentId) {
+
+        adminMemberService.updateRoleUser(studentId);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/role/admin/{studentId}")
+    public ResponseEntity grantRoleAdmin(@PathVariable String studentId) {
+
+        adminMemberService.updateRoleAdmin(studentId);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{studentId}")

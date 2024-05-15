@@ -1,9 +1,6 @@
 package com.iKeeper.homepage.domain.user.entity;
 
 import com.iKeeper.homepage.domain.auth.dto.request.SignUpRequest;
-import com.iKeeper.homepage.global.entity.Field;
-import com.iKeeper.homepage.global.entity.UserRole;
-import jdk.jshell.Snippet;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;

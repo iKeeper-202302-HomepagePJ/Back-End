@@ -1,12 +1,11 @@
 package com.iKeeper.homepage.domain.user.dto.response;
 
-import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.user.entity.Grade;
 import com.iKeeper.homepage.domain.user.entity.Major;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.user.entity.Status;
-import com.iKeeper.homepage.global.entity.Field;
-import com.iKeeper.homepage.global.entity.UserRole;
+import com.iKeeper.homepage.domain.user.entity.Field;
+import com.iKeeper.homepage.domain.user.entity.UserRole;
 import lombok.Getter;
 
 @Getter

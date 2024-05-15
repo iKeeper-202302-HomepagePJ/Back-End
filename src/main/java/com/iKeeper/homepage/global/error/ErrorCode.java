@@ -34,6 +34,8 @@ public enum ErrorCode implements ErrorModel {
 
     //POST
     POST_INVALID_VALUE(400, "BAD_REQUEST"),
+    POST_SEARCH_FAIL(401, "UNAUTHORIZED"),
+    POST_DELETE_FAIL(401, "UNAUTHORIZED"),
 
     //BOOK
     BOOK_INVALID_VALUE(400, "BAD_REQUEST");

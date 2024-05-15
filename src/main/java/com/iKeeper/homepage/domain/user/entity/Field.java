@@ -1,4 +1,4 @@
-package com.iKeeper.homepage.global.entity;
+package com.iKeeper.homepage.domain.user.entity;
 
 import lombok.*;
 

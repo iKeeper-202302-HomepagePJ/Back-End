@@ -36,6 +36,10 @@ VALUES ('없음'),
        ('소프트웨어융합학과'),
        ('인공지능빅데이터공학과');
 
+SELECT * FROM ikeeper_homepage.introduce;
+INSERT INTO introduce (introduce_content)
+VALUES ('');
+
 /* 테스트용 (추후 삭제 예정) */
 
 SELECT * FROM ikeeper_homepage.categorylarge;

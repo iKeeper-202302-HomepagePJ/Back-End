@@ -1,6 +1,7 @@
 package com.iKeeper.homepage.domain.user.dao;
 
 import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
+import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,8 +16,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("select p from Post p ORDER BY p.id DESC")
     List<Member> findAllDesc();
 
-    Member findAllByStudentId(String studentId);
+    Optional<MemberList> findMemberListByStudentId(String studentId);
 
-    Optional<Member> findByStudentId(String username);
-    Optional<MemberInfo> findMemberInfoByStudentId(String username);
+    Optional<MemberInfo> findMemberInfoByStudentId(String studentId);
+
+    Member findAllByStudentId(String studentId);
 }

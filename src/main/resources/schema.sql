@@ -129,7 +129,7 @@ CREATE TABLE `attendance`
 CREATE TABLE `introduce`
 (
     `introduce_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `user_authority` VARCHAR(10000) NOT NULL
+    `introduce_content` VARCHAR(10000) NOT NULL
 );
 
 CREATE TABLE `history`

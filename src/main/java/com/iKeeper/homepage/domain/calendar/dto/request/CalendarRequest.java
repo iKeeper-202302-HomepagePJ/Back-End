@@ -1,7 +1,7 @@
 package com.iKeeper.homepage.domain.calendar.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.iKeeper.homepage.global.entity.Field;
+import com.iKeeper.homepage.domain.user.entity.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;

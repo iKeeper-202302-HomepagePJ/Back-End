@@ -2,10 +2,10 @@ package com.iKeeper.homepage.domain.post.controller;
 
 import com.iKeeper.homepage.domain.post.dto.request.CommentRequest;
 import com.iKeeper.homepage.domain.post.entity.Comment;
-import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.post.service.CommentService;
-import com.iKeeper.homepage.domain.post.service.PostService;
-import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
+import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
+import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
+import com.iKeeper.homepage.domain.user.entity.UserRole;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
@@ -45,7 +45,7 @@ public class CommentController {
         else {
 
             String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
-            Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+            Optional<MemberList> member = userService.searchMember(studentId);
             String username = member.get().getName();
 
             Comment comment = Comment.createComment(studentId, username, commentRequest);
@@ -63,7 +63,7 @@ public class CommentController {
         Optional<Comment> comment = commentService.searchComment(id);
         String commentStudentId = comment.get().getCommentStudentId();
 
-        Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+        Optional<MemberList> member = userService.searchMember(studentId);
         String userRole = member.get().getRole();
 
         if (studentId.equals(commentStudentId) || userRole.equals("ADMIN")) {

@@ -3,7 +3,7 @@ package com.iKeeper.homepage.domain.user.dto.request;
 import com.iKeeper.homepage.domain.user.entity.Grade;
 import com.iKeeper.homepage.domain.user.entity.Major;
 import com.iKeeper.homepage.domain.user.entity.Status;
-import com.iKeeper.homepage.global.entity.Field;
+import com.iKeeper.homepage.domain.user.entity.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -6,10 +6,10 @@ import com.iKeeper.homepage.domain.post.entity.Bookmark;
 import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.entity.Post;
 import com.iKeeper.homepage.domain.post.service.PostService;
-import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
-import com.iKeeper.homepage.domain.user.entity.Member;
+import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
+import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
+import com.iKeeper.homepage.domain.user.entity.UserRole;
 import com.iKeeper.homepage.domain.user.service.UserService;
-import com.iKeeper.homepage.global.entity.UserRole;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.httpStatus.DefaultRes;
@@ -24,7 +24,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -57,10 +56,10 @@ public class PostController {
             String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
             String postStudentId = post.get().getPostStudentId();
 
-            Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+            Optional<MemberList> member = userService.searchMember(studentId);
             String userRole = member.get().getRole();
 
-            if (studentId.equals(postStudentId) || userRole.equals("ROLE_ADMIN")) {
+            if (studentId.equals(postStudentId) || userRole.equals("ADMIN")) {
                 return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                         ResponseMessage.POST_READ, postService.searchPost(id)), HttpStatus.OK);
             }
@@ -112,7 +111,7 @@ public class PostController {
         else {
 
             String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
-            Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+            Optional<MemberList> member = userService.searchMember(studentId);
             String username = member.get().getName();
 
             Post post = Post.createPost(studentId, username, postRequest);
@@ -136,8 +135,7 @@ public class PostController {
         Bookmark bookmark = Bookmark.createBookmark(studentId, bookmarkRequest);
         postService.createBookmark(bookmark);
 
-        return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_BOOKMARK), HttpStatus.CREATED);
+        return new ResponseEntity(DefaultRes.res(StatusCode.CREATED, ResponseMessage.POST_POST_BOOKMARK), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -147,7 +145,7 @@ public class PostController {
         Optional<Post> post = postService.searchPost(id);
         String postStudentId = post.get().getPostStudentId();
 
-        Optional<MemberInfo> member = userService.searchMemberInfo(studentId);
+        Optional<MemberList> member = userService.searchMember(studentId);
         String userRole = member.get().getRole();
 
         if (studentId.equals(postStudentId) || userRole.equals("ADMIN")) {

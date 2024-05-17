@@ -138,6 +138,18 @@ public class PostController {
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED, ResponseMessage.POST_POST_BOOKMARK), HttpStatus.CREATED);
     }
 
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody @Valid PostRequest postRequest,
+                                     BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
+        }
+
+        postService.updatePost(id, postRequest);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_PATCH), HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deletePost(@RequestHeader("Authorization") String accessToken, @PathVariable Long id) {
 

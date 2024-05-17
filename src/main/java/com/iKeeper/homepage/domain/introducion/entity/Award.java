@@ -22,6 +22,9 @@ public class Award {
     @Column(name = "award_id")
     private Long id;
 
+    @Column(name = "award_name")
+    private String name;
+
     @Column(name = "award_day")
     private LocalDate day;
 
@@ -31,9 +34,18 @@ public class Award {
     @Column(name = "award_people")
     private String people;
 
-    @Builder
-    public Award(LocalDate day, String content, String people) {
+    public void updateAward(String name, LocalDate day, String content, String people) {
 
+        this.name = name;
+        this.day = day;
+        this.content = content;
+        this.people = people;
+    }
+
+    @Builder
+    public Award(String name, LocalDate day, String content, String people) {
+
+        this.name = name;
         this.day = day;
         this.content = content;
         this.people = people;
@@ -42,6 +54,7 @@ public class Award {
     public static Award createAward(AwardRequest awardRequest) {
 
         Award award = Award.builder()
+                .name(awardRequest.getName())
                 .day(awardRequest.getDay())
                 .content(awardRequest.getContent())
                 .people(awardRequest.getPeople())

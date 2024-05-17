@@ -94,41 +94,41 @@ CREATE TABLE `categorysmall`
 
 CREATE TABLE `post`
 (
-    `post_id`                SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `post_student_id`        VARCHAR(10)   NULL,
-    `post_user`              VARCHAR(10)   NULL,
-    `post_category`          SMALLINT      NULL,
-    `post_headline`          TINYINT       NULL,
-    `post_title`             VARCHAR(50)   NULL,
-    `post_timestamp`         TIMESTAMP     NULL,
-    `post_content`           VARCHAR(5000) NULL,
-    `post_update_check`      BOOLEAN       NOT NULL,
-    `post_disclosure`        BOOLEAN       NOT NULL,
-    `post_comment_whether`   BOOLEAN       NOT NULL,
-    `post_fix`               BOOLEAN       NOT NULL
+    `post_id`              SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `post_student_id`      VARCHAR(10) NULL,
+    `post_user`            VARCHAR(10) NULL,
+    `post_category`        SMALLINT NULL,
+    `post_headline`        TINYINT NULL,
+    `post_title`           VARCHAR(50) NULL,
+    `post_timestamp`       TIMESTAMP NULL,
+    `post_content`         VARCHAR(5000) NULL,
+    `post_update_check`    BOOLEAN NOT NULL,
+    `post_disclosure`      BOOLEAN NOT NULL,
+    `post_comment_whether` BOOLEAN NOT NULL,
+    `post_fix`             BOOLEAN NOT NULL
 );
 
 CREATE TABLE `comment`
 (
-    `comment_id`        SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `comment_post_id`           SMALLINT     NOT NULL,
-    `comment_student_id`      VARCHAR(10)  NOT NULL,
-    `comment_username`      VARCHAR(10)  NOT NULL,
-    `comment_timestamp` TIMESTAMP    NOT NULL,
-    `comment_content`   VARCHAR(500) NOT NULL
+    `comment_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `comment_post_id`    SMALLINT     NOT NULL,
+    `comment_student_id` VARCHAR(10)  NOT NULL,
+    `comment_username`   VARCHAR(10)  NOT NULL,
+    `comment_timestamp`  TIMESTAMP    NOT NULL,
+    `comment_content`    VARCHAR(500) NOT NULL
 );
 
 CREATE TABLE `attendance`
 (
-    `attendance_id`    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `attendance_student_id`     VARCHAR(10) NOT NULL,
-    `attendance_lecture_id`       SMALLINT    NOT NULL,
-    `attendance_check` BOOLEAN     NOT NULL DEFAULT '0'
+    `attendance_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `attendance_student_id` VARCHAR(10) NOT NULL,
+    `attendance_lecture_id` SMALLINT    NOT NULL,
+    `attendance_check`      BOOLEAN     NOT NULL DEFAULT '0'
 );
 
 CREATE TABLE `introduce`
 (
-    `introduce_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `introduce_id`      TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `introduce_content` VARCHAR(10000) NOT NULL
 );
 
@@ -142,16 +142,18 @@ CREATE TABLE `history`
 CREATE TABLE `award`
 (
     `award_id`      SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `award_day`     DATE        NOT NULL DEFAULT '1000-01-01',
-    `award_content` VARCHAR(50) NOT NULL DEFAULT '수상 내역이 존재하지 않습니다.',
-    `award_people`  VARCHAR(30) NOT NULL DEFAULT '수상자가 존재하지 않습니다.'
+    `award_name`    VARCHAR(30) NOT NULL,
+    `award_day`     DATE        NOT NULL,
+    `award_content` VARCHAR(50) NOT NULL,
+    `award_people`  VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE `hyperlink`
 (
     `hyperlink_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `hyperlink_img`  VARCHAR(100) NULL,
-    `hyperlink_url` VARCHAR(100) NULL
+    `hyperlink_name` VARCHAR(10)  NOT NULL,
+    `hyperlink_img`  VARCHAR(100) NOT NULL,
+    `hyperlink_url`  VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE `book`
@@ -184,9 +186,9 @@ CREATE TABLE `ledger`
 
 CREATE TABLE `bookmark`
 (
-    `bookmark_id`  SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `bookmark_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `bookmark_student_id` VARCHAR(10) NOT NULL,
-    `bookmark_post_id`      SMALLINT    NOT NULL
+    `bookmark_post_id`    SMALLINT    NOT NULL
 );
 
 CREATE TABLE `grade`

@@ -174,12 +174,12 @@ CREATE TABLE `lecture`
 CREATE TABLE `ledger`
 (
     `ledger_id`       SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `field_id`        TINYINT     NOT NULL,
+    `ledger_field`    TINYINT     NOT NULL,
     `ledger_category` TINYINT     NOT NULL,
     `ledger_title`    VARCHAR(30) NOT NULL DEFAULT '회비 내역이 존재하지 않습니다.',
     `ledger_useday`   DATE        NOT NULL DEFAULT '1000-01-01',
-    `ledger_minus`    SMALLINT NULL,
     `ledger_plus`     SMALLINT NULL,
+    `ledger_minus`    SMALLINT NULL,
     `ledger_sum`      SMALLINT NULL,
     `ledger_evidence` VARCHAR(100) NULL
 );

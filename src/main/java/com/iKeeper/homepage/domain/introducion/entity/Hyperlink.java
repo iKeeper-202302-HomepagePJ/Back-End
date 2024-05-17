@@ -19,6 +19,9 @@ public class Hyperlink {
     @Column(name = "hyperlink_id")
     private Long id;
 
+    @Column(name = "hyperlink_name")
+    private String name;
+
     @Column(name = "hyperlink_img")
     private String img;
 
@@ -26,8 +29,9 @@ public class Hyperlink {
     private String url;
 
     @Builder
-    public Hyperlink(String img, String url) {
+    public Hyperlink(String name, String img, String url) {
 
+        this.name = name;
         this.img = img;
         this.url = url;
     }
@@ -35,6 +39,7 @@ public class Hyperlink {
     public static Hyperlink createHyperlink(HyperlinkRequest hyperlinkRequest) {
 
         Hyperlink hyperlink = Hyperlink.builder()
+                .name(hyperlinkRequest.getName())
                 .img(hyperlinkRequest.getImg())
                 .url(hyperlinkRequest.getUrl())
                 .build();

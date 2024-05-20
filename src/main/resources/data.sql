@@ -36,9 +36,20 @@ VALUES ('없음'),
        ('소프트웨어융합학과'),
        ('인공지능빅데이터공학과');
 
+SELECT * FROM ikeeper_homepage.categorylarge;
+INSERT INTO categorylarge (categorylarge_name)
+VALUES ('세미나'),
+       ('스터디/멘토링'),
+       ('건의함');
+
 SELECT * FROM ikeeper_homepage.introduce;
 INSERT INTO introduce (introduce_content)
 VALUES ('');
+
+SELECT * FROM ikeeper_homepage.ledger;
+INSERT INTO ledger (ledger_field, ledger_title, ledger_useday,
+                    ledger_use, ledger_amount, ledger_sum)
+VALUES ('1', 'default', '2024-05-11', '1', '0', '0');
 
 /* 테스트용 (추후 삭제 예정) */
 

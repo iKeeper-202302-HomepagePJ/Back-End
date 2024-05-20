@@ -6,6 +6,7 @@ import com.iKeeper.homepage.domain.post.dao.category.CategoryLargeRepository;
 import com.iKeeper.homepage.domain.post.dao.category.CategoryRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
 import com.iKeeper.homepage.domain.post.dao.category.CategorySmallRepository;
+import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
 import com.iKeeper.homepage.domain.post.dto.request.FixPostRequest;
 import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
 import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
@@ -18,6 +19,9 @@ import com.iKeeper.homepage.domain.post.entity.category.CategorySmall;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,11 +40,10 @@ public class PostService {
     private final HeadlineRepository headlineRepository;
     private final BookmarkRepository bookmarkRepository;
 
-    @Transactional
-    public List<PostListResponse> searchAllPost() {
-        return postRepository.findAllDesc().stream()
-                .map(PostListResponse::new)
-                .collect(Collectors.toList());
+    public Page<Post> getPostList(int page) {
+
+        Pageable pageable = PageRequest.of(page, 15);
+        return this.postRepository.findAll(pageable);
     }
 
     public Optional<Post> searchPost(Long id) {

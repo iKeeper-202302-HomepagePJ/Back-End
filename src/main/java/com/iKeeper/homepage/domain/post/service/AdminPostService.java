@@ -22,13 +22,12 @@ import java.util.Optional;
 public class AdminPostService {
 
     private final PostRepository postRepository;
-    private final CategoryLargeRepository categoryLargeRepository;
     private final CategorySmallRepository categorySmallRepository;
     private final HeadlineRepository headlineRepository;
 
-    public CategoryLarge createCategoryLarge(CategoryLarge categoryLarge) {
+    /* public CategoryLarge createCategoryLarge(CategoryLarge categoryLarge) {
         return categoryLargeRepository.save(categoryLarge);
-    }
+    } */
 
     public CategorySmall createCategorySmall(CategorySmall categorySmall) {
         return categorySmallRepository.save(categorySmall);
@@ -47,9 +46,9 @@ public class AdminPostService {
         return postRepository.findById(id);
     }
 
-    public void deleteCategoryLarge(Long id) {
+    /* public void deleteCategoryLarge(Long id) {
         categoryLargeRepository.deleteById(id);
-    }
+    } */
 
     public void deleteCategorySmall(Long id) {
         categorySmallRepository.deleteById(id);

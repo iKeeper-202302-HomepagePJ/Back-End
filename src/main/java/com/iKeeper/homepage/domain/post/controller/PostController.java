@@ -1,7 +1,9 @@
 package com.iKeeper.homepage.domain.post.controller;
 
+import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
 import com.iKeeper.homepage.domain.post.dto.request.BookmarkRequest;
 import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
+import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.post.entity.Bookmark;
 import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.entity.Post;
@@ -18,8 +20,10 @@ import com.iKeeper.homepage.global.httpStatus.StatusCode;
 import com.iKeeper.homepage.global.jwt.handler.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +42,12 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping(value = "")
-    public ResponseEntity searchAllPost() {
+    public ResponseEntity getPostList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
 
+        Page<Post> paging = this.postService.getPostList(page);
+        model.addAttribute("paging", paging);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, postService.searchAllPost()), HttpStatus.OK);
+                ResponseMessage.POST_READ_ALL, model.addAttribute("paging", paging)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -136,6 +142,18 @@ public class PostController {
         postService.createBookmark(bookmark);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED, ResponseMessage.POST_POST_BOOKMARK), HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody @Valid PostRequest postRequest,
+                                     BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
+        }
+
+        postService.updatePost(id, postRequest);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_PATCH), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -71,6 +71,15 @@ public class Post {
         this.fix = fix;
     }
 
+    public void updatePost(Category category, String content, Boolean disclosure, Headline headline, String title) {
+
+        this.category = category;
+        this.content = content;
+        this.disclosure = disclosure;
+        this.headline = headline;
+        this.title = title;
+    }
+
     @Builder
     public Post(Category category, String postStudentId, String postUser, Headline headline, String title,
                 LocalDateTime postTime, String content, Boolean updateCheck, Boolean disclosure,

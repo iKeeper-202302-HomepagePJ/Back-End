@@ -25,6 +25,12 @@ public class History {
     @Column(name = "history_content")
     private String content;
 
+    public void updateHistory(String year, String content) {
+
+        this.year = year;
+        this.content = content;
+    }
+
     @Builder
     public History(String year, String content) {
 

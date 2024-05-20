@@ -31,7 +31,7 @@ public class AdminPostController {
 
     private final AdminPostService adminPostService;
 
-    @PostMapping(value = "/categorylarge")
+    /* @PostMapping(value = "/categorylarge")
     public ResponseEntity createCategoryLarge(@RequestBody @Valid CategoryLargeRequest categoryLargeRequest,
                                               BindingResult bindingResult) {
 
@@ -44,7 +44,7 @@ public class AdminPostController {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
                 ResponseMessage.POST_POST_CATEGORYLARGE), HttpStatus.CREATED);
-    }
+    } */
 
     @PostMapping(value = "/categorysmall")
     public ResponseEntity createCategorySmall(@RequestBody @Valid CategorySmallRequest categorySmallRequest,
@@ -89,12 +89,12 @@ public class AdminPostController {
                 ResponseMessage.POST_PATCH), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/categorylarge/{id}")
+    /* @DeleteMapping(value = "/categorylarge/{id}")
     public ResponseEntity deleteCategoryLarge(@PathVariable Long id) {
 
         adminPostService.deleteCategoryLarge(id);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORYLARGE), HttpStatus.OK);
-    }
+    } */
 
     @DeleteMapping(value = "/categorysmall/{id}")
     public ResponseEntity deleteCategorySmall(@PathVariable Long id) {

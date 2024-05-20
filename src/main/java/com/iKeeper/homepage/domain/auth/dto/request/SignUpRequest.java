@@ -25,16 +25,15 @@ public class SignUpRequest {
     private String pnumber;
 
     @NotBlank(message = "생년월일을 입력해주세요.")
-    @DateTimeFormat(pattern = "yyyy.MM.dd")
+    @DateTimeFormat(pattern = "yyyyMMdd")
     private String birth;
 
     @NotBlank(message = "이메일을 입력해주세요.")
     @Email(message = "올바른 형식이 아닙니다.")
     private String email;
 
-    @NotBlank(message = "비밀번호를 입력해주세요.")
-    @Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
-            message = "비밀번호는 특수문자를 포함한 8자 이상 20자 이하여야 합니다.")
+    @NotBlank(message = "비밀번호는 특수문자를 포함한 8자 이상 20자 이하여야 합니다.")
+    @Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}")
     private String password;
 
     @NotNull(message = "분야를 선택해주세요.")

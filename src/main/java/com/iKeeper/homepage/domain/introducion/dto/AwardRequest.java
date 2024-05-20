@@ -10,15 +10,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AwardRequest {
 
+    private String name;
+
     @DateTimeFormat(pattern = "yyyy.MM.dd")
-        private LocalDate day;
+    private LocalDate day;
 
     private String content;
 
     private String people;
 
-    public AwardRequest(LocalDate day, String content, String people) {
+    public AwardRequest(String name, LocalDate day, String content, String people) {
 
+        this.name = name;
         this.day = day;
         this.content = content;
         this.people = people;

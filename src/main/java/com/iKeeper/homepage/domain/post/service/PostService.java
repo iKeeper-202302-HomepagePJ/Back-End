@@ -6,7 +6,9 @@ import com.iKeeper.homepage.domain.post.dao.category.CategoryLargeRepository;
 import com.iKeeper.homepage.domain.post.dao.category.CategoryRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
 import com.iKeeper.homepage.domain.post.dao.category.CategorySmallRepository;
+import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
 import com.iKeeper.homepage.domain.post.dto.request.FixPostRequest;
+import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
 import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.post.entity.Bookmark;
 import com.iKeeper.homepage.domain.post.entity.Headline;
@@ -17,9 +19,12 @@ import com.iKeeper.homepage.domain.post.entity.category.CategorySmall;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,11 +40,10 @@ public class PostService {
     private final HeadlineRepository headlineRepository;
     private final BookmarkRepository bookmarkRepository;
 
-    @Transactional(readOnly = true)
-    public List<PostListResponse> searchAllPost() {
-        return postRepository.findAllDesc().stream()
-                .map(PostListResponse::new)
-                .collect(Collectors.toList());
+    public Page<Post> getPostList(int page) {
+
+        Pageable pageable = PageRequest.of(page, 15);
+        return this.postRepository.findAll(pageable);
     }
 
     public Optional<Post> searchPost(Long id) {
@@ -73,6 +77,16 @@ public class PostService {
     public Bookmark createBookmark(Bookmark bookmark) {
 
         return bookmarkRepository.save(bookmark);
+    }
+
+    @Transactional
+    public Optional<Post> updatePost(Long id, PostRequest postRequest) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new CustomException("해당 ID의 글이 존재하지 않습니다.", ErrorCode.POST_INVALID_VALUE));
+
+        post.updatePost(postRequest.getCategory(), postRequest.getContent(), postRequest.getDisclosure(),
+                postRequest.getHeadline(), postRequest.getTitle());
+        return postRepository.findById(id);
     }
 
     public void deletePost(Long id) {

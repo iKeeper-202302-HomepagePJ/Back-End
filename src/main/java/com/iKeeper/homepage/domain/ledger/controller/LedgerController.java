@@ -9,6 +9,9 @@ import com.iKeeper.homepage.global.httpStatus.DefaultRes;
 import com.iKeeper.homepage.global.httpStatus.ResponseMessage;
 import com.iKeeper.homepage.global.httpStatus.StatusCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,10 +27,11 @@ public class LedgerController {
     private final LedgerService ledgerService;
 
     @GetMapping(value = "")
-    public ResponseEntity ledgerList() {
+    public ResponseEntity getLedgerList(@RequestParam(value = "page") int page) {
 
+        Page<Ledger> paging = this.ledgerService.getLedgerList(page);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ, ledgerService.ledgerList()), HttpStatus.OK);
+                ResponseMessage.POST_READ, paging), HttpStatus.OK);
     }
 
     @PostMapping(value = "")

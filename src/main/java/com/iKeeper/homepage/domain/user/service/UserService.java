@@ -2,21 +2,22 @@ package com.iKeeper.homepage.domain.user.service;
 
 import com.iKeeper.homepage.domain.post.dao.CommentRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
-import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
-import com.iKeeper.homepage.domain.post.entity.Comment;
+import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.user.dao.*;
 import com.iKeeper.homepage.domain.user.dao.mapping.MemberInfo;
 import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
-import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
 import com.iKeeper.homepage.domain.user.entity.*;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,17 +61,19 @@ public class UserService {
         return summaryMember;
     }
 
-    public List<PostList> searchMyPost(String studentId) {
+    @Transactional
+    public Page<PostListResponse> getMyPostList(String studentId, int page) {
 
-        List<PostList> searchMyPost = postRepository.findByPostStudentId(studentId);
-        return searchMyPost;
+        Pageable pageable = PageRequest.of(page - 1, 15);
+        return postRepository.findByPostStudentId(studentId, pageable)
+                .map(PostListResponse::new);
     }
 
-    public List<Comment> searchMyComment(String studentId) {
+    /* public List<Comment> searchMyComment(String studentId) {
 
         List<Comment> searchMyComment = commentRepository.findByCommentStudentId(studentId);
         return searchMyComment;
-    }
+    } */
 
     @Transactional
     public Optional<Member> updateMemberInfo(String studentId, MemberRequest memberRequest) {

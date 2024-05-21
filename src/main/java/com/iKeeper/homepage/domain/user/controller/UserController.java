@@ -1,5 +1,6 @@
 package com.iKeeper.homepage.domain.user.controller;
 
+import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
@@ -10,6 +11,7 @@ import com.iKeeper.homepage.global.httpStatus.StatusCode;
 import com.iKeeper.homepage.global.jwt.handler.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -69,22 +71,23 @@ public class UserController {
     }
 
     @GetMapping(value = "/mypage/post")
-    public ResponseEntity searchMyPost(@RequestHeader("Authorization") String accessToken) {
+    public ResponseEntity getMyPostList(@RequestHeader("Authorization") String accessToken,
+                                        @RequestParam(value = "page") int page) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
-
+        Page<PostListResponse> paging = this.userService.getMyPostList(studentId, page);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE_POST, userService.searchMyPost(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE_POST, paging), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/mypage/comment")
+    /* @GetMapping(value = "/mypage/comment")
     public ResponseEntity searchMyComment(@RequestHeader("Authorization") String accessToken) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.USER_MYPAGE_COMMENT, userService.searchMyComment(studentId)), HttpStatus.OK);
-    }
+    } */
 
     @PatchMapping(value = "/mypage")
     public ResponseEntity updateMemberInfo(@RequestHeader("Authorization") String accessToken,

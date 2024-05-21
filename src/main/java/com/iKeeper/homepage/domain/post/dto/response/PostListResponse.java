@@ -10,9 +10,9 @@ public class PostListResponse {
 
     private Long id;
 
-    private String postUser;
-
     private String title;
+
+    private String postUser;
 
     private LocalDateTime postTime;
 
@@ -23,8 +23,8 @@ public class PostListResponse {
     public PostListResponse(Post post) {
 
         this.id = post.getId();
-        this.postUser = post.getPostUser();
         this.title = post.getTitle();
+        this.postUser = post.getPostUser();
         this.postTime = post.getPostTime();
         this.disclosure = post.getDisclosure();
         this.fix = post.getFix();

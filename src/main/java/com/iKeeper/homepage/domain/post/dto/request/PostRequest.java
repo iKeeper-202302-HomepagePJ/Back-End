@@ -1,7 +1,7 @@
 package com.iKeeper.homepage.domain.post.dto.request;
 
-import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.entity.Headline;
+import com.iKeeper.homepage.domain.post.entity.category.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

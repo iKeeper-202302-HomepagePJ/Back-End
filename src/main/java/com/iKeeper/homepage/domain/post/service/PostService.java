@@ -2,20 +2,15 @@ package com.iKeeper.homepage.domain.post.service;
 
 import com.iKeeper.homepage.domain.post.dao.BookmarkRepository;
 import com.iKeeper.homepage.domain.post.dao.HeadlineRepository;
-import com.iKeeper.homepage.domain.post.dao.category.CategoryLargeRepository;
-import com.iKeeper.homepage.domain.post.dao.category.CategoryRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
-import com.iKeeper.homepage.domain.post.dao.category.CategorySmallRepository;
-import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
-import com.iKeeper.homepage.domain.post.dto.request.FixPostRequest;
+import com.iKeeper.homepage.domain.post.dao.category.ParentCategoryRepository;
 import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
 import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.post.entity.Bookmark;
 import com.iKeeper.homepage.domain.post.entity.Headline;
 import com.iKeeper.homepage.domain.post.entity.category.Category;
-import com.iKeeper.homepage.domain.post.entity.category.CategoryLarge;
+import com.iKeeper.homepage.domain.post.entity.category.ParentCategory;
 import com.iKeeper.homepage.domain.post.entity.Post;
-import com.iKeeper.homepage.domain.post.entity.category.CategorySmall;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -27,23 +22,30 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
-    private final CategoryRepository categoryRepository;
-    private final CategoryLargeRepository categoryLargeRepository;
-    private final CategorySmallRepository categorySmallRepository;
+    private final ParentCategoryRepository parentCategoryRepository;
     private final HeadlineRepository headlineRepository;
     private final BookmarkRepository bookmarkRepository;
 
-    public Page<Post> getPostList(int page) {
+    @Transactional
+    public Page<PostListResponse> getPostList(int page) {
 
-        Pageable pageable = PageRequest.of(page, 15);
-        return this.postRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(page - 1, 15);
+        return postRepository.findAllDesc(pageable)
+                .map(PostListResponse::new);
+    }
+
+    @Transactional
+    public Page<PostListResponse> getPostByCategory(Long categoryId, int page) {
+
+        Pageable pageable = PageRequest.of(page - 1, 15);
+        return postRepository.findAllByCategory_Id(categoryId, pageable)
+                .map(PostListResponse::new);
     }
 
     public Optional<Post> searchPost(Long id) {
@@ -52,25 +54,19 @@ public class PostService {
         return searchPost;
     }
 
-    public List<CategoryLarge> categoryLargeList() {
-        return categoryLargeRepository.findAll();
+    public List<ParentCategory> getCategoryList() {
+        return parentCategoryRepository.findAll();
     }
 
-    public List<CategorySmall> categorySmallList() {
-        return categorySmallRepository.findAll();
-    }
-
-    public List<Headline> headlineList() {
+    public List<Headline> getHeadlineList() {
         return headlineRepository.findAll();
     }
 
-    public List<Bookmark> bookmarkList() {
+    public List<Bookmark> getBookmarkList() {
         return bookmarkRepository.findAll();
     }
 
-    public Post createPost(Post post, Category category) {
-
-        categoryRepository.save(category);
+    public Post createPost(Post post) {
         return postRepository.save(post);
     }
 

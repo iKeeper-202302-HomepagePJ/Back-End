@@ -1,16 +1,13 @@
 package com.iKeeper.homepage.domain.post.controller;
 
-import com.iKeeper.homepage.domain.post.dao.mapping.PostList;
 import com.iKeeper.homepage.domain.post.dto.request.BookmarkRequest;
 import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
 import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.post.entity.Bookmark;
-import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.entity.Post;
+import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.service.PostService;
 import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
-import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
-import com.iKeeper.homepage.domain.user.entity.UserRole;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
@@ -23,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,17 +38,25 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping(value = "")
-    public ResponseEntity getPostList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public ResponseEntity getPostList(@RequestParam(value = "page") int page) {
 
-        Page<Post> paging = this.postService.getPostList(page);
-        model.addAttribute("paging", paging);
+        Page<PostListResponse> paging = this.postService.getPostList(page);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, model.addAttribute("paging", paging)), HttpStatus.OK);
+                ResponseMessage.POST_READ_ALL, paging), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{categoryId}")
+    public ResponseEntity getPostByCategory(@RequestParam(value = "page") int page,
+                                            @PathVariable Long categoryId) {
+
+        Page<PostListResponse> paging = this.postService.getPostByCategory(categoryId, page);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.POST_READ_ALL, paging), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "search")
     public ResponseEntity searchPost(@RequestHeader("Authorization") String accessToken,
-                                     @PathVariable Long id) {
+                                     @RequestParam(value = "id") Long id) {
 
         Optional<Post> post = postService.searchPost(id);
         Boolean disclosure = post.get().getDisclosure();
@@ -77,32 +81,25 @@ public class PostController {
                 ResponseMessage.POST_READ, postService.searchPost(id)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/categorylarge")
-    public ResponseEntity categoryLargeList() {
+    @GetMapping(value = "/category")
+    public ResponseEntity getCategoryList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_CATEGORYLARGE, postService.categoryLargeList()), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/categorysmall")
-    public ResponseEntity categorySmallList() {
-
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_CATEGORYSMALL, postService.categorySmallList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_CATEGORYLARGE, postService.getCategoryList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/headline")
     public ResponseEntity headlineList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_HEADLINE, postService.headlineList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_HEADLINE, postService.getHeadlineList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/bookmark")
     public ResponseEntity bookmarkList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_BOOKMARK, postService.bookmarkList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_BOOKMARK, postService.getBookmarkList()), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
@@ -121,8 +118,7 @@ public class PostController {
             String username = member.get().getName();
 
             Post post = Post.createPost(studentId, username, postRequest);
-            Category category = Category.createCategory(postRequest);
-            postService.createPost(post, category);
+            postService.createPost(post);
         }
 
          return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,

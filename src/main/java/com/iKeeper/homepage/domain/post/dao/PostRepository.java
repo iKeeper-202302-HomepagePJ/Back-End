@@ -13,9 +13,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
         + "ORDER BY p.fix DESC, p.postTime DESC")
     Page<Post> findAllDesc(Pageable pageable);
 
-    @Query("SELECT p FROM Post p "
-            + "ORDER BY p.fix DESC, p.postTime DESC")
-    Page<Post> findAllByCategory_Id(Long CategoryId, Pageable pageable);
+    @Query("SELECT p FROM Post p where p.category.id = :categoryId ORDER by p.fix DESC, p.postTime DESC")
+    Page<Post> findAllByCategory_Id(Long categoryId, Pageable pageable);
 
     @Query("SELECT p FROM Post p "
             + "ORDER BY p.postTime DESC")

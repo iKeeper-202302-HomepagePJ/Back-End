@@ -45,7 +45,7 @@ CREATE TABLE calendar
 
 CREATE TABLE `score`
 (
-    `score_id`       TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `score_id`       VARCHAR(10)  NOT NULL PRIMARY KEY,
     `score_main`     TINYINT NULL,
     `score_field`    TINYINT NULL,
     `score_activity` TINYINT NULL,

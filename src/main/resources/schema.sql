@@ -4,8 +4,7 @@ drop table if exists major;
 drop table if exists score;
 drop table if exists member;
 drop table if exists category;
-drop table if exists categorylarge;
-drop table if exists categorysmall;
+drop table if exists parentcategory;
 drop table if exists post;
 drop table if exists comment;
 drop table if exists attendance;
@@ -75,21 +74,15 @@ CREATE TABLE `member`
 
 CREATE TABLE `category`
 (
-    `category_id`    SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `category_large` SMALLINT NOT NULL,
-    `category_small` SMALLINT NOT NULL
+    `category_id`     SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `category_parent` SMALLINT    NOT NULL,
+    `category_name`   VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE `categorylarge`
+CREATE TABLE `parentcategory`
 (
-    `categorylarge_id`   SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `categorylarge_name` VARCHAR(20) NOT NULL
-);
-
-CREATE TABLE `categorysmall`
-(
-    `categorysmall_id`   SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `categorysmall_name` VARCHAR(20) NOT NULL
+    `parentcategory_id`   SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `parentcategory_name` VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE `post`
@@ -162,7 +155,7 @@ CREATE TABLE `book`
     `book_name`       VARCHAR(30) NOT NULL DEFAULT '책 제목이 존재하지 않습니다.',
     `book_rental`     BOOLEAN     NOT NULL DEFAULT '0',
     `book_borrower`   CHAR(8)     NOT NULL,
-    `book_rental_day` DATE          NULL
+    `book_rental_day` DATE NULL
 );
 
 CREATE TABLE `lecture`

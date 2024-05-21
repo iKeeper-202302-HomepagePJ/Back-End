@@ -26,8 +26,7 @@ public class Post {
     @Column(name = "post_id", nullable = false)
     private Long id;
 
-    @MapsId
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "post_category")
     private Category category;
 
@@ -64,7 +63,7 @@ public class Post {
     private Boolean fix;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("id asc")
+    @OrderBy("id desc")
     private List<Comment> comments;
 
     public void updateFix(Boolean fix) {

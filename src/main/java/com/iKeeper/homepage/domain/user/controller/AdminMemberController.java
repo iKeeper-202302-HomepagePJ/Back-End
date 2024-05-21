@@ -1,6 +1,11 @@
 package com.iKeeper.homepage.domain.user.controller;
 
+import com.iKeeper.homepage.domain.post.entity.Post;
+import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
+import com.iKeeper.homepage.domain.user.dto.request.MajorRequest;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
+import com.iKeeper.homepage.domain.user.dto.request.ScoreRequest;
+import com.iKeeper.homepage.domain.user.entity.Major;
 import com.iKeeper.homepage.domain.user.service.AdminMemberService;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
@@ -15,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/members")
@@ -30,6 +36,25 @@ public class AdminMemberController {
                 ResponseMessage.USER_MAJOR_LIST, adminMemberService.memberList()), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/score")
+    public ResponseEntity memberScoreList() {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, adminMemberService.memberScoreList()), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/major")
+    public ResponseEntity createMajor(@RequestBody @Valid MajorRequest majorRequest, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            throw new CustomException("error", ErrorCode.POST_INVALID_VALUE);
+        }
+
+        Major major = Major.createMajor(majorRequest);
+        adminMemberService.createMajor(major);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MYPAGE_PATCH), HttpStatus.OK);
+    }
+
     @PatchMapping(value = "/{studentId}")
     public ResponseEntity updateMemberInfo(@PathVariable String studentId, @RequestBody @Valid MemberRequest memberRequest,
                                            BindingResult bindingResult) {
@@ -40,8 +65,29 @@ public class AdminMemberController {
 
         userService.updateMemberInfo(studentId, memberRequest);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE_PATCH, userService.updateMemberInfo(studentId, memberRequest)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE_PATCH), HttpStatus.OK);
     }
+
+    @PatchMapping(value = "/score/update/{studentId}")
+    public ResponseEntity updateScore(@PathVariable String studentId, @RequestBody @Valid ScoreRequest scoreRequest,
+                                      BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.USER_INVALID_VALUE);
+        }
+
+        adminMemberService.updateScore(studentId, scoreRequest);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MYPAGE_PATCH), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/score/reset/{studentId}")
+    public ResponseEntity resetScore(@PathVariable String studentId) {
+
+        adminMemberService.resetScore(studentId);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MYPAGE_PATCH), HttpStatus.OK);
+    } // 전체 회원의 평가 점수가 한번에 초기화 되도록 변경 필요 (다중 처리)
 
     @PatchMapping(value = "/role/user/{studentId}")
     public ResponseEntity approvalJoin(@PathVariable String studentId) {
@@ -63,6 +109,7 @@ public class AdminMemberController {
     public ResponseEntity deleteCalendar(@PathVariable String studentId) {
 
         adminMemberService.deleteMember(studentId);
+        adminMemberService.deleteScore(studentId);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
     }

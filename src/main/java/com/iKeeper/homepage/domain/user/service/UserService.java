@@ -27,7 +27,6 @@ public class UserService {
 
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
-    private final CommentRepository commentRepository;
     private final MajorRepository majorRepository;
     private final FieldRepository fieldRepository;
     private final StatusRepository statusRepository;

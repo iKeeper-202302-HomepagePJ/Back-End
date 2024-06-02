@@ -3,7 +3,6 @@ package com.iKeeper.homepage.domain.post.controller;
 import com.iKeeper.homepage.domain.post.dto.request.CommentRequest;
 import com.iKeeper.homepage.domain.post.entity.Comment;
 import com.iKeeper.homepage.domain.post.service.CommentService;
-import com.iKeeper.homepage.domain.user.dao.mapping.MemberList;
 import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
 import com.iKeeper.homepage.domain.user.entity.UserRole;
 import com.iKeeper.homepage.domain.user.service.UserService;
@@ -45,7 +44,7 @@ public class CommentController {
         else {
 
             String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
-            Optional<MemberList> member = userService.searchMember(studentId);
+            Optional<MemberListResponse> member = userService.searchMember(studentId);
             String username = member.get().getName();
 
             Comment comment = Comment.createComment(studentId, username, commentRequest);
@@ -63,10 +62,10 @@ public class CommentController {
         Optional<Comment> comment = commentService.searchComment(id);
         String commentStudentId = comment.get().getCommentStudentId();
 
-        Optional<MemberList> member = userService.searchMember(studentId);
-        String userRole = member.get().getRole();
+        Optional<MemberListResponse> member = userService.searchMember(studentId);
+        UserRole userRole = member.get().getRole();
 
-        if (studentId.equals(commentStudentId) || userRole.equals("ADMIN")) {
+        if (studentId.equals(commentStudentId) || userRole.equals(UserRole.ADMIN)) {
 
             commentService.deleteComment(id);
             return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_COMMENT), HttpStatus.OK);

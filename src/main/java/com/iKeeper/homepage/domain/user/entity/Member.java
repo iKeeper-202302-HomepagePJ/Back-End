@@ -70,20 +70,36 @@ public class Member {
     @ColumnDefault("'0'")
     private Boolean warning;
 
-    public void updateName(String name) { this.name = name; }
-    public void updateRole(UserRole role) { this.role = role; }
-    public void updatePnumber(String pnumber) { this.pnumber = pnumber; }
-    public void updateBirth(String birth) { this.birth = birth; }
-    public void updateEmail(String email) { this.email = email; }
-    public void updatePassword(String password) { this.password = password; }
-    public void updateField(Field field) { this.field = field; }
-    public void updateStatus(Status status) { this.status = status; }
-    public void updateGrade(Grade grade) { this.grade = grade; }
-    public void updateMajor1(Major major1) { this.major1 = major1; }
-    public void updateMajor2(Major major2) { this.major2 = major2; }
-    public void updateMajor3(Major major3) { this.major3 = major3; }
-    public void updateMinor(Major minor) { this.minor = minor; }
-    public void updateWarning(Boolean warning) { this.warning = warning; }
+    public void updateMemberInfo(String name, String pnumber, String birth, Field field, Status status,
+                                 Grade grade, Major major1, Major major2, Major major3, Major minor) {
+
+        this.name = name;
+        this.pnumber = pnumber;
+        this.birth = birth;
+        this.field = field;
+        this.status = status;
+        this.grade = grade;
+        this.major1 = major1;
+        this.major2 = major2;
+        this.major3 = major3;
+        this.minor = minor;
+    }
+
+    public void updateRole(UserRole role) {
+        this.role = role;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public void updateWarning(Boolean warning) {
+        this.warning = warning;
+    }
 
     @Builder
     public Member(String studentId, String name, UserRole role, String pnumber, String birth,

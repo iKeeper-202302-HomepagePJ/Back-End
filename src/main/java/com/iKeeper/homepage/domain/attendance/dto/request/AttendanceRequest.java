@@ -1,4 +1,4 @@
-package com.iKeeper.homepage.domain.attendance.dto;
+package com.iKeeper.homepage.domain.attendance.dto.request;
 
 import com.iKeeper.homepage.domain.attendance.entity.Lecture;
 import lombok.Getter;

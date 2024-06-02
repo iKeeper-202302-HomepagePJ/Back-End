@@ -5,6 +5,7 @@ import com.iKeeper.homepage.domain.user.dao.MemberRepository;
 import com.iKeeper.homepage.domain.user.dao.ScoreRepository;
 import com.iKeeper.homepage.domain.user.dto.request.ScoreRequest;
 import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
+import com.iKeeper.homepage.domain.user.dto.response.StudentIdResponse;
 import com.iKeeper.homepage.domain.user.entity.Major;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.user.entity.Score;
@@ -24,13 +25,20 @@ import java.util.stream.Collectors;
 public class AdminMemberService {
 
     private final MemberRepository memberRepository;
-    private ScoreRepository scoreRepository;
-    private MajorRepository majorRepository;
+    private final ScoreRepository scoreRepository;
+    private final MajorRepository majorRepository;
 
     @Transactional
     public List<MemberListResponse> memberList() {
         return memberRepository.findAllDesc().stream()
                 .map(MemberListResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<StudentIdResponse> studentIdList() {
+        return memberRepository.findAll().stream()
+                .map(StudentIdResponse::new)
                 .collect(Collectors.toList());
     }
 
@@ -56,12 +64,19 @@ public class AdminMemberService {
     }
 
     @Transactional
-    public String updateRoleAdmin(String studentId) {
-
+    public void updateRoleAdmin(String studentId) {
         Member member = memberRepository.findById(studentId)
                 .orElseThrow(() -> new CustomException("해당 학번의 유저가 존재하지 않습니다.", ErrorCode.USER_INVALID_VALUE));
+
         member.updateRole(UserRole.ADMIN);
-        return "success";
+    }
+
+    @Transactional
+    public void grantWarning(String studentId) {
+        Member member = memberRepository.findById(studentId)
+                .orElseThrow(() -> new CustomException("해당 학번의 유저가 존재하지 않습니다.", ErrorCode.USER_INVALID_VALUE));
+
+        member.updateWarning(Boolean.TRUE);
     }
 
     @Transactional
@@ -75,12 +90,11 @@ public class AdminMemberService {
     }
 
     @Transactional
-    public Optional<Score> resetScore(String studentId) {
+    public void resetScore(String studentId) {
         Score score = scoreRepository.findById(studentId)
                 .orElseThrow(() -> new CustomException("해당 학번의 유저가 존재하지 않습니다.", ErrorCode.USER_MEMBER_NOT_FOUND));
 
         score.updateScore((short) 0, (short) 0, (short) 0, (short) 0, (short) 0);
-        return scoreRepository.findById(studentId);
     }
 
     public void deleteMember(String studentId) {

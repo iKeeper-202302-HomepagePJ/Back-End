@@ -66,8 +66,10 @@ public class PostService {
         return bookmarkRepository.findAll();
     }
 
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public Long createPost(Post post) {
+
+        postRepository.save(post);
+        return post.getId();
     }
 
     public Bookmark createBookmark(Bookmark bookmark) {

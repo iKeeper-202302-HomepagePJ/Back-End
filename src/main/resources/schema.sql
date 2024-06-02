@@ -19,6 +19,7 @@ drop table if exists bookmark;
 drop table if exists grade;
 drop table if exists headline;
 drop table if exists status;
+drop table if exists postfile;
 
 CREATE TABLE `field`
 (
@@ -87,7 +88,7 @@ CREATE TABLE `parentcategory`
 
 CREATE TABLE `post`
 (
-    `post_id`              SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `post_id`              BIGINT NOT NULL PRIMARY KEY,
     `post_student_id`      VARCHAR(10) NULL,
     `post_user`            VARCHAR(10) NULL,
     `post_category`        SMALLINT NULL,
@@ -104,11 +105,22 @@ CREATE TABLE `post`
 CREATE TABLE `comment`
 (
     `comment_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `comment_post_id`    SMALLINT     NOT NULL,
+    `comment_post_id`    BIGINT          NOT NULL,
     `comment_student_id` VARCHAR(10)  NOT NULL,
     `comment_username`   VARCHAR(10)  NOT NULL,
     `comment_timestamp`  TIMESTAMP    NOT NULL,
     `comment_content`    VARCHAR(500) NOT NULL
+);
+
+CREATE TABLE `postfile`
+(
+    `postfile_id`             INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `postfile_post_id`        BIGINT      NOT NULL,
+    `postfile_name`           VARCHAR(30) NOT NULL,
+    `postfile_save_name`      VARCHAR(50) NOT NULL,
+    `postfile_size`           SMALLINT    NOT NULL,
+    `postfile_timestamp`      DATE        NOT NULL,
+    `postfile_delete_boolean` BOOLEAN     NOT NULL DEFAULT '0'
 );
 
 CREATE TABLE `attendance`
@@ -180,7 +192,7 @@ CREATE TABLE `bookmark`
 (
     `bookmark_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `bookmark_student_id` VARCHAR(10) NOT NULL,
-    `bookmark_post_id`    SMALLINT    NOT NULL
+    `bookmark_post_id`    BIGINT         NOT NULL
 );
 
 CREATE TABLE `grade`

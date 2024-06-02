@@ -4,8 +4,14 @@ import com.iKeeper.homepage.domain.post.entity.Headline;
 import com.iKeeper.homepage.domain.post.entity.category.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class PostRequest {
 
@@ -27,8 +33,12 @@ public class PostRequest {
     //@NotNull(message = "댓글의 허용 여부를 결정해주세요.")
     private Boolean commentWhether;
 
-    public PostRequest(Category category, Headline headline, String title,
-                       String content, Boolean disclosure, Boolean commentWhether) {
+    private List<MultipartFile> files = new ArrayList<>();
+
+    private List<Long> removeFileIds = new ArrayList<>();
+
+    public PostRequest(Category category, Headline headline, String title, String content,
+                       Boolean disclosure, Boolean commentWhether, List<MultipartFile> files) {
 
         this.category = category;
         this.headline = headline;
@@ -36,5 +46,6 @@ public class PostRequest {
         this.content = content;
         this.disclosure = disclosure;
         this.commentWhether = commentWhether;
+        this.files = files;
     }
 }

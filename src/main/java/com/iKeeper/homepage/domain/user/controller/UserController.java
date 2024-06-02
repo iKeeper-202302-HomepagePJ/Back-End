@@ -2,6 +2,8 @@ package com.iKeeper.homepage.domain.user.controller;
 
 import com.iKeeper.homepage.domain.post.dto.response.PostListResponse;
 import com.iKeeper.homepage.domain.user.dto.request.MemberRequest;
+import com.iKeeper.homepage.domain.user.dto.response.MemberInfoResponse;
+import com.iKeeper.homepage.domain.user.dto.response.MemberListResponse;
 import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
@@ -18,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/members")
@@ -56,25 +59,25 @@ public class UserController {
     public ResponseEntity summaryMember(@RequestHeader("Authorization") String accessToken) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
+        Optional<MemberInfoResponse> memberInfo = this.userService.summaryMember(studentId);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE, userService.summaryMember(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE, memberInfo), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mypage")
     public ResponseEntity searchMember(@RequestHeader("Authorization") String accessToken) {
 
         String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
+        Optional<MemberListResponse> memberList = this.userService.searchMember(studentId);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE, userService.searchMember(studentId)), HttpStatus.OK);
+                ResponseMessage.USER_MYPAGE, memberList), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/mypage/post")
-    public ResponseEntity getMyPostList(@RequestHeader("Authorization") String accessToken,
-                                        @RequestParam(value = "page") int page) {
+    @GetMapping(value = "/mypage/post/{studentId}")
+    public ResponseEntity getMyPostList(@PathVariable String studentId, @RequestParam(value = "page") int page) {
 
-        String studentId = jwtTokenProvider.getAuthentication(accessToken.substring(7)).getName();
         Page<PostListResponse> paging = this.userService.getMyPostList(studentId, page);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
                 ResponseMessage.USER_MYPAGE_POST, paging), HttpStatus.OK);

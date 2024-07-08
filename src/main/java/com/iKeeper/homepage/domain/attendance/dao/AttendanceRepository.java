@@ -13,5 +13,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     List<Attendance> findByStudentId(String studentId);
 
     @Query("SELECT a FROM Attendance a where a.lecture.id = :lectureId ORDER by a.id DESC")
-    List<Attendance> findByLecture_Id(Long lectureId);
+    List<Attendance> findByLectureId(Long lectureId);
 }

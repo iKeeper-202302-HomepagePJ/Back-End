@@ -42,6 +42,18 @@ public class AdminMemberController {
                 ResponseMessage.USER_MAJOR_LIST, adminMemberService.memberScoreList()), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/role/admin")
+    public ResponseEntity adminList() {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, adminMemberService.adminList()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/role/guest")
+    public ResponseEntity guestList() {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, adminMemberService.guestList()), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/major")
     public ResponseEntity createMajor(@RequestBody @Valid MajorRequest majorRequest, BindingResult bindingResult) {
 

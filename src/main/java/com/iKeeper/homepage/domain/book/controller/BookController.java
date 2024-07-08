@@ -62,13 +62,13 @@ public class BookController {
     public ResponseEntity returnBook(@PathVariable Long id) {
 
         bookService.returnBook(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_PATCH), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.BOOK_RENTAL_PATCH), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteBook(@PathVariable Long id) {
 
         bookService.deleteBook(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.CALENDAR_DELETE), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.BOOK_DELETE), HttpStatus.OK);
     }
 }

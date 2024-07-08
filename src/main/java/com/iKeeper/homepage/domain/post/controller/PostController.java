@@ -93,7 +93,7 @@ public class PostController {
     public ResponseEntity getCategoryList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_CATEGORYLARGE, postService.getCategoryList()), HttpStatus.OK);
+                ResponseMessage.POST_READ_CATEGORY, postService.getCategoryList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/headline")

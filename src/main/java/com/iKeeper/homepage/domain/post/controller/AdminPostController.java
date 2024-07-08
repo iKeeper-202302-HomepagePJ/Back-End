@@ -38,7 +38,7 @@ public class AdminPostController {
         adminPostService.createCategory(category);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_CATEGORYSMALL), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_CATEGORY), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/headline")
@@ -80,7 +80,7 @@ public class AdminPostController {
     public ResponseEntity deleteCategorySmall(@PathVariable Long id) {
 
         adminPostService.deleteCategory(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORYSMALL), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORY), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/headline/{id}")

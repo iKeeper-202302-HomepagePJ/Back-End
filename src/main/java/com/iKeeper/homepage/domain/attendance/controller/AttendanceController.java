@@ -30,19 +30,19 @@ public class AttendanceController {
     @GetMapping(value = "/lecture")
     public ResponseEntity getLectureList() {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MAJOR_LIST, attendanceService.getLectureList()), HttpStatus.OK);
+                ResponseMessage.ATTENDANCE_LECTURE_LIST, attendanceService.getLectureList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/lecture/{lectureId}")
     public ResponseEntity getAttendanceByLectureId(@PathVariable Long lectureId) {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MAJOR_LIST, attendanceService.getAttendanceByLectureId(lectureId)), HttpStatus.OK);
+                ResponseMessage.ATTENDANCE_LECTURE, attendanceService.getAttendanceByLectureId(lectureId)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/student")
-    public ResponseEntity getAttendanceByStudentId(@RequestParam("studentId") String studentId) {
+    @GetMapping(value = "/student/{studentId}")
+    public ResponseEntity getAttendanceByStudentId(@PathVariable String studentId) {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MAJOR_LIST, attendanceService.getAttendanceByStudentId(studentId)), HttpStatus.OK);
+                ResponseMessage.ATTENDANCE_USER, attendanceService.getAttendanceByStudentId(studentId)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/lecture")
@@ -56,7 +56,7 @@ public class AttendanceController {
         Lecture lecture = Lecture.createLecture(lectureRequest);
         attendanceService.createLecture(lecture);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_POST), HttpStatus.CREATED);
+                ResponseMessage.ATTENDANCE_LECTURE_POST), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "")
@@ -70,7 +70,7 @@ public class AttendanceController {
         Attendance attendance = Attendance.createAttendance(attendanceRequest);
         attendanceService.createAttendance(attendance);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.CALENDAR_POST), HttpStatus.CREATED);
+                ResponseMessage.ATTENDANCE_POST), HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "")
@@ -78,7 +78,7 @@ public class AttendanceController {
 
         for (Long id : ids) attendanceService.updateAttendance(id);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE_PATCH), HttpStatus.OK);
+                ResponseMessage.ATTENDANCE_PATCH), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/lecture")
@@ -86,7 +86,7 @@ public class AttendanceController {
 
         attendanceService.deleteAllLecture();
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE_DELETE), HttpStatus.OK);
+                ResponseMessage.ATTENDANCE_LECTURE_DELETE), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "")
@@ -94,6 +94,6 @@ public class AttendanceController {
 
         attendanceService.deleteAllAttendance();
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.USER_MYPAGE_DELETE), HttpStatus.OK);
+                ResponseMessage.ATTENDANCE_DELETE), HttpStatus.OK);
     }
 }

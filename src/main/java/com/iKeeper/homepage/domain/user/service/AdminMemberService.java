@@ -30,7 +30,7 @@ public class AdminMemberService {
 
     @Transactional
     public List<MemberListResponse> memberList() {
-        return memberRepository.findAllDesc().stream()
+        return memberRepository.findAll().stream()
                 .map(MemberListResponse::new)
                 .collect(Collectors.toList());
     }

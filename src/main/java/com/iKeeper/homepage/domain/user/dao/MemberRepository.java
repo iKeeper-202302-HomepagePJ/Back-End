@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
 
-    List<Member> findAllDesc();
+    List<Member> findAll();
 
     Member findAllByStudentId(String studentId);
 

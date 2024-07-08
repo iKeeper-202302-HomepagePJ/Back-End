@@ -25,7 +25,7 @@ public class AttendanceService {
     }
 
     public List<Attendance> getAttendanceByLectureId(Long lectureId) {
-        return attendanceRepository.findByLecture_Id(lectureId);
+        return attendanceRepository.findByLectureId(lectureId);
     }
 
     public List<Attendance> getAttendanceByStudentId(String studentId) {

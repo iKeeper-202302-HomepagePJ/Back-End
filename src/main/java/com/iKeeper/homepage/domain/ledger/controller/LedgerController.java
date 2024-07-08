@@ -31,7 +31,7 @@ public class LedgerController {
 
         Page<Ledger> paging = this.ledgerService.getLedgerList(page);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ, paging), HttpStatus.OK);
+                ResponseMessage.LEDGER_LIST_READ, paging), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
@@ -44,13 +44,13 @@ public class LedgerController {
 
         ledgerService.createLedger(ledgerRequest);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST), HttpStatus.CREATED);
+                ResponseMessage.LEDGER_POST), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "")
     public ResponseEntity deleteLedger(@PathVariable Long id) {
 
         ledgerService.deleteLedger(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.LEDGER_DELETE), HttpStatus.OK);
     }
 }

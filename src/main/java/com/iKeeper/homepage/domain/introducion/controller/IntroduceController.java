@@ -33,28 +33,28 @@ public class IntroduceController {
     public ResponseEntity searchIntroduce() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_POST_CATEGORYLARGE, introduceService.searchIntroduce()), HttpStatus.OK);
+                ResponseMessage.INTRODUCE_READ, introduceService.searchIntroduce()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/hyperlink")
     public ResponseEntity hyperlinkList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_POST_CATEGORYLARGE, introduceService.hyperlinkList()), HttpStatus.OK);
+                ResponseMessage.INTRODUCE_HYPERLINK_READ, introduceService.hyperlinkList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/history")
     public ResponseEntity historyList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_POST_CATEGORYLARGE, introduceService.historyList()), HttpStatus.OK);
+                ResponseMessage.INTRODUCE_HISTORY_READ, introduceService.historyList()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/award")
     public ResponseEntity awardList() {
 
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_POST_CATEGORYLARGE, introduceService.awardList()), HttpStatus.OK);
+                ResponseMessage.INTRODUCE_AWARD_READ, introduceService.awardList()), HttpStatus.OK);
     }
 
 
@@ -69,7 +69,7 @@ public class IntroduceController {
         Hyperlink hyperlink = Hyperlink.createHyperlink(hyperlinkRequest);
         introduceService.createHyperlink(hyperlink);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_CATEGORYLARGE), HttpStatus.CREATED);
+                ResponseMessage.INTRODUCE_HYPERLINK_POST), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/history")
@@ -83,7 +83,7 @@ public class IntroduceController {
         History history = History.createHistory(historyRequest);
         introduceService.createHistory(history);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_CATEGORYLARGE), HttpStatus.CREATED);
+                ResponseMessage.INTRODUCE_HISTORY_POST), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/award")
@@ -97,7 +97,7 @@ public class IntroduceController {
         Award award = Award.createAward(awardRequest);
         introduceService.createAward(award);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_CATEGORYLARGE), HttpStatus.CREATED);
+                ResponseMessage.INTRODUCE_AWARD_POST), HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/introduce")
@@ -109,7 +109,7 @@ public class IntroduceController {
         }
 
         introduceService.updateIntroduce(introduceRequest);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_PATCH), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.INTRODUCE_PATCH), HttpStatus.OK);
     }
 
     @PatchMapping(value = "/history/{id}")
@@ -121,7 +121,7 @@ public class IntroduceController {
         }
 
         introduceService.updateHistory(id, historyRequest);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_PATCH), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.INTRODUCE_HISTORY_PATCH), HttpStatus.OK);
     }
 
     @PatchMapping(value = "/award/{id}")
@@ -133,12 +133,12 @@ public class IntroduceController {
         }
 
         introduceService.updateAward(id, awardRequest);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_PATCH), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.INTRODUCE_AWARD_PATCH), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/hyperlink/{id}")
     public ResponseEntity deleteHyperlink(@PathVariable Long id) {
         introduceService.deleteHyperlink(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_PATCH), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.INTRODUCE_HYPERLINK_PATCH), HttpStatus.OK);
     }
 }

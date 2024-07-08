@@ -2,13 +2,11 @@ package com.iKeeper.homepage.domain.post.service;
 
 import com.iKeeper.homepage.domain.post.dao.HeadlineRepository;
 import com.iKeeper.homepage.domain.post.dao.PostRepository;
-import com.iKeeper.homepage.domain.post.dao.category.CategoryLargeRepository;
-import com.iKeeper.homepage.domain.post.dao.category.CategorySmallRepository;
+import com.iKeeper.homepage.domain.post.dao.category.CategoryRepository;
 import com.iKeeper.homepage.domain.post.dto.request.FixPostRequest;
 import com.iKeeper.homepage.domain.post.entity.Headline;
 import com.iKeeper.homepage.domain.post.entity.Post;
-import com.iKeeper.homepage.domain.post.entity.category.CategoryLarge;
-import com.iKeeper.homepage.domain.post.entity.category.CategorySmall;
+import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +20,11 @@ import java.util.Optional;
 public class AdminPostService {
 
     private final PostRepository postRepository;
-    private final CategorySmallRepository categorySmallRepository;
+    private final CategoryRepository categoryRepository;
     private final HeadlineRepository headlineRepository;
 
-    /* public CategoryLarge createCategoryLarge(CategoryLarge categoryLarge) {
-        return categoryLargeRepository.save(categoryLarge);
-    } */
-
-    public CategorySmall createCategorySmall(CategorySmall categorySmall) {
-        return categorySmallRepository.save(categorySmall);
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
     }
 
     public Headline createHeadline(Headline headline) {
@@ -46,12 +40,8 @@ public class AdminPostService {
         return postRepository.findById(id);
     }
 
-    /* public void deleteCategoryLarge(Long id) {
-        categoryLargeRepository.deleteById(id);
-    } */
-
-    public void deleteCategorySmall(Long id) {
-        categorySmallRepository.deleteById(id);
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
     }
 
     public void deleteHeadline(Long id) {

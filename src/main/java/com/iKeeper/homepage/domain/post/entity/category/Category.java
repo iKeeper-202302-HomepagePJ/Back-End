@@ -1,6 +1,6 @@
 package com.iKeeper.homepage.domain.post.entity.category;
 
-import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
+import com.iKeeper.homepage.domain.post.dto.request.category.CategoryRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,32 +13,28 @@ import javax.persistence.*;
 @Table(name = "category")
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "category_large", referencedColumnName = "categorylarge_id")
-    private CategoryLarge categoryLarge;
+    @Column(name = "category_parent")
+    private Long parent;
 
-    @ManyToOne
-    @JoinColumn(name = "category_small", referencedColumnName = "categorysmall_id")
-    private CategorySmall categorySmall;
+    @Column(name = "category_name", length = 20)
+    private String name;
 
     @Builder
-    public Category(CategoryLarge categoryLarge, CategorySmall categorySmall) {
+    public Category(Long parent, String name) {
 
-        this.categoryLarge = categoryLarge;
-        this.categorySmall = categorySmall;
+        this.parent = parent;
+        this.name = name;
     }
 
-    public static Category createCategory(PostRequest postRequest) {
-
-        Category category = Category.builder()
-                .categoryLarge(postRequest.getCategory().getCategoryLarge())
-                .categorySmall(postRequest.getCategory().getCategorySmall())
+    public static Category createCategory(CategoryRequest categoryRequest) {
+        Category categorySmall = Category.builder()
+                .parent(categoryRequest.getParent())
+                .name(categoryRequest.getName())
                 .build();
-        return category;
+        return categorySmall;
     }
 }

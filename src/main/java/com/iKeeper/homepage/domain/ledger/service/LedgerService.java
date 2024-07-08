@@ -4,8 +4,12 @@ import com.iKeeper.homepage.domain.ledger.dao.LedgerRepository;
 import com.iKeeper.homepage.domain.ledger.dto.LedgerRequest;
 import com.iKeeper.homepage.domain.ledger.entity.Ledger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -14,8 +18,11 @@ public class LedgerService {
 
     private final LedgerRepository ledgerRepository;
 
-    public List<Ledger> ledgerList() {
-        return ledgerRepository.findAllByOrderByIdDesc();
+    @Transactional
+    public Page<Ledger> getLedgerList(int page) {
+
+        Pageable pageable = PageRequest.of(page - 1, 15);
+        return ledgerRepository.findAllDesc(pageable);
     }
 
     public Ledger createLedger(LedgerRequest ledgerRequest) {

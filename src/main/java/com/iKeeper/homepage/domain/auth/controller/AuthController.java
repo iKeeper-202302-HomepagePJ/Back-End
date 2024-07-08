@@ -5,6 +5,9 @@ import com.iKeeper.homepage.domain.auth.dto.request.SignUpRequest;
 import com.iKeeper.homepage.domain.user.entity.Member;
 import com.iKeeper.homepage.domain.auth.service.SignInService;
 import com.iKeeper.homepage.domain.auth.service.SignUpService;
+import com.iKeeper.homepage.domain.user.entity.Score;
+import com.iKeeper.homepage.domain.user.service.AdminMemberService;
+import com.iKeeper.homepage.domain.user.service.UserService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.httpStatus.DefaultRes;
@@ -31,6 +34,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final SignUpService signUpService;
     private final SignInService signInService;
+    private final AdminMemberService adminMemberService;
 
     @PostMapping(value = "/login")
     public ResponseEntity signIn(@RequestBody SignInRequest signInRequest) {
@@ -52,7 +56,9 @@ public class AuthController {
         }
 
         Member member = Member.createUser(signUpRequest, passwordEncoder);
+        Score score = Score.createScore(signUpRequest.getStudentId());
         signUpService.saveUser(member);
+        adminMemberService.createScore(score);
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
                 ResponseMessage.AUTH_POST_JOIN), HttpStatus.CREATED);
     }

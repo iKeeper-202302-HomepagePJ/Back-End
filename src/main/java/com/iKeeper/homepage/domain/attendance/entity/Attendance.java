@@ -1,6 +1,6 @@
 package com.iKeeper.homepage.domain.attendance.entity;
 
-import com.iKeeper.homepage.domain.attendance.dto.AttendanceRequest;
+import com.iKeeper.homepage.domain.attendance.dto.request.AttendanceRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +26,10 @@ public class Attendance {
 
     @Column(name = "attendance_check")
     private Boolean check;
+
+    public void updateCheck(Boolean check) {
+        this.check = check;
+    }
 
     @Builder
     public Attendance(String studentId, Lecture lecture, Boolean check) {

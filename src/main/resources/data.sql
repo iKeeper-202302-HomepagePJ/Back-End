@@ -36,8 +36,8 @@ VALUES ('없음'),
        ('소프트웨어융합학과'),
        ('인공지능빅데이터공학과');
 
-SELECT * FROM ikeeper_homepage.categorylarge;
-INSERT INTO categorylarge (categorylarge_name)
+SELECT * FROM ikeeper_homepage.parentcategory;
+INSERT INTO parentcategory (parentcategory_name)
 VALUES ('세미나'),
        ('스터디/멘토링'),
        ('건의함');
@@ -53,17 +53,11 @@ VALUES ('1', 'default', '2024-05-11', '1', '0', '0');
 
 /* 테스트용 (추후 삭제 예정) */
 
-SELECT * FROM ikeeper_homepage.categorylarge;
-INSERT INTO categorylarge (categorylarge_name)
-VALUES ('중간세미나'),
-       ('개발세미나'),
-       ('써트세미나');
-
-SELECT * FROM ikeeper_homepage.categorysmall;
-INSERT INTO categorysmall (categorysmall_name)
-VALUES ('2023_1'),
-       ('2023_2'),
-       ('2024_1');
+SELECT * FROM ikeeper_homepage.category;
+INSERT INTO category (category_parent, category_name)
+VALUES ('1', '써트 세미나'),
+       ('2', 'C언어 멘토링'),
+       ('2', '포렌식 멘토링');
 
 SELECT * FROM ikeeper_homepage.headline;
 INSERT INTO headline (headline_name)

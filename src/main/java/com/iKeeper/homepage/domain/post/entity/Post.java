@@ -1,17 +1,21 @@
 package com.iKeeper.homepage.domain.post.entity;
 
+import com.iKeeper.homepage.domain.file.entity.File;
 import com.iKeeper.homepage.domain.post.dto.request.PostRequest;
 import com.iKeeper.homepage.domain.post.entity.category.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,12 +26,11 @@ import java.util.List;
 @Table(name = "post")
 public class Post {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "post_id", nullable = false)
     private Long id;
 
-    @MapsId
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "post_category")
     private Category category;
 
@@ -63,9 +66,12 @@ public class Post {
     @Column(name = "post_fix", nullable = false)
     private Boolean fix;
 
+     /*@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<File> files = new ArrayList<>(); */
+
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("id asc")
-    private List<Comment> comments;
+    @OrderBy("id desc")
+    private List<Comment> comments = new ArrayList<>();
 
     public void updateFix(Boolean fix) {
         this.fix = fix;
@@ -81,10 +87,11 @@ public class Post {
     }
 
     @Builder
-    public Post(Category category, String postStudentId, String postUser, Headline headline, String title,
+    public Post(Long id, Category category, String postStudentId, String postUser, Headline headline, String title,
                 LocalDateTime postTime, String content, Boolean updateCheck, Boolean disclosure,
                 Boolean commentWhether, Boolean fix) {
 
+        this.id = id;
         this.category = category;
         this.postStudentId = postStudentId;
         this.postUser = postUser;
@@ -101,6 +108,7 @@ public class Post {
     public static Post createPost(String studentId, String username, PostRequest postRequest) {
 
         Post post = Post.builder()
+                .id(Long.valueOf(RandomStringUtils.random(10, false, true)))
                 .category(postRequest.getCategory())
                 .postStudentId(studentId)
                 .postUser(username)

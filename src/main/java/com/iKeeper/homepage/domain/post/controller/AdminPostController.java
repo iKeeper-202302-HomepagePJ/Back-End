@@ -1,15 +1,11 @@
 package com.iKeeper.homepage.domain.post.controller;
 
-import com.iKeeper.homepage.domain.post.dto.request.category.CategoryLargeRequest;
-import com.iKeeper.homepage.domain.post.dto.request.category.CategorySmallRequest;
+import com.iKeeper.homepage.domain.post.dto.request.category.CategoryRequest;
 import com.iKeeper.homepage.domain.post.dto.request.FixPostRequest;
 import com.iKeeper.homepage.domain.post.dto.request.HeadlineRequest;
 import com.iKeeper.homepage.domain.post.entity.Headline;
-import com.iKeeper.homepage.domain.post.entity.Post;
-import com.iKeeper.homepage.domain.post.entity.category.CategoryLarge;
-import com.iKeeper.homepage.domain.post.entity.category.CategorySmall;
+import com.iKeeper.homepage.domain.post.entity.category.Category;
 import com.iKeeper.homepage.domain.post.service.AdminPostService;
-import com.iKeeper.homepage.domain.post.service.PostService;
 import com.iKeeper.homepage.global.error.CustomException;
 import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.httpStatus.DefaultRes;
@@ -22,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/posts")
@@ -31,34 +26,19 @@ public class AdminPostController {
 
     private final AdminPostService adminPostService;
 
-    /* @PostMapping(value = "/categorylarge")
-    public ResponseEntity createCategoryLarge(@RequestBody @Valid CategoryLargeRequest categoryLargeRequest,
+    @PostMapping(value = "/category")
+    public ResponseEntity createCategory(@RequestBody @Valid CategoryRequest categoryRequest,
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.POST_INVALID_VALUE);
         }
 
-        CategoryLarge categoryLarge = CategoryLarge.createCategoryLarge(categoryLargeRequest);
-        adminPostService.createCategoryLarge(categoryLarge);
+        Category category = Category.createCategory(categoryRequest);
+        adminPostService.createCategory(category);
 
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_CATEGORYLARGE), HttpStatus.CREATED);
-    } */
-
-    @PostMapping(value = "/categorysmall")
-    public ResponseEntity createCategorySmall(@RequestBody @Valid CategorySmallRequest categorySmallRequest,
-                                              BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            throw new CustomException("일부 입력된 값이 올바르지 않습니다.", ErrorCode.POST_INVALID_VALUE);
-        }
-
-        CategorySmall categorySmall = CategorySmall.createCategorySmall(categorySmallRequest);
-        adminPostService.createCategorySmall(categorySmall);
-
-        return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
-                ResponseMessage.POST_POST_CATEGORYSMALL), HttpStatus.CREATED);
+                ResponseMessage.POST_POST_CATEGORY), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/headline")
@@ -96,11 +76,11 @@ public class AdminPostController {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORYLARGE), HttpStatus.OK);
     } */
 
-    @DeleteMapping(value = "/categorysmall/{id}")
+    @DeleteMapping(value = "/category/{id}")
     public ResponseEntity deleteCategorySmall(@PathVariable Long id) {
 
-        adminPostService.deleteCategorySmall(id);
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORYSMALL), HttpStatus.OK);
+        adminPostService.deleteCategory(id);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.POST_DELETE_CATEGORY), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/headline/{id}")

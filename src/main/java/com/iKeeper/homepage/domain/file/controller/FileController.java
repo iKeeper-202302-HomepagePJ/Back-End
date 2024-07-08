@@ -1,0 +1,60 @@
+package com.iKeeper.homepage.domain.file.controller;
+
+import com.iKeeper.homepage.domain.file.entity.File;
+import com.iKeeper.homepage.domain.file.service.FileService;
+import com.iKeeper.homepage.global.error.CustomException;
+import com.iKeeper.homepage.global.error.ErrorCode;
+import com.iKeeper.homepage.global.httpStatus.DefaultRes;
+import com.iKeeper.homepage.global.httpStatus.ResponseMessage;
+import com.iKeeper.homepage.global.httpStatus.StatusCode;
+import com.iKeeper.homepage.global.utils.FileUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(value = "/api")
+public class FileController {
+
+    private final FileService fileService;
+    private final FileUtils fileUtils;
+
+    @GetMapping(value = "/posts/{postId}/files")
+    public ResponseEntity getFileListByPostId(@PathVariable Long postId) {
+
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.POST_FILE_READ, fileService.getFileListByPostId(postId)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/posts/files/{fileId}/download")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long postId, @PathVariable Long fileId) {
+
+        Optional<File> file = fileService.getFileById(fileId);
+        Resource resource = fileUtils.getFileAsResource(file);
+
+        try {
+
+            String filename = URLEncoder.encode(file.get().getName(), "UTF-8");
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\";")
+                    .header(HttpHeaders.CONTENT_LENGTH, file.get().getSize() + "")
+                    .body(resource);
+        } catch (UnsupportedEncodingException e) {
+            throw new CustomException("filename encoding failed : " + file.get().getName(), ErrorCode.USER_INVALID_VALUE);
+        }
+    }
+}

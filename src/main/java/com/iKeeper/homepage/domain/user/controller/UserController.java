@@ -75,7 +75,7 @@ public class UserController {
                 ResponseMessage.USER_MYPAGE, memberList), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/mypage/post/{studentId}")
+    @GetMapping(value = "/post/{studentId}")
     public ResponseEntity getMyPostList(@PathVariable String studentId, @RequestParam(value = "page") int page) {
 
         Page<PostListResponse> paging = this.userService.getMyPostList(studentId, page);

@@ -28,12 +28,12 @@ public class FileController {
     private final FileService fileService;
     private final FileUtils fileUtils;
 
-    @GetMapping(value = "/posts/{categoryId}/{postId}/files")
+    @GetMapping(value = "/posts/{postId}/files")
     public List<File> getFileListByPostId(@PathVariable Long categoryId, @PathVariable Long postId) {
         return fileService.getFileListByPostId(postId);
     }
 
-    @GetMapping(value = "/posts/{postId}/files/{fileId}/download")
+    @GetMapping(value = "/posts/files/{fileId}/download")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long postId, @PathVariable Long fileId) {
 
         Optional<File> file = fileService.getFileById(fileId);

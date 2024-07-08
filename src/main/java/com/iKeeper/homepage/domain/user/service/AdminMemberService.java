@@ -42,6 +42,17 @@ public class AdminMemberService {
                 .collect(Collectors.toList());
     }
 
+    public List<Member> guestList() {
+        return memberRepository.findAllByRole(UserRole.GUEST);
+    }
+
+    @Transactional
+    public List<StudentIdResponse> adminList() {
+        return memberRepository.findAllByRole(UserRole.ADMIN).stream()
+                .map(StudentIdResponse::new)
+                .collect(Collectors.toList());
+    }
+
     public List<Score> memberScoreList() {
         return scoreRepository.findAll();
     }

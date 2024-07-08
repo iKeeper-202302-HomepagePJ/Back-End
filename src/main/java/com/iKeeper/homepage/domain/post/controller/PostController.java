@@ -62,9 +62,9 @@ public class PostController {
                 ResponseMessage.POST_READ_ALL, paging), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{categoryId}/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity searchPost(@RequestHeader("Authorization") String accessToken,
-                                     @PathVariable Long id, @PathVariable String categoryId) {
+                                     @PathVariable Long id) {
 
         Optional<Post> post = postService.searchPost(id);
         Boolean disclosure = post.get().getDisclosure();

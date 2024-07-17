@@ -38,6 +38,7 @@ public class ResponseMessage {
     public static final String POST_POST_BOOKMARK = "게시글 북마크 생성 성공";
     public static final String POST_READ = "게시글 조회 성공";
     public static final String POST_READ_ALL = "게시글 전체 조회 성공";
+    public static final String POST_CATEGORY_LIST = "카테고리 별 게시글 조회 성공";
     public static final String POST_READ_CATEGORY = "게시글 대분류 카테고리 조회 성공";
     public static final String POST_READ_HEADLINE = "게시글 머릿말 조회 성공";
     public static final String POST_READ_BOOKMARK = "게시글 북마크 조회 성공";

@@ -53,13 +53,13 @@ public class PostController {
                 ResponseMessage.POST_READ_ALL, paging), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{categoryId}")
+    @GetMapping(value = "/category/{categoryId}")
     public ResponseEntity getPostByCategory(@RequestParam(value = "page") int page,
                                             @PathVariable Long categoryId) {
 
         Page<PostListResponse> paging = this.postService.getPostByCategory(categoryId, page);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,
-                ResponseMessage.POST_READ_ALL, paging), HttpStatus.OK);
+                ResponseMessage.POST_CATEGORY_LIST, paging), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

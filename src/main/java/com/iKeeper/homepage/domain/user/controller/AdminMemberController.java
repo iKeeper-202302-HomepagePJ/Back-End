@@ -36,6 +36,12 @@ public class AdminMemberController {
                 ResponseMessage.USER_MAJOR_LIST, adminMemberService.memberList()), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{studentId}")
+    public ResponseEntity memberList(@PathVariable String studentId) {
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK,
+                ResponseMessage.USER_MAJOR_LIST, userService.searchMember(studentId)), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/score")
     public ResponseEntity memberScoreList() {
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,

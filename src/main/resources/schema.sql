@@ -166,8 +166,8 @@ CREATE TABLE `book`
     `book_id`         SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `book_name`       VARCHAR(30) NOT NULL DEFAULT '책 제목이 존재하지 않습니다.',
     `book_rental`     BOOLEAN     NOT NULL DEFAULT '0',
-    `book_borrower`   CHAR(8)     NOT NULL,
-    `book_rental_day` DATE NULL
+    `book_borrower`   CHAR(8)     NULL,
+    `book_rental_day` DATE        NULL
 );
 
 CREATE TABLE `lecture`

@@ -1,4 +1,4 @@
-SELECT * FROM ikeeper_homepage.field;
+/* SELECT * FROM ikeeper_homepage.field;
 INSERT INTO field (field_name)
 VALUES ('i-Keeper'),
        ('DEV'),
@@ -69,4 +69,4 @@ SELECT * FROM ikeeper_homepage.lecture;
 INSERT INTO lecture (lecture_name)
 VALUES ('C언어 멘토링'),
        ('JS 불법 스터디'),
-       ('웹 멘토링');
+       ('웹 멘토링'); */

@@ -25,7 +25,7 @@ public class LedgerService {
         return ledgerRepository.findAllDesc(pageable);
     }
 
-    public Ledger createLedger(LedgerRequest ledgerRequest) {
+    public Long createLedger(LedgerRequest ledgerRequest) {
 
         Ledger lastLedger = ledgerRepository.findFirstByOrderByIdDesc();
         Long lastSum = lastLedger.getSum();
@@ -36,12 +36,14 @@ public class LedgerService {
 
             Long sum = lastSum - amount;
             Ledger ledger = Ledger.createLedger(sum, ledgerRequest);
-            return ledgerRepository.save(ledger);
+            ledgerRepository.save(ledger);
+            return ledger.getId();
         }
 
         Long sum = lastSum + amount;
         Ledger ledger = Ledger.createLedger(sum, ledgerRequest);
-        return ledgerRepository.save(ledger);
+        ledgerRepository.save(ledger);
+        return ledger.getId();
     }
 
     public void deleteLedger(Long id) {

@@ -74,7 +74,7 @@ public class AttendanceController {
     }
 
     @PatchMapping(value = "")
-    public ResponseEntity updateAttendance(@RequestParam("id") List<Long> ids) {
+    public ResponseEntity updateAttendance(@RequestBody List<Long> ids) {
 
         for (Long id : ids) attendanceService.updateAttendance(id);
         return new ResponseEntity(DefaultRes.res(StatusCode.OK,

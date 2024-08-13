@@ -45,8 +45,9 @@ public class IntroduceService {
         return awardRepository.findAll();
     }
 
-    public Hyperlink createHyperlink(Hyperlink hyperlink) {
-        return hyperlinkRepository.save(hyperlink);
+    public Long createHyperlink(Hyperlink hyperlink) {
+        hyperlinkRepository.save(hyperlink);
+        return hyperlink.getId();
     }
 
     public History createHistory(History history) {

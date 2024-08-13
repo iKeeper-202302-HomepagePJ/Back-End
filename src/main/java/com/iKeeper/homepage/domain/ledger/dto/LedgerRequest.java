@@ -23,16 +23,13 @@ public class LedgerRequest {
 
     private Long amount;
 
-    private String evidence;
-
     public LedgerRequest(Field field, String title, LocalDate useday,
-                         Boolean use, Long amount, String evidence) {
+                         Boolean use, Long amount) {
 
         this.field = field;
         this.title = title;
         this.useday = useday;
         this.use = use;
         this.amount = amount;
-        this.evidence = evidence;
     }
 }

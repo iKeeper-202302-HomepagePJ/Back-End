@@ -1,5 +1,7 @@
 package com.iKeeper.homepage.domain.introducion.controller;
 
+import com.iKeeper.homepage.domain.file.entity.File;
+import com.iKeeper.homepage.domain.file.service.FileService;
 import com.iKeeper.homepage.domain.introducion.dto.AwardRequest;
 import com.iKeeper.homepage.domain.introducion.dto.HistoryRequest;
 import com.iKeeper.homepage.domain.introducion.dto.HyperlinkRequest;
@@ -13,11 +15,13 @@ import com.iKeeper.homepage.global.error.ErrorCode;
 import com.iKeeper.homepage.global.httpStatus.DefaultRes;
 import com.iKeeper.homepage.global.httpStatus.ResponseMessage;
 import com.iKeeper.homepage.global.httpStatus.StatusCode;
+import com.iKeeper.homepage.global.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +32,8 @@ import java.util.List;
 public class IntroduceController {
 
     private final IntroduceService introduceService;
+    private final FileService fileService;
+    private final FileUtils fileUtils;
 
     @GetMapping(value = "/introduce")
     public ResponseEntity searchIntroduce() {
@@ -60,6 +66,7 @@ public class IntroduceController {
 
     @PostMapping(value = "/hyperlink")
     public ResponseEntity createHyperlink(@RequestBody @Valid HyperlinkRequest hyperlinkRequest,
+                                          @RequestPart(value = "files", required = false) List<MultipartFile> fileList,
                                           BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -67,7 +74,11 @@ public class IntroduceController {
         }
 
         Hyperlink hyperlink = Hyperlink.createHyperlink(hyperlinkRequest);
-        introduceService.createHyperlink(hyperlink);
+        Long id = introduceService.createHyperlink(hyperlink);
+
+        List<File> files = fileUtils.uploadFiles(fileList);
+        fileService.saveFiles(id, files);
+
         return new ResponseEntity(DefaultRes.res(StatusCode.CREATED,
                 ResponseMessage.INTRODUCE_HYPERLINK_POST), HttpStatus.CREATED);
     }

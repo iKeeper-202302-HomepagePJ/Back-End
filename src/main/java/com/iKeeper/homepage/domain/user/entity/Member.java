@@ -127,7 +127,7 @@ public class Member {
         Member member = Member.builder()
                 .studentId(signUpRequest.getStudentId())
                 .name(signUpRequest.getName())
-                .role(UserRole.USER)
+                .role(UserRole.GUEST)
                 .pnumber(signUpRequest.getPnumber())
                 .birth(signUpRequest.getBirth())
                 .email(signUpRequest.getEmail())

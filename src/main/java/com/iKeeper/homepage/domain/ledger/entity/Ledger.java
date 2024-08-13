@@ -5,6 +5,7 @@ import com.iKeeper.homepage.domain.user.entity.Field;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Table(name = "ledger")
 public class Ledger {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "ledger_id")
     private Long id;
 
@@ -38,32 +39,29 @@ public class Ledger {
     @Column(name = "ledger_sum")
     private Long sum;
 
-    @Column(name = "ledger_evidence")
-    private String evidence;
-
     @Builder
-    public Ledger(Field field, String title, LocalDate useday,
-                  Boolean use, Long amount, Long sum, String evidence) {
+    public Ledger(Long id, Field field, String title, LocalDate useday,
+                  Boolean use, Long amount, Long sum) {
 
+        this.id = id;
         this.field = field;
         this.title = title;
         this.useday = useday;
         this.use = use;
         this.amount = amount;
         this.sum = sum;
-        this.evidence = evidence;
     }
 
     public static Ledger createLedger(Long sum, LedgerRequest ledgerRequest) {
 
         Ledger ledger = Ledger.builder()
+                .id(Long.valueOf(RandomStringUtils.random(10, false, true)))
                 .field(ledgerRequest.getField())
                 .title(ledgerRequest.getTitle())
                 .useday(ledgerRequest.getUseday())
                 .use(ledgerRequest.getUse())
                 .amount(ledgerRequest.getAmount())
                 .sum(sum)
-                .evidence(ledgerRequest.getEvidence())
                 .build();
         return ledger;
     }

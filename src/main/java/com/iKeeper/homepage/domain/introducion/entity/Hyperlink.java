@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
 
@@ -29,8 +30,9 @@ public class Hyperlink {
     private String url;
 
     @Builder
-    public Hyperlink(String name, String img, String url) {
+    public Hyperlink(Long id, String name, String img, String url) {
 
+        this.id = id;
         this.name = name;
         this.img = img;
         this.url = url;
@@ -39,6 +41,7 @@ public class Hyperlink {
     public static Hyperlink createHyperlink(HyperlinkRequest hyperlinkRequest) {
 
         Hyperlink hyperlink = Hyperlink.builder()
+                .id(Long.valueOf(RandomStringUtils.random(10, false, true)))
                 .name(hyperlinkRequest.getName())
                 .img(hyperlinkRequest.getImg())
                 .url(hyperlinkRequest.getUrl())

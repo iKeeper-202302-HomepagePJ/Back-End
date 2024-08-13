@@ -1,4 +1,4 @@
-drop table if exists field;
+/* drop table if exists field;
 drop table if exists calendar;
 drop table if exists major;
 drop table if exists score;
@@ -155,9 +155,8 @@ CREATE TABLE `award`
 
 CREATE TABLE `hyperlink`
 (
-    `hyperlink_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `hyperlink_id`   TINYINT NOT NULL PRIMARY KEY,
     `hyperlink_name` VARCHAR(10)  NOT NULL,
-    `hyperlink_img`  VARCHAR(100) NOT NULL,
     `hyperlink_url`  VARCHAR(100) NOT NULL
 );
 
@@ -178,13 +177,13 @@ CREATE TABLE `lecture`
 
 CREATE TABLE `ledger`
 (
-    `ledger_id`       SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `ledger_id`       SMALLINT NOT NULL PRIMARY KEY,
     `ledger_field`    TINYINT     NOT NULL,
     `ledger_title`    VARCHAR(30) NOT NULL,
     `ledger_useday`   DATE        NOT NULL,
     `ledger_use`      BOOLEAN     NOT NULL,
-    `ledger_amount`   SMALLINT    NOT NULL,
-    `ledger_sum`      SMALLINT    NOT NULL,
+    `ledger_amount`   INT         NOT NULL,
+    `ledger_sum`      INT         NOT NULL,
     `ledger_evidence` VARCHAR(50) NULL
 );
 
@@ -211,4 +210,4 @@ CREATE TABLE `major`
 (
     `major_id`   TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `major_name` VARCHAR(20) NOT NULL
-);
+); */
